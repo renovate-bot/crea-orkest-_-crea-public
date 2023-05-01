@@ -1,0 +1,38 @@
+{
+  "name": "crea-public",
+  "version": "0.0.1",
+  "description": "The public Crea Orkest website",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crea-orkest/crea-public.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crea-orkest/crea-public/issues"
+  },
+  "homepage": "https://github.com/crea-orkest/crea-public#readme",
+  "dependencies": {
+    "next": "^13.3.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.39.0",
+    "eslint-config-next": "^13.3.4",
+    "husky": "^8.0.0",
+    "pretty-quick": "^3.1.3",
+    "typescript": "^5.0.4"
+  }
+}
