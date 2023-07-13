@@ -1,13 +1,11 @@
-/**
- * @type {import('next').NextConfig}
- */
-const nextConfig = {
+import { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   experimental: {
     appDir: true,
     typedRoutes: true,
-    serverActions: true,
   },
   serverRuntimeConfig: {
     // Will only be available on the server side
