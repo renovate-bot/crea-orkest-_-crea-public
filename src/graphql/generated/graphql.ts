@@ -5532,14 +5532,6 @@ export type GetConcertQuery = {
     __typename?: 'ConcertRecord'
     id: string
     title: string
-    link?: {
-      __typename?: 'LinkRecord'
-      _createdAt: string
-      _firstPublishedAt?: string | null
-      _publishedAt?: string | null
-      _updatedAt: string
-      id: string
-    } | null
     locations: Array<{
       __typename?: 'LocationItemRecord'
       id: string
@@ -7714,19 +7706,6 @@ export const PageFragmentDoc = {
                   typeCondition: {
                     kind: 'NamedType',
                     name: { kind: 'Name', value: 'TextBlockRecord' },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'ConcertListRecord' },
                   },
                   selectionSet: {
                     kind: 'SelectionSet',
@@ -12402,7 +12381,7 @@ export const GetAuthorsDocument = {
   ],
 } as unknown as DocumentNode<GetAuthorsQuery, GetAuthorsQueryVariables>
 export const GetConcertDocument = {
-  __meta__: { hash: '0a46cd4e1416269864390ba6fbadc874c7b6a85b' },
+  __meta__: { hash: '9bddb2b262f59273f08d01c06980a80dd98593df' },
   kind: 'Document',
   definitions: [
     {
@@ -12461,19 +12440,6 @@ export const GetConcertDocument = {
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'link' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'identifiable' },
-                      },
-                    ],
-                  },
-                },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'locations' },
@@ -12589,24 +12555,6 @@ export const GetConcertDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'muxPlaybackId' } },
           { kind: 'Field', name: { kind: 'Name', value: 'streamingUrl' } },
           { kind: 'Field', name: { kind: 'Name', value: 'thumbnailUrl' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'identifiable' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RecordInterface' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '_createdAt' } },
-          { kind: 'Field', name: { kind: 'Name', value: '_firstPublishedAt' } },
-          { kind: 'Field', name: { kind: 'Name', value: '_publishedAt' } },
-          { kind: 'Field', name: { kind: 'Name', value: '_updatedAt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
         ],
       },
     },

@@ -9,9 +9,6 @@ export const GET_CONCERT = gql`
     concert(filter: { id: { eq: $id } }) {
       id
       title
-      link {
-        ...identifiable
-      }
       locations {
         ...locations
       }

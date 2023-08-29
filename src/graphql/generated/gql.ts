@@ -47,7 +47,7 @@ const documents = {
     types.LocationsFragmentDoc,
   '\n  fragment menuItem on MenuItemRecord {\n    id\n    label\n    link {\n      ...pageLink\n    }\n  }\n  \n':
     types.MenuItemFragmentDoc,
-  '\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on ConcertListRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n':
+  '\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n':
     types.PageFragmentDoc,
   '\n  fragment pageDetail on PageRecord {\n    id\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...identifiable\n        content {\n          ...textBlock\n        }\n      }\n      ... on TwoColumnRecord {\n        ...identifiable\n        leftContent {\n          ...leftContent\n        }\n        rightContent {\n          ...rightContent\n        }\n      }\n    }\n  }\n  \n  \n  \n  \n  \n  \n  \n':
     types.PageDetailFragmentDoc,
@@ -77,7 +77,7 @@ const documents = {
     types.GetAuthorDocument,
   '\n  query getAuthors(\n    $first: IntType!\n    $skip: IntType!\n    $order: [PersonModelOrderBy]\n  ) {\n    allPeople(first: $first, skip: $skip, orderBy: $order) {\n      ...author\n    }\n  }\n  \n':
     types.GetAuthorsDocument,
-  '\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      link {\n        ...identifiable\n      }\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n':
+  '\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n':
     types.GetConcertDocument,
   '\n  query getConcerts(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...eventMetadata\n    }\n  }\n  \n':
     types.GetConcertsDocument,
@@ -215,8 +215,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on ConcertListRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n'
-): (typeof documents)['\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on ConcertListRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n']
+  source: '\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n'
+): (typeof documents)['\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -305,8 +305,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      link {\n        ...identifiable\n      }\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n'
-): (typeof documents)['\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      link {\n        ...identifiable\n      }\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n']
+  source: '\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n'
+): (typeof documents)['\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
