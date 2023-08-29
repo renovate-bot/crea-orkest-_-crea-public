@@ -1,0 +1,28 @@
+{
+  "ignorePatterns": ["**/generated/*.ts"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "no-unused-vars": ["warn"],
+    "@typescript-eslint/consistent-type-imports": "error",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["all", "none", "single", "multiple"],
+        "allowSeparatedGroups": false
+      }
+    ]
+  },
+  "root": true
+}
