@@ -9,6 +9,8 @@ export interface Props {
 
 export const DefaultPage = async ({ slug }: Props) => {
   const { data } = await getPage({ slug })
+
+  console.log(data)
   if (!data) return notFound()
 
   return (
