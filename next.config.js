@@ -7,7 +7,6 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   experimental: {
-    appDir: true,
     // typedRoutes: true,
     // serverActions: true,
   },
