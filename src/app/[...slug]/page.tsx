@@ -6,7 +6,6 @@ interface PageProps {
 }
 
 const Page = async ({ params: { slug } }: PageProps) => {
-  console.log(slug)
   return <DefaultPage slug={slug.join('/')} />
 }
 
