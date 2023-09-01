@@ -18,9 +18,17 @@ describe('Concert component', () => {
   it('shows all the data', async () => {
     getPageMock.mockResolvedValueOnce({
       data: {
-        id: 'id',
         title: 'title',
         slug: 'contact',
+        _createdAt: 'some date time string',
+        _updatedAt: 'some date time string',
+        id: 'unique-id',
+        _seoMetaTags: [
+          {
+            tag: 'seo-tag',
+          },
+        ],
+        content: [],
       },
       error: undefined,
     })

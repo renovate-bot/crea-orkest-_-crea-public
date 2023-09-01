@@ -8,7 +8,7 @@ export const eventsFormatter = (data: GetConcertsQuery): Event[] =>
     title: String(event.title),
     image: event.poster?.url ? fileFormatter(event.poster) : undefined,
     locations: event.locations.map((location) => ({
-      startTime: location.dateTime,
-      id: location.location?.id || '',
+      startTime: location.dateTime ?? '',
+      id: location.location?.id ?? '',
     })),
   }))

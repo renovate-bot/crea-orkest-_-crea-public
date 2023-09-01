@@ -34,39 +34,59 @@ const Page = async () => {
       <h1>Page</h1>
       <p>hello world</p>
       <p>author</p>
-      <code>{JSON.stringify(author)}</code>
+      <code>
+        <pre>{JSON.stringify(author, undefined, 2)}</pre>
+      </code>
       {author.data?.id && <Author id={author.data.id} />}
       <hr />
       <p>authors</p>
-      <code>{JSON.stringify(data)}</code>
+      <code>
+        <pre>{JSON.stringify(data, undefined, 2)}</pre>
+      </code>
       <hr />
       <p>pages</p>
-      <code>{JSON.stringify(pages)}</code>
+      <code>
+        <pre>{JSON.stringify(pages, undefined, 2)}</pre>
+      </code>
       <hr />
       <p>page</p>
-      <code>{JSON.stringify(page)}</code>
+      <code>
+        <pre>{JSON.stringify(page, undefined, 2)}</pre>
+      </code>
       <hr />
       <p>events</p>
-      <code>{JSON.stringify(events)}</code>
+      <code>
+        <pre>{JSON.stringify(events, undefined, 2)}</pre>
+      </code>
       <Events skip={0} first={3} />
       <hr />
       <p>event</p>
-      <code>{JSON.stringify(event)}</code>
+      <code>
+        <pre>{JSON.stringify(event, undefined, 2)}</pre>
+      </code>
       <Event id={'186970038'} />
       <hr />
       <p>location</p>
-      <code>{JSON.stringify(location)}</code>
+      <code>
+        <pre>{JSON.stringify(location, undefined, 2)}</pre>
+      </code>
       <hr />
 
       <p>locations</p>
-      <code>{JSON.stringify(locations)}</code>
+      <code>
+        <pre>{JSON.stringify(locations, undefined, 2)}</pre>
+      </code>
       <hr />
 
       <p>site info</p>
-      <code>{JSON.stringify(siteInfo)}</code>
+      <code>
+        <pre>{JSON.stringify(siteInfo, undefined, 2)}</pre>
+      </code>
 
       <p>gen info</p>
-      <code>{JSON.stringify(genInfo)}</code>
+      <code>
+        <pre>{JSON.stringify(genInfo, undefined, 2)}</pre>
+      </code>
     </main>
   )
 }

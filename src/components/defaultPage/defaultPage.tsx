@@ -9,14 +9,15 @@ export interface Props {
 
 export const DefaultPage = async ({ slug }: Props) => {
   const { data } = await getPage({ slug })
-
-  console.log(data)
   if (!data) return notFound()
 
   return (
     <article className={styles.article}>
       <h1>{data.title}</h1>
-      {JSON.stringify(data)}
+
+      <code>
+        <pre>{JSON.stringify(data, undefined, 2)}</pre>
+      </code>
     </article>
   )
 }

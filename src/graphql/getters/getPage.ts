@@ -1,5 +1,4 @@
 import { client } from '../gqlClient'
-import { pageQueryFormatter } from 'graphql/formatters/pageQueryFormatter'
 import {
   GetPageDocument,
   type GetPageQuery,
@@ -13,7 +12,7 @@ export const getPage = async ({ slug }: GetPageQueryVariables) => {
       GetPageQueryVariables
     >(GetPageDocument, { slug })
     return {
-      data: data ? pageQueryFormatter(data) : null,
+      data: data?.page ?? null,
       error,
     }
   } catch (error) {

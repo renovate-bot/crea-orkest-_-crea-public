@@ -121,9 +121,10 @@ export type ConcertModelFilter = {
   _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>
   _updatedAt?: InputMaybe<UpdatedAtFilter>
   id?: InputMaybe<ItemIdFilter>
-  link?: InputMaybe<LinkFilter>
   persons?: InputMaybe<LinksFilter>
   poster?: InputMaybe<FileFilter>
+  seo?: InputMaybe<SeoFilter>
+  slug?: InputMaybe<SlugFilter>
   title?: InputMaybe<StringFilter>
 }
 
@@ -168,11 +169,12 @@ export type ConcertRecord = RecordInterface & {
   _updatedAt: Scalars['DateTime']['output']
   content: Array<ConcertModelContentField>
   id: Scalars['ItemId']['output']
-  link?: Maybe<LinkRecord>
   locations: Array<LocationItemRecord>
   persons: Array<PersonRecord>
   poster?: Maybe<FileField>
-  title: Scalars['String']['output']
+  seo?: Maybe<SeoField>
+  slug?: Maybe<Scalars['String']['output']>
+  title?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Concerten (concert) */
@@ -380,9 +382,9 @@ export type GeneralRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
   _updatedAt: Scalars['DateTime']['output']
   id: Scalars['ItemId']['output']
-  logo: FileField
+  logo?: Maybe<FileField>
   menu: Array<GeneralModelMenuField>
-  title: Scalars['String']['output']
+  title?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Algemene info (general) */
@@ -1938,6 +1940,8 @@ export enum LinkModelOrderBy {
   InternalTitleDesc = 'internalTitle_DESC',
 }
 
+export type LinkModelPageField = ConcertRecord | PageRecord
+
 /** Record of type Links (link) */
 export type LinkRecord = RecordInterface & {
   __typename?: 'LinkRecord'
@@ -1956,8 +1960,8 @@ export type LinkRecord = RecordInterface & {
   _updatedAt: Scalars['DateTime']['output']
   externalUrl?: Maybe<Scalars['String']['output']>
   id: Scalars['ItemId']['output']
-  internalTitle: Scalars['String']['output']
-  page?: Maybe<PageRecord>
+  internalTitle?: Maybe<Scalars['String']['output']>
+  page?: Maybe<LinkModelPageField>
 }
 
 /** Record of type Links (link) */
@@ -1995,7 +1999,7 @@ export type LocationItemRecord = RecordInterface & {
   _status: ItemStatus
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
   _updatedAt: Scalars['DateTime']['output']
-  dateTime: Scalars['DateTime']['output']
+  dateTime?: Maybe<Scalars['DateTime']['output']>
   id: Scalars['ItemId']['output']
   location?: Maybe<LocationRecord>
 }
@@ -2064,9 +2068,9 @@ export type LocationRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
   _updatedAt: Scalars['DateTime']['output']
   address?: Maybe<LatLonField>
-  addressTitle: Scalars['String']['output']
+  addressTitle?: Maybe<Scalars['String']['output']>
   id: Scalars['ItemId']['output']
-  title: Scalars['String']['output']
+  title?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Locaties (location) */
@@ -2135,7 +2139,7 @@ export type MediaItemRecord = RecordInterface & {
   id: Scalars['ItemId']['output']
   item?: Maybe<FileField>
   itemUrl?: Maybe<Scalars['String']['output']>
-  title: Scalars['String']['output']
+  title?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Media item (media_item) */
@@ -2160,7 +2164,7 @@ export type MenuItemRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
   _updatedAt: Scalars['DateTime']['output']
   id: Scalars['ItemId']['output']
-  label: Scalars['String']['output']
+  label?: Maybe<Scalars['String']['output']>
   link?: Maybe<PageRecord>
 }
 
@@ -2247,8 +2251,8 @@ export type PageRecord = RecordInterface & {
   content: Array<PageModelContentField>
   id: Scalars['ItemId']['output']
   seo?: Maybe<SeoField>
-  slug: Scalars['String']['output']
-  title: Scalars['String']['output']
+  slug?: Maybe<Scalars['String']['output']>
+  title?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Pagina's (page) */
@@ -2314,8 +2318,8 @@ export type PersonRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
   _updatedAt: Scalars['DateTime']['output']
   id: Scalars['ItemId']['output']
-  name: Scalars['String']['output']
-  role: Scalars['String']['output']
+  name?: Maybe<Scalars['String']['output']>
+  role?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Personen (person) */
@@ -2732,7 +2736,7 @@ export type SubmenuItemRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
   _updatedAt: Scalars['DateTime']['output']
   id: Scalars['ItemId']['output']
-  label: Scalars['String']['output']
+  label?: Maybe<Scalars['String']['output']>
   menu: Array<MenuItemRecord>
 }
 
@@ -2756,9 +2760,11 @@ export type TextBlockModelContentBlocksField =
 export type TextBlockModelContentField = {
   __typename?: 'TextBlockModelContentField'
   blocks: Array<TextBlockModelContentBlocksField>
-  links: Array<PageRecord>
+  links: Array<TextBlockModelContentLinksField>
   value: Scalars['JsonField']['output']
 }
+
+export type TextBlockModelContentLinksField = ConcertRecord | PageRecord
 
 /** Block of type Tekst blok (text_block) */
 export type TextBlockRecord = RecordInterface & {
@@ -2793,9 +2799,11 @@ export type TwoColumnModelLeftContentBlocksField =
 export type TwoColumnModelLeftContentField = {
   __typename?: 'TwoColumnModelLeftContentField'
   blocks: Array<TwoColumnModelLeftContentBlocksField>
-  links: Array<PageRecord>
+  links: Array<TwoColumnModelLeftContentLinksField>
   value: Scalars['JsonField']['output']
 }
+
+export type TwoColumnModelLeftContentLinksField = ConcertRecord | PageRecord
 
 export type TwoColumnModelRightContentBlocksField =
   | ConcertListRecord
@@ -2805,11 +2813,13 @@ export type TwoColumnModelRightContentBlocksField =
 export type TwoColumnModelRightContentField = {
   __typename?: 'TwoColumnModelRightContentField'
   blocks: Array<TwoColumnModelRightContentBlocksField>
-  links: Array<PageRecord>
+  links: Array<TwoColumnModelRightContentLinksField>
   value: Scalars['JsonField']['output']
 }
 
-/** Block of type Two kolommen tekst blok (two_column) */
+export type TwoColumnModelRightContentLinksField = ConcertRecord | PageRecord
+
+/** Block of type Twee kolommen tekst blok (two_column) */
 export type TwoColumnRecord = RecordInterface & {
   __typename?: 'TwoColumnRecord'
   _createdAt: Scalars['DateTime']['output']
@@ -2830,7 +2840,7 @@ export type TwoColumnRecord = RecordInterface & {
   rightContent?: Maybe<TwoColumnModelRightContentField>
 }
 
-/** Block of type Two kolommen tekst blok (two_column) */
+/** Block of type Twee kolommen tekst blok (two_column) */
 export type TwoColumnRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>
 }
@@ -3227,9 +3237,9 @@ export type VideoRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
   _updatedAt: Scalars['DateTime']['output']
   id: Scalars['ItemId']['output']
-  media: VideoField
+  media?: Maybe<VideoField>
   thumbnail?: Maybe<MediaItemRecord>
-  title: Scalars['String']['output']
+  title?: Maybe<Scalars['String']['output']>
 }
 
 /** Block of type Video (video) */
@@ -3246,8 +3256,8 @@ export type FocalPoint = {
 export type AuthorFragment = {
   __typename?: 'PersonRecord'
   id: string
-  name: string
-  role: string
+  name?: string | null
+  role?: string | null
 }
 
 export type ColorsFragment = {
@@ -3268,7 +3278,7 @@ export type CoordinatesFragment = {
 
 export type EventFragment = {
   __typename?: 'ConcertRecord'
-  title: string
+  title?: string | null
   _createdAt: string
   _firstPublishedAt?: string | null
   _publishedAt?: string | null
@@ -3283,13 +3293,13 @@ export type EventFragment = {
   persons: Array<{
     __typename?: 'PersonRecord'
     id: string
-    name: string
-    role: string
+    name?: string | null
+    role?: string | null
   }>
   locations: Array<{
     __typename?: 'LocationItemRecord'
     id: string
-    dateTime: string
+    dateTime?: string | null
     location?: { __typename?: 'LocationRecord'; id: string } | null
   }>
   poster?: {
@@ -3300,27 +3310,6 @@ export type EventFragment = {
     height?: number | null
     title?: string | null
     url: string
-    colors: Array<{
-      __typename?: 'ColorField'
-      alpha: number
-      blue: number
-      cssRgb: string
-      green: number
-      hex: string
-      red: number
-    }>
-    focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-    responsiveImage?: {
-      __typename?: 'ResponsiveImage'
-      title?: string | null
-      alt?: string | null
-      sizes: string
-      aspectRatio: number
-      bgColor?: string | null
-      src: string
-      height: number
-      width: number
-    } | null
     video?: {
       __typename?: 'UploadVideoField'
       mp4Url?: string | null
@@ -3334,7 +3323,7 @@ export type EventFragment = {
 
 export type EventMetadataFragment = {
   __typename?: 'ConcertRecord'
-  title: string
+  title?: string | null
   _createdAt: string
   _firstPublishedAt?: string | null
   _publishedAt?: string | null
@@ -3343,7 +3332,7 @@ export type EventMetadataFragment = {
   locations: Array<{
     __typename?: 'LocationItemRecord'
     id: string
-    dateTime: string
+    dateTime?: string | null
     location?: { __typename?: 'LocationRecord'; id: string } | null
   }>
   poster?: {
@@ -3354,27 +3343,6 @@ export type EventMetadataFragment = {
     height?: number | null
     title?: string | null
     url: string
-    colors: Array<{
-      __typename?: 'ColorField'
-      alpha: number
-      blue: number
-      cssRgb: string
-      green: number
-      hex: string
-      red: number
-    }>
-    focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-    responsiveImage?: {
-      __typename?: 'ResponsiveImage'
-      title?: string | null
-      alt?: string | null
-      sizes: string
-      aspectRatio: number
-      bgColor?: string | null
-      src: string
-      height: number
-      width: number
-    } | null
     video?: {
       __typename?: 'UploadVideoField'
       mp4Url?: string | null
@@ -3396,7 +3364,7 @@ export type EventsFragment = {
   id: string
   pinnedConcerts: Array<{
     __typename?: 'ConcertRecord'
-    title: string
+    title?: string | null
     _createdAt: string
     _firstPublishedAt?: string | null
     _publishedAt?: string | null
@@ -3411,13 +3379,13 @@ export type EventsFragment = {
     persons: Array<{
       __typename?: 'PersonRecord'
       id: string
-      name: string
-      role: string
+      name?: string | null
+      role?: string | null
     }>
     locations: Array<{
       __typename?: 'LocationItemRecord'
       id: string
-      dateTime: string
+      dateTime?: string | null
       location?: { __typename?: 'LocationRecord'; id: string } | null
     }>
     poster?: {
@@ -3428,27 +3396,6 @@ export type EventsFragment = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -3469,27 +3416,6 @@ export type FileFragment = {
   height?: number | null
   title?: string | null
   url: string
-  colors: Array<{
-    __typename?: 'ColorField'
-    alpha: number
-    blue: number
-    cssRgb: string
-    green: number
-    hex: string
-    red: number
-  }>
-  focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-  responsiveImage?: {
-    __typename?: 'ResponsiveImage'
-    title?: string | null
-    alt?: string | null
-    sizes: string
-    aspectRatio: number
-    bgColor?: string | null
-    src: string
-    height: number
-    width: number
-  } | null
   video?: {
     __typename?: 'UploadVideoField'
     mp4Url?: string | null
@@ -3509,31 +3435,35 @@ export type FocalPointFragment = {
 export type GeneralInfoFragment = {
   __typename?: 'GeneralRecord'
   id: string
-  title: string
+  title?: string | null
   menu: Array<
     | {
         __typename?: 'MenuItemRecord'
         id: string
-        label: string
-        link?: { __typename?: 'PageRecord'; slug: string; title: string } | null
+        label?: string | null
+        link?: {
+          __typename?: 'PageRecord'
+          slug?: string | null
+          title?: string | null
+        } | null
       }
     | {
         __typename?: 'SubmenuItemRecord'
         id: string
-        label: string
+        label?: string | null
         menu: Array<{
           __typename?: 'MenuItemRecord'
           id: string
-          label: string
+          label?: string | null
           link?: {
             __typename?: 'PageRecord'
-            slug: string
-            title: string
+            slug?: string | null
+            title?: string | null
           } | null
         }>
       }
   >
-  logo: {
+  logo?: {
     __typename?: 'FileField'
     id: string
     alt?: string | null
@@ -3541,27 +3471,6 @@ export type GeneralInfoFragment = {
     height?: number | null
     title?: string | null
     url: string
-    colors: Array<{
-      __typename?: 'ColorField'
-      alpha: number
-      blue: number
-      cssRgb: string
-      green: number
-      hex: string
-      red: number
-    }>
-    focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-    responsiveImage?: {
-      __typename?: 'ResponsiveImage'
-      title?: string | null
-      alt?: string | null
-      sizes: string
-      aspectRatio: number
-      bgColor?: string | null
-      src: string
-      height: number
-      width: number
-    } | null
     video?: {
       __typename?: 'UploadVideoField'
       mp4Url?: string | null
@@ -3570,7 +3479,7 @@ export type GeneralInfoFragment = {
       streamingUrl: string
       thumbnailUrl: string
     } | null
-  }
+  } | null
 }
 
 type Identifiable_ConcertListRecord_Fragment = {
@@ -3744,7 +3653,7 @@ export type ImageFragment = {
     __typename?: 'MediaItemRecord'
     id: string
     itemUrl?: string | null
-    title: string
+    title?: string | null
     item?: {
       __typename?: 'FileField'
       id: string
@@ -3753,27 +3662,6 @@ export type ImageFragment = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -3789,7 +3677,7 @@ export type ImageFragment = {
 export type MediaItemFragment = {
   __typename?: 'MediaItemRecord'
   id: string
-  title: string
+  title?: string | null
   itemUrl?: string | null
   item?: {
     __typename?: 'FileField'
@@ -3799,27 +3687,6 @@ export type MediaItemFragment = {
     height?: number | null
     title?: string | null
     url: string
-    colors: Array<{
-      __typename?: 'ColorField'
-      alpha: number
-      blue: number
-      cssRgb: string
-      green: number
-      hex: string
-      red: number
-    }>
-    focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-    responsiveImage?: {
-      __typename?: 'ResponsiveImage'
-      title?: string | null
-      alt?: string | null
-      sizes: string
-      aspectRatio: number
-      bgColor?: string | null
-      src: string
-      height: number
-      width: number
-    } | null
     video?: {
       __typename?: 'UploadVideoField'
       mp4Url?: string | null
@@ -3834,16 +3701,19 @@ export type MediaItemFragment = {
 export type LinkFragment = {
   __typename?: 'LinkRecord'
   id: string
-  internalTitle: string
+  internalTitle?: string | null
   externalUrl?: string | null
-  page?: { __typename?: 'PageRecord'; slug: string; title: string } | null
+  page?:
+    | { __typename?: 'ConcertRecord' }
+    | { __typename?: 'PageRecord'; slug?: string | null; title?: string | null }
+    | null
 }
 
 export type LocationFragment = {
   __typename?: 'LocationRecord'
   id: string
-  title: string
-  addressTitle: string
+  title?: string | null
+  addressTitle?: string | null
   address?: {
     __typename?: 'LatLonField'
     latitude: number
@@ -3854,21 +3724,25 @@ export type LocationFragment = {
 export type LocationsFragment = {
   __typename?: 'LocationItemRecord'
   id: string
-  dateTime: string
+  dateTime?: string | null
   location?: { __typename?: 'LocationRecord'; id: string } | null
 }
 
 export type MenuItemFragment = {
   __typename?: 'MenuItemRecord'
   id: string
-  label: string
-  link?: { __typename?: 'PageRecord'; slug: string; title: string } | null
+  label?: string | null
+  link?: {
+    __typename?: 'PageRecord'
+    slug?: string | null
+    title?: string | null
+  } | null
 }
 
 export type PageFragment = {
   __typename?: 'PageRecord'
-  title: string
-  slug: string
+  title?: string | null
+  slug?: string | null
   _createdAt: string
   _firstPublishedAt?: string | null
   _publishedAt?: string | null
@@ -3893,27 +3767,6 @@ export type PageFragment = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -3927,19 +3780,19 @@ export type PageFragment = {
   content: Array<
     | { __typename?: 'ConcertListRecord'; id: string }
     | { __typename?: 'TextBlockRecord'; id: string }
-    | { __typename?: 'TwoColumnRecord' }
+    | { __typename?: 'TwoColumnRecord'; id: string }
   >
 }
 
 export type PageDetailFragment = {
   __typename?: 'PageRecord'
-  id: string
-  title: string
-  slug: string
+  title?: string | null
+  slug?: string | null
   _createdAt: string
   _firstPublishedAt?: string | null
   _publishedAt?: string | null
   _updatedAt: string
+  id: string
   _seoMetaTags: Array<{
     __typename?: 'Tag'
     attributes?: Record<string, string> | null
@@ -3959,27 +3812,6 @@ export type PageDetailFragment = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -4001,7 +3833,7 @@ export type PageDetailFragment = {
         id: string
         pinnedConcerts: Array<{
           __typename?: 'ConcertRecord'
-          title: string
+          title?: string | null
           _createdAt: string
           _firstPublishedAt?: string | null
           _publishedAt?: string | null
@@ -4016,13 +3848,13 @@ export type PageDetailFragment = {
           persons: Array<{
             __typename?: 'PersonRecord'
             id: string
-            name: string
-            role: string
+            name?: string | null
+            role?: string | null
           }>
           locations: Array<{
             __typename?: 'LocationItemRecord'
             id: string
-            dateTime: string
+            dateTime?: string | null
             location?: { __typename?: 'LocationRecord'; id: string } | null
           }>
           poster?: {
@@ -4033,31 +3865,6 @@ export type PageDetailFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -4078,6 +3885,19 @@ export type PageDetailFragment = {
         id: string
         content?: {
           __typename?: 'TextBlockModelContentField'
+          value: unknown
+          links: Array<
+            | {
+                __typename?: 'ConcertRecord'
+                slug?: string | null
+                title?: string | null
+              }
+            | {
+                __typename?: 'PageRecord'
+                slug?: string | null
+                title?: string | null
+              }
+          >
           blocks: Array<
             | {
                 __typename?: 'ConcertListRecord'
@@ -4089,7 +3909,7 @@ export type PageDetailFragment = {
                 id: string
                 pinnedConcerts: Array<{
                   __typename?: 'ConcertRecord'
-                  title: string
+                  title?: string | null
                   _createdAt: string
                   _firstPublishedAt?: string | null
                   _publishedAt?: string | null
@@ -4104,13 +3924,13 @@ export type PageDetailFragment = {
                   persons: Array<{
                     __typename?: 'PersonRecord'
                     id: string
-                    name: string
-                    role: string
+                    name?: string | null
+                    role?: string | null
                   }>
                   locations: Array<{
                     __typename?: 'LocationItemRecord'
                     id: string
-                    dateTime: string
+                    dateTime?: string | null
                     location?: {
                       __typename?: 'LocationRecord'
                       id: string
@@ -4124,31 +3944,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4167,7 +3962,7 @@ export type PageDetailFragment = {
                   __typename?: 'MediaItemRecord'
                   id: string
                   itemUrl?: string | null
-                  title: string
+                  title?: string | null
                   item?: {
                     __typename?: 'FileField'
                     id: string
@@ -4176,31 +3971,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4215,8 +3985,8 @@ export type PageDetailFragment = {
             | {
                 __typename?: 'VideoRecord'
                 id: string
-                title: string
-                media: {
+                title?: string | null
+                media?: {
                   __typename?: 'VideoField'
                   height: number
                   provider: string
@@ -4225,11 +3995,11 @@ export type PageDetailFragment = {
                   title: string
                   url: string
                   width: number
-                }
+                } | null
                 thumbnail?: {
                   __typename?: 'MediaItemRecord'
                   id: string
-                  title: string
+                  title?: string | null
                   itemUrl?: string | null
                   item?: {
                     __typename?: 'FileField'
@@ -4239,31 +4009,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4287,6 +4032,19 @@ export type PageDetailFragment = {
         id: string
         leftContent?: {
           __typename?: 'TwoColumnModelLeftContentField'
+          value: unknown
+          links: Array<
+            | {
+                __typename?: 'ConcertRecord'
+                slug?: string | null
+                title?: string | null
+              }
+            | {
+                __typename?: 'PageRecord'
+                slug?: string | null
+                title?: string | null
+              }
+          >
           blocks: Array<
             | {
                 __typename?: 'ConcertListRecord'
@@ -4298,7 +4056,7 @@ export type PageDetailFragment = {
                 id: string
                 pinnedConcerts: Array<{
                   __typename?: 'ConcertRecord'
-                  title: string
+                  title?: string | null
                   _createdAt: string
                   _firstPublishedAt?: string | null
                   _publishedAt?: string | null
@@ -4313,13 +4071,13 @@ export type PageDetailFragment = {
                   persons: Array<{
                     __typename?: 'PersonRecord'
                     id: string
-                    name: string
-                    role: string
+                    name?: string | null
+                    role?: string | null
                   }>
                   locations: Array<{
                     __typename?: 'LocationItemRecord'
                     id: string
-                    dateTime: string
+                    dateTime?: string | null
                     location?: {
                       __typename?: 'LocationRecord'
                       id: string
@@ -4333,31 +4091,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4376,7 +4109,7 @@ export type PageDetailFragment = {
                   __typename?: 'MediaItemRecord'
                   id: string
                   itemUrl?: string | null
-                  title: string
+                  title?: string | null
                   item?: {
                     __typename?: 'FileField'
                     id: string
@@ -4385,31 +4118,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4424,8 +4132,8 @@ export type PageDetailFragment = {
             | {
                 __typename?: 'VideoRecord'
                 id: string
-                title: string
-                media: {
+                title?: string | null
+                media?: {
                   __typename?: 'VideoField'
                   height: number
                   provider: string
@@ -4434,11 +4142,11 @@ export type PageDetailFragment = {
                   title: string
                   url: string
                   width: number
-                }
+                } | null
                 thumbnail?: {
                   __typename?: 'MediaItemRecord'
                   id: string
-                  title: string
+                  title?: string | null
                   itemUrl?: string | null
                   item?: {
                     __typename?: 'FileField'
@@ -4448,31 +4156,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4488,6 +4171,19 @@ export type PageDetailFragment = {
         } | null
         rightContent?: {
           __typename?: 'TwoColumnModelRightContentField'
+          value: unknown
+          links: Array<
+            | {
+                __typename?: 'ConcertRecord'
+                slug?: string | null
+                title?: string | null
+              }
+            | {
+                __typename?: 'PageRecord'
+                slug?: string | null
+                title?: string | null
+              }
+          >
           blocks: Array<
             | {
                 __typename?: 'ConcertListRecord'
@@ -4499,7 +4195,7 @@ export type PageDetailFragment = {
                 id: string
                 pinnedConcerts: Array<{
                   __typename?: 'ConcertRecord'
-                  title: string
+                  title?: string | null
                   _createdAt: string
                   _firstPublishedAt?: string | null
                   _publishedAt?: string | null
@@ -4514,13 +4210,13 @@ export type PageDetailFragment = {
                   persons: Array<{
                     __typename?: 'PersonRecord'
                     id: string
-                    name: string
-                    role: string
+                    name?: string | null
+                    role?: string | null
                   }>
                   locations: Array<{
                     __typename?: 'LocationItemRecord'
                     id: string
-                    dateTime: string
+                    dateTime?: string | null
                     location?: {
                       __typename?: 'LocationRecord'
                       id: string
@@ -4534,31 +4230,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4577,7 +4248,7 @@ export type PageDetailFragment = {
                   __typename?: 'MediaItemRecord'
                   id: string
                   itemUrl?: string | null
-                  title: string
+                  title?: string | null
                   item?: {
                     __typename?: 'FileField'
                     id: string
@@ -4586,31 +4257,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4625,8 +4271,8 @@ export type PageDetailFragment = {
             | {
                 __typename?: 'VideoRecord'
                 id: string
-                title: string
-                media: {
+                title?: string | null
+                media?: {
                   __typename?: 'VideoField'
                   height: number
                   provider: string
@@ -4635,11 +4281,11 @@ export type PageDetailFragment = {
                   title: string
                   url: string
                   width: number
-                }
+                } | null
                 thumbnail?: {
                   __typename?: 'MediaItemRecord'
                   id: string
-                  title: string
+                  title?: string | null
                   itemUrl?: string | null
                   item?: {
                     __typename?: 'FileField'
@@ -4649,31 +4295,6 @@ export type PageDetailFragment = {
                     height?: number | null
                     title?: string | null
                     url: string
-                    colors: Array<{
-                      __typename?: 'ColorField'
-                      alpha: number
-                      blue: number
-                      cssRgb: string
-                      green: number
-                      hex: string
-                      red: number
-                    }>
-                    focalPoint?: {
-                      __typename?: 'focalPoint'
-                      x: number
-                      y: number
-                    } | null
-                    responsiveImage?: {
-                      __typename?: 'ResponsiveImage'
-                      title?: string | null
-                      alt?: string | null
-                      sizes: string
-                      aspectRatio: number
-                      bgColor?: string | null
-                      src: string
-                      height: number
-                      width: number
-                    } | null
                     video?: {
                       __typename?: 'UploadVideoField'
                       mp4Url?: string | null
@@ -4693,8 +4314,8 @@ export type PageDetailFragment = {
 
 export type PageLinkFragment = {
   __typename?: 'PageRecord'
-  slug: string
-  title: string
+  slug?: string | null
+  title?: string | null
 }
 
 export type SeoFragment = {
@@ -4710,27 +4331,6 @@ export type SeoFragment = {
     height?: number | null
     title?: string | null
     url: string
-    colors: Array<{
-      __typename?: 'ColorField'
-      alpha: number
-      blue: number
-      cssRgb: string
-      green: number
-      hex: string
-      red: number
-    }>
-    focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-    responsiveImage?: {
-      __typename?: 'ResponsiveImage'
-      title?: string | null
-      alt?: string | null
-      sizes: string
-      aspectRatio: number
-      bgColor?: string | null
-      src: string
-      height: number
-      width: number
-    } | null
     video?: {
       __typename?: 'UploadVideoField'
       mp4Url?: string | null
@@ -4761,27 +4361,6 @@ export type SeoSettingsFragment = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -4797,12 +4376,16 @@ export type SeoSettingsFragment = {
 export type SubmenuItemFragment = {
   __typename?: 'SubmenuItemRecord'
   id: string
-  label: string
+  label?: string | null
   menu: Array<{
     __typename?: 'MenuItemRecord'
     id: string
-    label: string
-    link?: { __typename?: 'PageRecord'; slug: string; title: string } | null
+    label?: string | null
+    link?: {
+      __typename?: 'PageRecord'
+      slug?: string | null
+      title?: string | null
+    } | null
   }>
 }
 
@@ -4815,6 +4398,15 @@ export type TagFragment = {
 
 export type TextBlockFragment = {
   __typename?: 'TextBlockModelContentField'
+  value: unknown
+  links: Array<
+    | {
+        __typename?: 'ConcertRecord'
+        slug?: string | null
+        title?: string | null
+      }
+    | { __typename?: 'PageRecord'; slug?: string | null; title?: string | null }
+  >
   blocks: Array<
     | {
         __typename?: 'ConcertListRecord'
@@ -4826,7 +4418,7 @@ export type TextBlockFragment = {
         id: string
         pinnedConcerts: Array<{
           __typename?: 'ConcertRecord'
-          title: string
+          title?: string | null
           _createdAt: string
           _firstPublishedAt?: string | null
           _publishedAt?: string | null
@@ -4841,13 +4433,13 @@ export type TextBlockFragment = {
           persons: Array<{
             __typename?: 'PersonRecord'
             id: string
-            name: string
-            role: string
+            name?: string | null
+            role?: string | null
           }>
           locations: Array<{
             __typename?: 'LocationItemRecord'
             id: string
-            dateTime: string
+            dateTime?: string | null
             location?: { __typename?: 'LocationRecord'; id: string } | null
           }>
           poster?: {
@@ -4858,31 +4450,6 @@ export type TextBlockFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -4901,7 +4468,7 @@ export type TextBlockFragment = {
           __typename?: 'MediaItemRecord'
           id: string
           itemUrl?: string | null
-          title: string
+          title?: string | null
           item?: {
             __typename?: 'FileField'
             id: string
@@ -4910,31 +4477,6 @@ export type TextBlockFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -4949,8 +4491,8 @@ export type TextBlockFragment = {
     | {
         __typename?: 'VideoRecord'
         id: string
-        title: string
-        media: {
+        title?: string | null
+        media?: {
           __typename?: 'VideoField'
           height: number
           provider: string
@@ -4959,11 +4501,11 @@ export type TextBlockFragment = {
           title: string
           url: string
           width: number
-        }
+        } | null
         thumbnail?: {
           __typename?: 'MediaItemRecord'
           id: string
-          title: string
+          title?: string | null
           itemUrl?: string | null
           item?: {
             __typename?: 'FileField'
@@ -4973,31 +4515,6 @@ export type TextBlockFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -5014,6 +4531,15 @@ export type TextBlockFragment = {
 
 export type LeftContentFragment = {
   __typename?: 'TwoColumnModelLeftContentField'
+  value: unknown
+  links: Array<
+    | {
+        __typename?: 'ConcertRecord'
+        slug?: string | null
+        title?: string | null
+      }
+    | { __typename?: 'PageRecord'; slug?: string | null; title?: string | null }
+  >
   blocks: Array<
     | {
         __typename?: 'ConcertListRecord'
@@ -5025,7 +4551,7 @@ export type LeftContentFragment = {
         id: string
         pinnedConcerts: Array<{
           __typename?: 'ConcertRecord'
-          title: string
+          title?: string | null
           _createdAt: string
           _firstPublishedAt?: string | null
           _publishedAt?: string | null
@@ -5040,13 +4566,13 @@ export type LeftContentFragment = {
           persons: Array<{
             __typename?: 'PersonRecord'
             id: string
-            name: string
-            role: string
+            name?: string | null
+            role?: string | null
           }>
           locations: Array<{
             __typename?: 'LocationItemRecord'
             id: string
-            dateTime: string
+            dateTime?: string | null
             location?: { __typename?: 'LocationRecord'; id: string } | null
           }>
           poster?: {
@@ -5057,31 +4583,6 @@ export type LeftContentFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -5100,7 +4601,7 @@ export type LeftContentFragment = {
           __typename?: 'MediaItemRecord'
           id: string
           itemUrl?: string | null
-          title: string
+          title?: string | null
           item?: {
             __typename?: 'FileField'
             id: string
@@ -5109,31 +4610,6 @@ export type LeftContentFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -5148,8 +4624,8 @@ export type LeftContentFragment = {
     | {
         __typename?: 'VideoRecord'
         id: string
-        title: string
-        media: {
+        title?: string | null
+        media?: {
           __typename?: 'VideoField'
           height: number
           provider: string
@@ -5158,11 +4634,11 @@ export type LeftContentFragment = {
           title: string
           url: string
           width: number
-        }
+        } | null
         thumbnail?: {
           __typename?: 'MediaItemRecord'
           id: string
-          title: string
+          title?: string | null
           itemUrl?: string | null
           item?: {
             __typename?: 'FileField'
@@ -5172,31 +4648,6 @@ export type LeftContentFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -5213,6 +4664,15 @@ export type LeftContentFragment = {
 
 export type RightContentFragment = {
   __typename?: 'TwoColumnModelRightContentField'
+  value: unknown
+  links: Array<
+    | {
+        __typename?: 'ConcertRecord'
+        slug?: string | null
+        title?: string | null
+      }
+    | { __typename?: 'PageRecord'; slug?: string | null; title?: string | null }
+  >
   blocks: Array<
     | {
         __typename?: 'ConcertListRecord'
@@ -5224,7 +4684,7 @@ export type RightContentFragment = {
         id: string
         pinnedConcerts: Array<{
           __typename?: 'ConcertRecord'
-          title: string
+          title?: string | null
           _createdAt: string
           _firstPublishedAt?: string | null
           _publishedAt?: string | null
@@ -5239,13 +4699,13 @@ export type RightContentFragment = {
           persons: Array<{
             __typename?: 'PersonRecord'
             id: string
-            name: string
-            role: string
+            name?: string | null
+            role?: string | null
           }>
           locations: Array<{
             __typename?: 'LocationItemRecord'
             id: string
-            dateTime: string
+            dateTime?: string | null
             location?: { __typename?: 'LocationRecord'; id: string } | null
           }>
           poster?: {
@@ -5256,31 +4716,6 @@ export type RightContentFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -5299,7 +4734,7 @@ export type RightContentFragment = {
           __typename?: 'MediaItemRecord'
           id: string
           itemUrl?: string | null
-          title: string
+          title?: string | null
           item?: {
             __typename?: 'FileField'
             id: string
@@ -5308,31 +4743,6 @@ export type RightContentFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -5347,8 +4757,8 @@ export type RightContentFragment = {
     | {
         __typename?: 'VideoRecord'
         id: string
-        title: string
-        media: {
+        title?: string | null
+        media?: {
           __typename?: 'VideoField'
           height: number
           provider: string
@@ -5357,11 +4767,11 @@ export type RightContentFragment = {
           title: string
           url: string
           width: number
-        }
+        } | null
         thumbnail?: {
           __typename?: 'MediaItemRecord'
           id: string
-          title: string
+          title?: string | null
           itemUrl?: string | null
           item?: {
             __typename?: 'FileField'
@@ -5371,31 +4781,6 @@ export type RightContentFragment = {
             height?: number | null
             title?: string | null
             url: string
-            colors: Array<{
-              __typename?: 'ColorField'
-              alpha: number
-              blue: number
-              cssRgb: string
-              green: number
-              hex: string
-              red: number
-            }>
-            focalPoint?: {
-              __typename?: 'focalPoint'
-              x: number
-              y: number
-            } | null
-            responsiveImage?: {
-              __typename?: 'ResponsiveImage'
-              title?: string | null
-              alt?: string | null
-              sizes: string
-              aspectRatio: number
-              bgColor?: string | null
-              src: string
-              height: number
-              width: number
-            } | null
             video?: {
               __typename?: 'UploadVideoField'
               mp4Url?: string | null
@@ -5422,8 +4807,8 @@ export type VideoUploadFragment = {
 export type VideoRecordFragment = {
   __typename?: 'VideoRecord'
   id: string
-  title: string
-  media: {
+  title?: string | null
+  media?: {
     __typename?: 'VideoField'
     height: number
     provider: string
@@ -5432,11 +4817,11 @@ export type VideoRecordFragment = {
     title: string
     url: string
     width: number
-  }
+  } | null
   thumbnail?: {
     __typename?: 'MediaItemRecord'
     id: string
-    title: string
+    title?: string | null
     itemUrl?: string | null
     item?: {
       __typename?: 'FileField'
@@ -5446,27 +4831,6 @@ export type VideoRecordFragment = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -5499,8 +4863,8 @@ export type GetAuthorQuery = {
   person?: {
     __typename?: 'PersonRecord'
     id: string
-    name: string
-    role: string
+    name?: string | null
+    role?: string | null
   } | null
 }
 
@@ -5517,8 +4881,8 @@ export type GetAuthorsQuery = {
   allPeople: Array<{
     __typename?: 'PersonRecord'
     id: string
-    name: string
-    role: string
+    name?: string | null
+    role?: string | null
   }>
 }
 
@@ -5531,18 +4895,18 @@ export type GetConcertQuery = {
   concert?: {
     __typename?: 'ConcertRecord'
     id: string
-    title: string
+    title?: string | null
     locations: Array<{
       __typename?: 'LocationItemRecord'
       id: string
-      dateTime: string
+      dateTime?: string | null
       location?: { __typename?: 'LocationRecord'; id: string } | null
     }>
     persons: Array<{
       __typename?: 'PersonRecord'
       id: string
-      name: string
-      role: string
+      name?: string | null
+      role?: string | null
     }>
     poster?: {
       __typename?: 'FileField'
@@ -5552,27 +4916,6 @@ export type GetConcertQuery = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -5597,7 +4940,7 @@ export type GetConcertsQuery = {
   __typename?: 'Query'
   allConcerts: Array<{
     __typename?: 'ConcertRecord'
-    title: string
+    title?: string | null
     _createdAt: string
     _firstPublishedAt?: string | null
     _publishedAt?: string | null
@@ -5606,7 +4949,7 @@ export type GetConcertsQuery = {
     locations: Array<{
       __typename?: 'LocationItemRecord'
       id: string
-      dateTime: string
+      dateTime?: string | null
       location?: { __typename?: 'LocationRecord'; id: string } | null
     }>
     poster?: {
@@ -5617,27 +4960,6 @@ export type GetConcertsQuery = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -5657,35 +4979,35 @@ export type GetGeneralInfoQuery = {
   general?: {
     __typename?: 'GeneralRecord'
     id: string
-    title: string
+    title?: string | null
     menu: Array<
       | {
           __typename?: 'MenuItemRecord'
           id: string
-          label: string
+          label?: string | null
           link?: {
             __typename?: 'PageRecord'
-            slug: string
-            title: string
+            slug?: string | null
+            title?: string | null
           } | null
         }
       | {
           __typename?: 'SubmenuItemRecord'
           id: string
-          label: string
+          label?: string | null
           menu: Array<{
             __typename?: 'MenuItemRecord'
             id: string
-            label: string
+            label?: string | null
             link?: {
               __typename?: 'PageRecord'
-              slug: string
-              title: string
+              slug?: string | null
+              title?: string | null
             } | null
           }>
         }
     >
-    logo: {
+    logo?: {
       __typename?: 'FileField'
       id: string
       alt?: string | null
@@ -5693,27 +5015,6 @@ export type GetGeneralInfoQuery = {
       height?: number | null
       title?: string | null
       url: string
-      colors: Array<{
-        __typename?: 'ColorField'
-        alpha: number
-        blue: number
-        cssRgb: string
-        green: number
-        hex: string
-        red: number
-      }>
-      focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-      responsiveImage?: {
-        __typename?: 'ResponsiveImage'
-        title?: string | null
-        alt?: string | null
-        sizes: string
-        aspectRatio: number
-        bgColor?: string | null
-        src: string
-        height: number
-        width: number
-      } | null
       video?: {
         __typename?: 'UploadVideoField'
         mp4Url?: string | null
@@ -5722,7 +5023,7 @@ export type GetGeneralInfoQuery = {
         streamingUrl: string
         thumbnailUrl: string
       } | null
-    }
+    } | null
   } | null
 }
 
@@ -5735,8 +5036,8 @@ export type GetLocationQuery = {
   location?: {
     __typename?: 'LocationRecord'
     id: string
-    title: string
-    addressTitle: string
+    title?: string | null
+    addressTitle?: string | null
     address?: {
       __typename?: 'LatLonField'
       latitude: number
@@ -5758,8 +5059,8 @@ export type GetLocationsQuery = {
   allLocations: Array<{
     __typename?: 'LocationRecord'
     id: string
-    title: string
-    addressTitle: string
+    title?: string | null
+    addressTitle?: string | null
     address?: {
       __typename?: 'LatLonField'
       latitude: number
@@ -5776,13 +5077,13 @@ export type GetPageQuery = {
   __typename?: 'Query'
   page?: {
     __typename?: 'PageRecord'
-    id: string
-    title: string
-    slug: string
+    title?: string | null
+    slug?: string | null
     _createdAt: string
     _firstPublishedAt?: string | null
     _publishedAt?: string | null
     _updatedAt: string
+    id: string
     _seoMetaTags: Array<{
       __typename?: 'Tag'
       attributes?: Record<string, string> | null
@@ -5802,27 +5103,6 @@ export type GetPageQuery = {
         height?: number | null
         title?: string | null
         url: string
-        colors: Array<{
-          __typename?: 'ColorField'
-          alpha: number
-          blue: number
-          cssRgb: string
-          green: number
-          hex: string
-          red: number
-        }>
-        focalPoint?: { __typename?: 'focalPoint'; x: number; y: number } | null
-        responsiveImage?: {
-          __typename?: 'ResponsiveImage'
-          title?: string | null
-          alt?: string | null
-          sizes: string
-          aspectRatio: number
-          bgColor?: string | null
-          src: string
-          height: number
-          width: number
-        } | null
         video?: {
           __typename?: 'UploadVideoField'
           mp4Url?: string | null
@@ -5844,7 +5124,7 @@ export type GetPageQuery = {
           id: string
           pinnedConcerts: Array<{
             __typename?: 'ConcertRecord'
-            title: string
+            title?: string | null
             _createdAt: string
             _firstPublishedAt?: string | null
             _publishedAt?: string | null
@@ -5859,13 +5139,13 @@ export type GetPageQuery = {
             persons: Array<{
               __typename?: 'PersonRecord'
               id: string
-              name: string
-              role: string
+              name?: string | null
+              role?: string | null
             }>
             locations: Array<{
               __typename?: 'LocationItemRecord'
               id: string
-              dateTime: string
+              dateTime?: string | null
               location?: { __typename?: 'LocationRecord'; id: string } | null
             }>
             poster?: {
@@ -5876,31 +5156,6 @@ export type GetPageQuery = {
               height?: number | null
               title?: string | null
               url: string
-              colors: Array<{
-                __typename?: 'ColorField'
-                alpha: number
-                blue: number
-                cssRgb: string
-                green: number
-                hex: string
-                red: number
-              }>
-              focalPoint?: {
-                __typename?: 'focalPoint'
-                x: number
-                y: number
-              } | null
-              responsiveImage?: {
-                __typename?: 'ResponsiveImage'
-                title?: string | null
-                alt?: string | null
-                sizes: string
-                aspectRatio: number
-                bgColor?: string | null
-                src: string
-                height: number
-                width: number
-              } | null
               video?: {
                 __typename?: 'UploadVideoField'
                 mp4Url?: string | null
@@ -5921,6 +5176,19 @@ export type GetPageQuery = {
           id: string
           content?: {
             __typename?: 'TextBlockModelContentField'
+            value: unknown
+            links: Array<
+              | {
+                  __typename?: 'ConcertRecord'
+                  slug?: string | null
+                  title?: string | null
+                }
+              | {
+                  __typename?: 'PageRecord'
+                  slug?: string | null
+                  title?: string | null
+                }
+            >
             blocks: Array<
               | {
                   __typename?: 'ConcertListRecord'
@@ -5932,7 +5200,7 @@ export type GetPageQuery = {
                   id: string
                   pinnedConcerts: Array<{
                     __typename?: 'ConcertRecord'
-                    title: string
+                    title?: string | null
                     _createdAt: string
                     _firstPublishedAt?: string | null
                     _publishedAt?: string | null
@@ -5947,13 +5215,13 @@ export type GetPageQuery = {
                     persons: Array<{
                       __typename?: 'PersonRecord'
                       id: string
-                      name: string
-                      role: string
+                      name?: string | null
+                      role?: string | null
                     }>
                     locations: Array<{
                       __typename?: 'LocationItemRecord'
                       id: string
-                      dateTime: string
+                      dateTime?: string | null
                       location?: {
                         __typename?: 'LocationRecord'
                         id: string
@@ -5967,31 +5235,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6010,7 +5253,7 @@ export type GetPageQuery = {
                     __typename?: 'MediaItemRecord'
                     id: string
                     itemUrl?: string | null
-                    title: string
+                    title?: string | null
                     item?: {
                       __typename?: 'FileField'
                       id: string
@@ -6019,31 +5262,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6058,8 +5276,8 @@ export type GetPageQuery = {
               | {
                   __typename?: 'VideoRecord'
                   id: string
-                  title: string
-                  media: {
+                  title?: string | null
+                  media?: {
                     __typename?: 'VideoField'
                     height: number
                     provider: string
@@ -6068,11 +5286,11 @@ export type GetPageQuery = {
                     title: string
                     url: string
                     width: number
-                  }
+                  } | null
                   thumbnail?: {
                     __typename?: 'MediaItemRecord'
                     id: string
-                    title: string
+                    title?: string | null
                     itemUrl?: string | null
                     item?: {
                       __typename?: 'FileField'
@@ -6082,31 +5300,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6130,6 +5323,19 @@ export type GetPageQuery = {
           id: string
           leftContent?: {
             __typename?: 'TwoColumnModelLeftContentField'
+            value: unknown
+            links: Array<
+              | {
+                  __typename?: 'ConcertRecord'
+                  slug?: string | null
+                  title?: string | null
+                }
+              | {
+                  __typename?: 'PageRecord'
+                  slug?: string | null
+                  title?: string | null
+                }
+            >
             blocks: Array<
               | {
                   __typename?: 'ConcertListRecord'
@@ -6141,7 +5347,7 @@ export type GetPageQuery = {
                   id: string
                   pinnedConcerts: Array<{
                     __typename?: 'ConcertRecord'
-                    title: string
+                    title?: string | null
                     _createdAt: string
                     _firstPublishedAt?: string | null
                     _publishedAt?: string | null
@@ -6156,13 +5362,13 @@ export type GetPageQuery = {
                     persons: Array<{
                       __typename?: 'PersonRecord'
                       id: string
-                      name: string
-                      role: string
+                      name?: string | null
+                      role?: string | null
                     }>
                     locations: Array<{
                       __typename?: 'LocationItemRecord'
                       id: string
-                      dateTime: string
+                      dateTime?: string | null
                       location?: {
                         __typename?: 'LocationRecord'
                         id: string
@@ -6176,31 +5382,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6219,7 +5400,7 @@ export type GetPageQuery = {
                     __typename?: 'MediaItemRecord'
                     id: string
                     itemUrl?: string | null
-                    title: string
+                    title?: string | null
                     item?: {
                       __typename?: 'FileField'
                       id: string
@@ -6228,31 +5409,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6267,8 +5423,8 @@ export type GetPageQuery = {
               | {
                   __typename?: 'VideoRecord'
                   id: string
-                  title: string
-                  media: {
+                  title?: string | null
+                  media?: {
                     __typename?: 'VideoField'
                     height: number
                     provider: string
@@ -6277,11 +5433,11 @@ export type GetPageQuery = {
                     title: string
                     url: string
                     width: number
-                  }
+                  } | null
                   thumbnail?: {
                     __typename?: 'MediaItemRecord'
                     id: string
-                    title: string
+                    title?: string | null
                     itemUrl?: string | null
                     item?: {
                       __typename?: 'FileField'
@@ -6291,31 +5447,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6331,6 +5462,19 @@ export type GetPageQuery = {
           } | null
           rightContent?: {
             __typename?: 'TwoColumnModelRightContentField'
+            value: unknown
+            links: Array<
+              | {
+                  __typename?: 'ConcertRecord'
+                  slug?: string | null
+                  title?: string | null
+                }
+              | {
+                  __typename?: 'PageRecord'
+                  slug?: string | null
+                  title?: string | null
+                }
+            >
             blocks: Array<
               | {
                   __typename?: 'ConcertListRecord'
@@ -6342,7 +5486,7 @@ export type GetPageQuery = {
                   id: string
                   pinnedConcerts: Array<{
                     __typename?: 'ConcertRecord'
-                    title: string
+                    title?: string | null
                     _createdAt: string
                     _firstPublishedAt?: string | null
                     _publishedAt?: string | null
@@ -6357,13 +5501,13 @@ export type GetPageQuery = {
                     persons: Array<{
                       __typename?: 'PersonRecord'
                       id: string
-                      name: string
-                      role: string
+                      name?: string | null
+                      role?: string | null
                     }>
                     locations: Array<{
                       __typename?: 'LocationItemRecord'
                       id: string
-                      dateTime: string
+                      dateTime?: string | null
                       location?: {
                         __typename?: 'LocationRecord'
                         id: string
@@ -6377,31 +5521,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6420,7 +5539,7 @@ export type GetPageQuery = {
                     __typename?: 'MediaItemRecord'
                     id: string
                     itemUrl?: string | null
-                    title: string
+                    title?: string | null
                     item?: {
                       __typename?: 'FileField'
                       id: string
@@ -6429,31 +5548,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6468,8 +5562,8 @@ export type GetPageQuery = {
               | {
                   __typename?: 'VideoRecord'
                   id: string
-                  title: string
-                  media: {
+                  title?: string | null
+                  media?: {
                     __typename?: 'VideoField'
                     height: number
                     provider: string
@@ -6478,11 +5572,11 @@ export type GetPageQuery = {
                     title: string
                     url: string
                     width: number
-                  }
+                  } | null
                   thumbnail?: {
                     __typename?: 'MediaItemRecord'
                     id: string
-                    title: string
+                    title?: string | null
                     itemUrl?: string | null
                     item?: {
                       __typename?: 'FileField'
@@ -6492,31 +5586,6 @@ export type GetPageQuery = {
                       height?: number | null
                       title?: string | null
                       url: string
-                      colors: Array<{
-                        __typename?: 'ColorField'
-                        alpha: number
-                        blue: number
-                        cssRgb: string
-                        green: number
-                        hex: string
-                        red: number
-                      }>
-                      focalPoint?: {
-                        __typename?: 'focalPoint'
-                        x: number
-                        y: number
-                      } | null
-                      responsiveImage?: {
-                        __typename?: 'ResponsiveImage'
-                        title?: string | null
-                        alt?: string | null
-                        sizes: string
-                        aspectRatio: number
-                        bgColor?: string | null
-                        src: string
-                        height: number
-                        width: number
-                      } | null
                       video?: {
                         __typename?: 'UploadVideoField'
                         mp4Url?: string | null
@@ -6547,13 +5616,18 @@ export type GetPagesQuery = {
   __typename?: 'Query'
   allPages: Array<{
     __typename?: 'PageRecord'
-    title: string
-    slug: string
+    title?: string | null
+    slug?: string | null
     _createdAt: string
     _firstPublishedAt?: string | null
     _publishedAt?: string | null
     _updatedAt: string
     id: string
+    content: Array<
+      | { __typename?: 'ConcertListRecord'; id: string }
+      | { __typename?: 'TextBlockRecord'; id: string }
+      | { __typename?: 'TwoColumnRecord'; id: string }
+    >
   }>
 }
 
@@ -6583,31 +5657,6 @@ export type GetSiteInfoQuery = {
           height?: number | null
           title?: string | null
           url: string
-          colors: Array<{
-            __typename?: 'ColorField'
-            alpha: number
-            blue: number
-            cssRgb: string
-            green: number
-            hex: string
-            red: number
-          }>
-          focalPoint?: {
-            __typename?: 'focalPoint'
-            x: number
-            y: number
-          } | null
-          responsiveImage?: {
-            __typename?: 'ResponsiveImage'
-            title?: string | null
-            alt?: string | null
-            sizes: string
-            aspectRatio: number
-            bgColor?: string | null
-            src: string
-            height: number
-            width: number
-          } | null
           video?: {
             __typename?: 'UploadVideoField'
             mp4Url?: string | null
@@ -6622,6 +5671,50 @@ export type GetSiteInfoQuery = {
   }
 }
 
+export const ColorsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'colors' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ColorField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ColorsFragment, unknown>
+export const FocalPointFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'focalPoint' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'focalPoint' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FocalPointFragment, unknown>
 export const PageLinkFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -6766,76 +5859,6 @@ export const SubmenuItemFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<SubmenuItemFragment, unknown>
-export const ColorsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ColorsFragment, unknown>
-export const FocalPointFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<FocalPointFragment, unknown>
-export const ResponsiveImageFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ResponsiveImageFragment, unknown>
 export const VideoUploadFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -6874,47 +5897,8 @@ export const FileFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -6930,61 +5914,6 @@ export const FileFragmentDoc = {
               ],
             },
           },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
         ],
       },
     },
@@ -7125,61 +6054,6 @@ export const GeneralInfoFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -7236,47 +6110,8 @@ export const GeneralInfoFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -7297,6 +6132,32 @@ export const GeneralInfoFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<GeneralInfoFragment, unknown>
+export const ResponsiveImageFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'responsiveImage' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ResponsiveImage' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ResponsiveImageFragment, unknown>
 export const LinkFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -7493,61 +6354,6 @@ export const SeoFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -7576,47 +6382,8 @@ export const SeoFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -7714,64 +6481,22 @@ export const PageFragmentDoc = {
                     ],
                   },
                 },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'TwoColumnRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
               ],
             },
           },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
         ],
       },
     },
@@ -7805,47 +6530,8 @@ export const PageFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -8008,61 +6694,6 @@ export const EventMetadataFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -8134,47 +6765,8 @@ export const EventMetadataFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -8307,61 +6899,6 @@ export const EventFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -8390,47 +6927,8 @@ export const EventFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -8606,61 +7104,6 @@ export const EventsFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -8689,47 +7132,8 @@ export const EventsFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -8913,61 +7317,6 @@ export const ImageFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -8996,47 +7345,8 @@ export const ImageFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -9116,61 +7426,6 @@ export const MediaItemFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -9199,47 +7454,8 @@ export const MediaItemFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -9306,61 +7522,6 @@ export const VideoRecordFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -9389,47 +7550,8 @@ export const VideoRecordFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -9512,6 +7634,44 @@ export const TextBlockFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -9617,61 +7777,6 @@ export const TextBlockFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -9700,47 +7805,8 @@ export const TextBlockFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -10053,6 +8119,44 @@ export const LeftContentFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -10158,61 +8262,6 @@ export const LeftContentFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -10241,47 +8290,8 @@ export const LeftContentFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -10594,6 +8604,44 @@ export const RightContentFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -10699,61 +8747,6 @@ export const RightContentFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -10782,47 +8775,8 @@ export const RightContentFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -11135,7 +9089,6 @@ export const PageDetailFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'identifiable' },
@@ -11269,61 +9222,6 @@ export const PageDetailFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -11352,47 +9250,8 @@ export const PageDetailFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -11772,6 +9631,44 @@ export const PageDetailFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -11842,6 +9739,44 @@ export const PageDetailFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -11912,6 +9847,44 @@ export const PageDetailFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -12009,61 +9982,6 @@ export const SeoSettingsFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -12092,47 +10010,8 @@ export const SeoSettingsFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -12381,7 +10260,7 @@ export const GetAuthorsDocument = {
   ],
 } as unknown as DocumentNode<GetAuthorsQuery, GetAuthorsQueryVariables>
 export const GetConcertDocument = {
-  __meta__: { hash: '9bddb2b262f59273f08d01c06980a80dd98593df' },
+  __meta__: { hash: '4ff89d4be2fb6b7ac8d2eaee5604261890185f77' },
   kind: 'Document',
   definitions: [
     {
@@ -12487,61 +10366,6 @@ export const GetConcertDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -12611,47 +10435,8 @@ export const GetConcertDocument = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -12673,7 +10458,7 @@ export const GetConcertDocument = {
   ],
 } as unknown as DocumentNode<GetConcertQuery, GetConcertQueryVariables>
 export const GetConcertsDocument = {
-  __meta__: { hash: '2c6decb9d9a79f7fe26fdc80852b4064666f5697' },
+  __meta__: { hash: 'a40b4118605ea18c22b624a37f1f3186b58abe0b' },
   kind: 'Document',
   definitions: [
     {
@@ -12811,61 +10596,6 @@ export const GetConcertsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -12894,47 +10624,8 @@ export const GetConcertsDocument = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -13000,7 +10691,7 @@ export const GetConcertsDocument = {
   ],
 } as unknown as DocumentNode<GetConcertsQuery, GetConcertsQueryVariables>
 export const GetGeneralInfoDocument = {
-  __meta__: { hash: 'b3bf80e413036ba0e4f097f5dc3fc4fbdb3b44c5' },
+  __meta__: { hash: 'ced736a4b8476dc203184443d3dc3da6ceb28c0e' },
   kind: 'Document',
   definitions: [
     {
@@ -13099,61 +10790,6 @@ export const GetGeneralInfoDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -13182,47 +10818,8 @@ export const GetGeneralInfoDocument = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -13549,7 +11146,7 @@ export const GetLocationsDocument = {
   ],
 } as unknown as DocumentNode<GetLocationsQuery, GetLocationsQueryVariables>
 export const GetPageDocument = {
-  __meta__: { hash: 'e66e394db0d340c889ab5d908596ba3cb22a65df' },
+  __meta__: { hash: 'e54b1abb8aaf6d325392382764128d8790088597' },
   kind: 'Document',
   definitions: [
     {
@@ -13652,61 +11249,6 @@ export const GetPageDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -13735,47 +11277,8 @@ export const GetPageDocument = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {
@@ -14121,6 +11624,44 @@ export const GetPageDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -14191,6 +11732,44 @@ export const GetPageDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -14261,6 +11840,44 @@ export const GetPageDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'links' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ConcertRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'PageRecord' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'blocks' },
@@ -14331,7 +11948,6 @@ export const GetPageDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'identifiable' },
@@ -14466,7 +12082,7 @@ export const GetPageDocument = {
   ],
 } as unknown as DocumentNode<GetPageQuery, GetPageQueryVariables>
 export const GetPagesDocument = {
-  __meta__: { hash: '1a418a36e7f75a4e1fcacabf13dcf550aae1b882' },
+  __meta__: { hash: '6fef63c3b1b45f182a0822958c43068c3e6d9166' },
   kind: 'Document',
   definitions: [
     {
@@ -14543,6 +12159,63 @@ export const GetPagesDocument = {
                 },
                 { kind: 'Field', name: { kind: 'Name', value: 'title' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'content' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'ConcertListRecord' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'TextBlockRecord' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'TwoColumnRecord' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },
@@ -14570,7 +12243,7 @@ export const GetPagesDocument = {
   ],
 } as unknown as DocumentNode<GetPagesQuery, GetPagesQueryVariables>
 export const GetSiteInfoDocument = {
-  __meta__: { hash: 'f08f6fd3eded3e49d9be4a4d01fa6fad3a406f43' },
+  __meta__: { hash: '282b0c2812b1baa6417228b8756fca0d1cea642b' },
   kind: 'Document',
   definitions: [
     {
@@ -14608,61 +12281,6 @@ export const GetSiteInfoDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'colors' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ColorField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'alpha' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'blue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'cssRgb' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'green' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hex' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'red' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'responsiveImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'ResponsiveImage' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'sizes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'aspectRatio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bgColor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'src' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'videoUpload' },
       typeCondition: {
         kind: 'NamedType',
@@ -14691,47 +12309,8 @@ export const GetSiteInfoDocument = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'colors' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'colors' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'focalPoint' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'focalPoint' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'width' } },
           { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'responsiveImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'responsiveImage' },
-                },
-              ],
-            },
-          },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'url' } },
           {

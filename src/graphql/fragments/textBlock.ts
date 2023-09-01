@@ -2,15 +2,20 @@ import { events } from './events'
 import { gql } from '@urql/core'
 import { image } from './image'
 import { videoRecord } from './video'
-// import { pageLink } from './pageLink'
-
-// TwoColumnModelLeftContentBlocksField
-// TwoColumnModelRightContentBlocksField
-
-// TextBlockModelContentBlocksField
 
 export const textBlock = gql`
   fragment textBlock on TextBlockModelContentField {
+    value
+    links {
+      ... on ConcertRecord {
+        slug
+        title
+      }
+      ... on PageRecord {
+        slug
+        title
+      }
+    }
     blocks {
       ... on ConcertListRecord {
         ...events
@@ -30,6 +35,17 @@ export const textBlock = gql`
 
 export const leftContent = gql`
   fragment leftContent on TwoColumnModelLeftContentField {
+    value
+    links {
+      ... on ConcertRecord {
+        slug
+        title
+      }
+      ... on PageRecord {
+        slug
+        title
+      }
+    }
     blocks {
       ... on ConcertListRecord {
         ...events
@@ -49,6 +65,17 @@ export const leftContent = gql`
 
 export const rightContent = gql`
   fragment rightContent on TwoColumnModelRightContentField {
+    value
+    links {
+      ... on ConcertRecord {
+        slug
+        title
+      }
+      ... on PageRecord {
+        slug
+        title
+      }
+    }
     blocks {
       ... on ConcertListRecord {
         ...events

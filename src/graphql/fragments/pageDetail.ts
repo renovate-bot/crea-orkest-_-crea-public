@@ -7,7 +7,6 @@ import { leftContent, rightContent, textBlock } from './textBlock'
 
 export const pageDetail = gql`
   fragment pageDetail on PageRecord {
-    id
     ...identifiable
     _seoMetaTags {
       ...tag

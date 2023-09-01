@@ -21,6 +21,9 @@ export const page = gql`
       ... on TextBlockRecord {
         id
       }
+      ... on TwoColumnRecord {
+        id
+      }
     }
   }
   ${identifiable}

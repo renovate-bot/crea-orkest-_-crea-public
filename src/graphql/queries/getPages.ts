@@ -8,6 +8,17 @@ export const GET_PAGES = gql`
       ...identifiable
       title
       slug
+      content {
+        ... on ConcertListRecord {
+          id
+        }
+        ... on TextBlockRecord {
+          id
+        }
+        ... on TwoColumnRecord {
+          id
+        }
+      }
     }
   }
   ${identifiable}

@@ -2,7 +2,7 @@ export interface Image {
   id: string
   title: string
   description: string
-  height: number
+  width?: number
+  height?: number
   url: string
-  width: number
 }

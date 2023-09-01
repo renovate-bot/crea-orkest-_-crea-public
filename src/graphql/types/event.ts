@@ -1,7 +1,7 @@
 import type { Image } from './image'
 
 export interface Location {
-  startTime: string
+  startTime?: string
   id: string
 }
 

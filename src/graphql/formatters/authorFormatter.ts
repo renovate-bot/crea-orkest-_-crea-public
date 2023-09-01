@@ -6,7 +6,7 @@ export const authorFormatter = (data: GetAuthorQuery): Author | undefined => {
 
   return {
     id: data.person.id,
-    name: data.person.name,
-    description: data.person.role,
+    name: data.person.name ?? '',
+    description: data.person.role ?? '',
   }
 }
