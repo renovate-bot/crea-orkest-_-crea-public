@@ -86,9 +86,10 @@ input ConcertModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  link: LinkFilter
   persons: LinksFilter
   poster: FileFilter
+  seo: SeoFilter
+  slug: SlugFilter
   title: StringFilter
   OR: [ConcertModelFilter]
   AND: [ConcertModelFilter]
@@ -147,11 +148,12 @@ type ConcertRecord implements RecordInterface {
   _updatedAt: DateTime!
   content: [ConcertModelContentField!]!
   id: ItemId!
-  link: LinkRecord
   locations: [LocationItemRecord!]!
   persons: [PersonRecord!]!
   poster: FileField
-  title: String!
+  seo: SeoField
+  slug: String
+  title: String
 }
 
 """
@@ -520,9 +522,9 @@ type GeneralRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  logo: FileField!
+  logo: FileField
   menu: [GeneralModelMenuField!]!
-  title: String!
+  title: String
 }
 
 type GlobalSeoField {
@@ -2264,6 +2266,8 @@ enum LinkModelOrderBy {
   internalTitle_DESC
 }
 
+union LinkModelPageField = ConcertRecord | PageRecord
+
 """
 Record of type Links (link)
 """
@@ -2294,8 +2298,8 @@ type LinkRecord implements RecordInterface {
   _updatedAt: DateTime!
   externalUrl: String
   id: ItemId!
-  internalTitle: String!
-  page: PageRecord
+  internalTitle: String
+  page: LinkModelPageField
 }
 
 """
@@ -2356,7 +2360,7 @@ type LocationItemRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  dateTime: DateTime!
+  dateTime: DateTime
   id: ItemId!
   location: LocationRecord
 }
@@ -2432,9 +2436,9 @@ type LocationRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   address: LatLonField
-  addressTitle: String!
+  addressTitle: String
   id: ItemId!
-  title: String!
+  title: String
 }
 
 input MediaItemModelFilter {
@@ -2510,7 +2514,7 @@ type MediaItemRecord implements RecordInterface {
   id: ItemId!
   item: FileField
   itemUrl: String
-  title: String!
+  title: String
 }
 
 """
@@ -2542,7 +2546,7 @@ type MenuItemRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  label: String!
+  label: String
   link: PageRecord
 }
 
@@ -2645,8 +2649,8 @@ type PageRecord implements RecordInterface {
   content: [PageModelContentField!]!
   id: ItemId!
   seo: SeoField
-  slug: String!
-  title: String!
+  slug: String
+  title: String
 }
 
 input PersonModelFilter {
@@ -2719,8 +2723,8 @@ type PersonRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  name: String!
-  role: String!
+  name: String
+  role: String
 }
 
 """
@@ -3436,7 +3440,7 @@ type SubmenuItemRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  label: String!
+  label: String
   menu: [MenuItemRecord!]!
 }
 
@@ -3453,9 +3457,11 @@ union TextBlockModelContentBlocksField =
 
 type TextBlockModelContentField {
   blocks: [TextBlockModelContentBlocksField!]!
-  links: [PageRecord!]!
+  links: [TextBlockModelContentLinksField!]!
   value: JsonField!
 }
+
+union TextBlockModelContentLinksField = ConcertRecord | PageRecord
 
 """
 Block of type Tekst blok (text_block)
@@ -3496,9 +3502,11 @@ union TwoColumnModelLeftContentBlocksField =
 
 type TwoColumnModelLeftContentField {
   blocks: [TwoColumnModelLeftContentBlocksField!]!
-  links: [PageRecord!]!
+  links: [TwoColumnModelLeftContentLinksField!]!
   value: JsonField!
 }
+
+union TwoColumnModelLeftContentLinksField = ConcertRecord | PageRecord
 
 union TwoColumnModelRightContentBlocksField =
     ConcertListRecord
@@ -3507,12 +3515,14 @@ union TwoColumnModelRightContentBlocksField =
 
 type TwoColumnModelRightContentField {
   blocks: [TwoColumnModelRightContentBlocksField!]!
-  links: [PageRecord!]!
+  links: [TwoColumnModelRightContentLinksField!]!
   value: JsonField!
 }
 
+union TwoColumnModelRightContentLinksField = ConcertRecord | PageRecord
+
 """
-Block of type Two kolommen tekst blok (two_column)
+Block of type Twee kolommen tekst blok (two_column)
 """
 type TwoColumnRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4262,7 +4272,7 @@ type VideoRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  media: VideoField!
+  media: VideoField
   thumbnail: MediaItemRecord
-  title: String!
+  title: String
 }

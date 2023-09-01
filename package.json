@@ -12,7 +12,7 @@
     "lint:styles": "prettier . --write",
     "analyze": "ANALYZE=true npm run build && webpack-bundle-analyzer .next/stats.json",
     "prepare": "husky install",
-    "download-schema": "rover graph fetch crea-orkest-p7nmyh@main > ./src/graphql/generated/schema.graphql && npm run lint",
+    "download-schema": "rover graph fetch crea-orkest-p7nmyh@main > ./src/graphql/generated/schema.graphql && npm run lint:styles",
     "codegen": "graphql-codegen --require dotenv/config --config ./src/graphql/codegen.ts",
     "codegen:watch": "graphql-codegen --require dotenv/config --config ./src/graphql/codegen.ts --watch",
     "test": "jest"
