@@ -5671,6 +5671,33 @@ export type GetSiteInfoQuery = {
   }
 }
 
+export type GetSubmenuQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetSubmenuQuery = {
+  __typename?: 'Query'
+  general?: {
+    __typename?: 'GeneralRecord'
+    menu: Array<
+      | { __typename?: 'MenuItemRecord' }
+      | {
+          __typename?: 'SubmenuItemRecord'
+          id: string
+          label?: string | null
+          menu: Array<{
+            __typename?: 'MenuItemRecord'
+            id: string
+            label?: string | null
+            link?: {
+              __typename?: 'PageRecord'
+              slug?: string | null
+              title?: string | null
+            } | null
+          }>
+        }
+    >
+  } | null
+}
+
 export const ColorsFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -12390,3 +12417,124 @@ export const GetSiteInfoDocument = {
     },
   ],
 } as unknown as DocumentNode<GetSiteInfoQuery, GetSiteInfoQueryVariables>
+export const GetSubmenuDocument = {
+  __meta__: { hash: 'faf9f0ae16493f91eb74c6f04238513d0f79cd34' },
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'getSubmenu' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'general' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'menu' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'SubmenuItemRecord' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'submenuItem' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'pageLink' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'menuItem' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MenuItemRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'link' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'pageLink' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'submenuItem' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'SubmenuItemRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'menu' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'menuItem' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetSubmenuQuery, GetSubmenuQueryVariables>
