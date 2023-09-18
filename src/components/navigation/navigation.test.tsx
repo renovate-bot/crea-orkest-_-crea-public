@@ -1,7 +1,7 @@
 import { Navigation } from './navigation'
 import React from 'react'
 import { getGeneralInfo } from 'graphql/getters/getGeneralInfo'
-import { mockMenuData } from './mockData'
+import { mockMenuData } from './mocks/mockMenuData'
 import { resolvedComponent } from '../../testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
