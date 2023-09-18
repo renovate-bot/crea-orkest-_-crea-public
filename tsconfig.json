@@ -43,6 +43,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/**/*.ts",
+    "**/**/**/*.ts",
     "**/**/*.tsx",
     "jest.config.js",
     "next.config.js"
