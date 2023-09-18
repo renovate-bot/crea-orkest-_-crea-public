@@ -8,6 +8,7 @@ on:
     branches-ignore:
       - main
       - main/**
+      - gh-readonly-queue/**
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
