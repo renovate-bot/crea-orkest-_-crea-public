@@ -6,7 +6,10 @@ env:
 
 # TODO: on proper version tag
 on:
+  push:
+    branches: [main]
   pull_request:
+    branches: [main]
     types:
       - closed
 
