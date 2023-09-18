@@ -22,7 +22,13 @@ export const Navigation: React.FC = async () => {
           }
 
           if ('menu' in item) {
-            return <SubMenu key={item.id} label={item.label} id={item.id} />
+            return (
+              <SubMenu
+                key={item.id}
+                label={item.label}
+                item={JSON.stringify(item.menu)}
+              />
+            )
           }
 
           return <MenuItem key={item.id} label={'Error'} />
