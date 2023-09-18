@@ -5,8 +5,11 @@ env:
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  merge_group:
+    types: [checks_requested]
+    branches: [main]
+
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest

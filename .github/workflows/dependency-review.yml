@@ -7,10 +7,12 @@
 name: 'Dependency Review'
 on:
   push:
-    branches: ['main']
+    branches: [main]
   pull_request:
-    branches: ['main']
+    branches: [main]
     types: [opened, reopened]
+  merge_group:
+    branches: [main]
 
 permissions:
   contents: read
