@@ -15,11 +15,9 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
-    types: [opened, reopened]
-  merge_group:
-    types: [checks_requested]
-    branches: [main]
+    branches: ['main']
+  schedule:
+    - cron: '45 0 * * 2'
 
 jobs:
   analyze:
