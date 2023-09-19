@@ -19,7 +19,7 @@ const documents = {
     types.ColorsFragmentDoc,
   '\n  fragment coordinates on LatLonField {\n    latitude\n    longitude\n  }\n':
     types.CoordinatesFragmentDoc,
-  '\n  fragment event on ConcertRecord {\n    ...eventMetadata\n    _seoMetaTags {\n      ...tag\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n':
+  '\n  fragment event on ConcertRecord {\n    ...eventMetadata\n    persons {\n      ...author\n    }\n  }\n  \n  \n':
     types.EventFragmentDoc,
   '\n  fragment eventMetadata on ConcertRecord {\n    ...identifiable\n    title\n    locations {\n      ...locations\n    }\n    poster {\n      ...file\n    }\n  }\n  \n  \n  \n':
     types.EventMetadataFragmentDoc,
@@ -47,10 +47,12 @@ const documents = {
     types.LocationsFragmentDoc,
   '\n  fragment menuItem on MenuItemRecord {\n    id\n    label\n    link {\n      ...pageLink\n    }\n  }\n  \n':
     types.MenuItemFragmentDoc,
-  '\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on TwoColumnRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n':
+  '\n  fragment page on PageRecord {\n    ...identifiable\n    title\n    slug\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on TwoColumnRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n':
     types.PageFragmentDoc,
-  '\n  fragment pageDetail on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...identifiable\n        content {\n          ...textBlock\n        }\n      }\n      ... on TwoColumnRecord {\n        ...identifiable\n        leftContent {\n          ...leftContent\n        }\n        rightContent {\n          ...rightContent\n        }\n      }\n    }\n  }\n  \n  \n  \n  \n  \n  \n  \n':
+  '\n  fragment pageDetail on PageRecord {\n    ...identifiable\n    title\n    slug\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...identifiable\n        content {\n          ...textBlock\n        }\n      }\n      ... on TwoColumnRecord {\n        ...identifiable\n        leftContent {\n          ...leftContent\n        }\n        rightContent {\n          ...rightContent\n        }\n      }\n    }\n  }\n  \n  \n  \n  \n  \n  \n  \n':
     types.PageDetailFragmentDoc,
+  '\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seo\n    }\n  }\n  \n  \n':
+    types.PageDetailSeoFragmentDoc,
   '\n  fragment pageLink on PageRecord {\n    slug\n  }\n':
     types.PageLinkFragmentDoc,
   '\n  fragment seo on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n':
@@ -89,6 +91,8 @@ const documents = {
     types.GetLocationsDocument,
   '\n  query getPage($slug: String!) {\n    page(filter: { slug: { eq: $slug } }) {\n      ...pageDetail\n    }\n  }\n  \n':
     types.GetPageDocument,
+  '\n  query getPageSeo($slug: String!) {\n    page(filter: { slug: { eq: $slug } }) {\n      ...pageDetailSeo\n    }\n  }\n  \n':
+    types.GetPageSeoDocument,
   '\n  query getPages($skip: IntType, $first: IntType, $order: [PageModelOrderBy]) {\n    allPages(first: $first, skip: $skip, orderBy: $order) {\n      ...identifiable\n      title\n      slug\n      content {\n        ... on ConcertListRecord {\n          id\n        }\n        ... on TextBlockRecord {\n          id\n        }\n        ... on TwoColumnRecord {\n          id\n        }\n      }\n    }\n  }\n  \n':
     types.GetPagesDocument,
   '\n  query getSiteInfo {\n    _site {\n      locales\n      globalSeo {\n        ...seoSettings\n      }\n    }\n  }\n  \n':
@@ -133,8 +137,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment event on ConcertRecord {\n    ...eventMetadata\n    _seoMetaTags {\n      ...tag\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n'
-): (typeof documents)['\n  fragment event on ConcertRecord {\n    ...eventMetadata\n    _seoMetaTags {\n      ...tag\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n']
+  source: '\n  fragment event on ConcertRecord {\n    ...eventMetadata\n    persons {\n      ...author\n    }\n  }\n  \n  \n'
+): (typeof documents)['\n  fragment event on ConcertRecord {\n    ...eventMetadata\n    persons {\n      ...author\n    }\n  }\n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -217,14 +221,20 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on TwoColumnRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n'
-): (typeof documents)['\n  fragment page on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on TwoColumnRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n']
+  source: '\n  fragment page on PageRecord {\n    ...identifiable\n    title\n    slug\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on TwoColumnRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n'
+): (typeof documents)['\n  fragment page on PageRecord {\n    ...identifiable\n    title\n    slug\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on TwoColumnRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment pageDetail on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...identifiable\n        content {\n          ...textBlock\n        }\n      }\n      ... on TwoColumnRecord {\n        ...identifiable\n        leftContent {\n          ...leftContent\n        }\n        rightContent {\n          ...rightContent\n        }\n      }\n    }\n  }\n  \n  \n  \n  \n  \n  \n  \n'
-): (typeof documents)['\n  fragment pageDetail on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...identifiable\n        content {\n          ...textBlock\n        }\n      }\n      ... on TwoColumnRecord {\n        ...identifiable\n        leftContent {\n          ...leftContent\n        }\n        rightContent {\n          ...rightContent\n        }\n      }\n    }\n  }\n  \n  \n  \n  \n  \n  \n  \n']
+  source: '\n  fragment pageDetail on PageRecord {\n    ...identifiable\n    title\n    slug\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...identifiable\n        content {\n          ...textBlock\n        }\n      }\n      ... on TwoColumnRecord {\n        ...identifiable\n        leftContent {\n          ...leftContent\n        }\n        rightContent {\n          ...rightContent\n        }\n      }\n    }\n  }\n  \n  \n  \n  \n  \n  \n  \n'
+): (typeof documents)['\n  fragment pageDetail on PageRecord {\n    ...identifiable\n    title\n    slug\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...identifiable\n        content {\n          ...textBlock\n        }\n      }\n      ... on TwoColumnRecord {\n        ...identifiable\n        leftContent {\n          ...leftContent\n        }\n        rightContent {\n          ...rightContent\n        }\n      }\n    }\n  }\n  \n  \n  \n  \n  \n  \n  \n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seo\n    }\n  }\n  \n  \n'
+): (typeof documents)['\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seo\n    }\n  }\n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -339,6 +349,12 @@ export function gql(
 export function gql(
   source: '\n  query getPage($slug: String!) {\n    page(filter: { slug: { eq: $slug } }) {\n      ...pageDetail\n    }\n  }\n  \n'
 ): (typeof documents)['\n  query getPage($slug: String!) {\n    page(filter: { slug: { eq: $slug } }) {\n      ...pageDetail\n    }\n  }\n  \n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query getPageSeo($slug: String!) {\n    page(filter: { slug: { eq: $slug } }) {\n      ...pageDetailSeo\n    }\n  }\n  \n'
+): (typeof documents)['\n  query getPageSeo($slug: String!) {\n    page(filter: { slug: { eq: $slug } }) {\n      ...pageDetailSeo\n    }\n  }\n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

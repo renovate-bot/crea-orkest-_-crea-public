@@ -6,14 +6,8 @@ import { tag } from './tag'
 export const page = gql`
   fragment page on PageRecord {
     ...identifiable
-    _seoMetaTags {
-      ...tag
-    }
     title
     slug
-    seo {
-      ...seo
-    }
     content {
       ... on ConcertListRecord {
         id

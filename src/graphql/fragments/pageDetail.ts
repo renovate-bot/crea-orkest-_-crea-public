@@ -8,14 +8,8 @@ import { leftContent, rightContent, textBlock } from './textBlock'
 export const pageDetail = gql`
   fragment pageDetail on PageRecord {
     ...identifiable
-    _seoMetaTags {
-      ...tag
-    }
     title
     slug
-    seo {
-      ...seo
-    }
     content {
       ... on ConcertListRecord {
         ...events

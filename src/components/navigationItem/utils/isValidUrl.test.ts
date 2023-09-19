@@ -19,7 +19,7 @@ describe('isValidUrl', () => {
     expect(isValidUrl('mailto:test@test.test')).toEqual(true)
   })
 
-  it('handles other cases', () => {
+  it('should handle other cases', () => {
     expect(isValidUrl('//cdn.example.com')).toEqual(false)
     expect(isValidUrl('git+ssh://example.com')).toEqual(true)
     expect(isValidUrl('ftp://example.com')).toEqual(true)
