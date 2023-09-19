@@ -2,6 +2,7 @@ import { Author } from 'components/author'
 import { ConcertModelOrderBy } from 'graphql/generated/graphql'
 import { Event } from 'components/event'
 import { Events } from 'components/events'
+import { Navigation } from 'components/navigation'
 import React from 'react'
 import { getAuthor } from 'graphql/getters/getAuthor'
 import { getAuthors } from 'graphql/getters/getAuthors'
@@ -31,6 +32,8 @@ const Page = async () => {
   const siteInfo = await getSiteInfo()
   return (
     <main>
+      <h1>Navigation</h1>
+      <Navigation />
       <h1>Page</h1>
       <p>hello world</p>
       <p>author</p>

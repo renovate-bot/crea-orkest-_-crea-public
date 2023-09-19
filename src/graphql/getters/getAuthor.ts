@@ -1,3 +1,4 @@
+import type { RequestInit } from 'next/dist/server/web/spec-extension/request'
 import { authorFormatter } from '../formatters/authorFormatter'
 import { client } from '../gqlClient'
 import {
@@ -6,12 +7,15 @@ import {
   type GetAuthorQueryVariables,
 } from '../generated/graphql'
 
-export const getAuthor = async ({ id }: GetAuthorQueryVariables) => {
+export const getAuthor = async (
+  { id }: GetAuthorQueryVariables,
+  fetchOptions?: RequestInit
+) => {
   try {
     const { data, error } = await client.query<
       GetAuthorQuery,
       GetAuthorQueryVariables
-    >(GetAuthorDocument, { id })
+    >(GetAuthorDocument, { id }, { fetchOptions })
 
     return {
       data: data ? authorFormatter(data) : null,
