@@ -13,7 +13,7 @@ export const getGeneralInfo = async () => {
     >(GetGeneralInfoDocument, {})
 
     return {
-      data: data,
+      data,
       error,
     }
   } catch (error) {
