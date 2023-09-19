@@ -14,7 +14,7 @@ on:
       - closed
 
 jobs:
-  Deploy-Preview:
+  Deploy:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
@@ -26,4 +26,4 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
