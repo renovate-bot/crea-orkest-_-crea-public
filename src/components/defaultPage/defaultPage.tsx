@@ -1,3 +1,4 @@
+import { Navigation } from 'components/navigation'
 import React from 'react'
 import { getPage } from 'graphql/getters/getPage'
 import { notFound } from 'next/navigation'
@@ -12,12 +13,15 @@ export const DefaultPage = async ({ slug }: Props) => {
   if (!data) return notFound()
 
   return (
-    <article className={styles.article}>
-      <h1>{data.title}</h1>
+    <>
+      <Navigation />
+      <article className={styles.article}>
+        <h1>{data.title}</h1>
 
-      <code>
-        <pre>{JSON.stringify(data, undefined, 2)}</pre>
-      </code>
-    </article>
+        <code>
+          <pre>{JSON.stringify(data, undefined, 2)}</pre>
+        </code>
+      </article>
+    </>
   )
 }

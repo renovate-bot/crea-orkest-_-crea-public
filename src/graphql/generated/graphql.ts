@@ -3441,11 +3441,7 @@ export type GeneralInfoFragment = {
         __typename?: 'MenuItemRecord'
         id: string
         label?: string | null
-        link?: {
-          __typename?: 'PageRecord'
-          slug?: string | null
-          title?: string | null
-        } | null
+        link?: { __typename?: 'PageRecord'; slug?: string | null } | null
       }
     | {
         __typename?: 'SubmenuItemRecord'
@@ -3455,11 +3451,7 @@ export type GeneralInfoFragment = {
           __typename?: 'MenuItemRecord'
           id: string
           label?: string | null
-          link?: {
-            __typename?: 'PageRecord'
-            slug?: string | null
-            title?: string | null
-          } | null
+          link?: { __typename?: 'PageRecord'; slug?: string | null } | null
         }>
       }
   >
@@ -3705,7 +3697,7 @@ export type LinkFragment = {
   externalUrl?: string | null
   page?:
     | { __typename?: 'ConcertRecord' }
-    | { __typename?: 'PageRecord'; slug?: string | null; title?: string | null }
+    | { __typename?: 'PageRecord'; slug?: string | null }
     | null
 }
 
@@ -3732,11 +3724,7 @@ export type MenuItemFragment = {
   __typename?: 'MenuItemRecord'
   id: string
   label?: string | null
-  link?: {
-    __typename?: 'PageRecord'
-    slug?: string | null
-    title?: string | null
-  } | null
+  link?: { __typename?: 'PageRecord'; slug?: string | null } | null
 }
 
 export type PageFragment = {
@@ -4315,7 +4303,6 @@ export type PageDetailFragment = {
 export type PageLinkFragment = {
   __typename?: 'PageRecord'
   slug?: string | null
-  title?: string | null
 }
 
 export type SeoFragment = {
@@ -4381,11 +4368,7 @@ export type SubmenuItemFragment = {
     __typename?: 'MenuItemRecord'
     id: string
     label?: string | null
-    link?: {
-      __typename?: 'PageRecord'
-      slug?: string | null
-      title?: string | null
-    } | null
+    link?: { __typename?: 'PageRecord'; slug?: string | null } | null
   }>
 }
 
@@ -4985,11 +4968,7 @@ export type GetGeneralInfoQuery = {
           __typename?: 'MenuItemRecord'
           id: string
           label?: string | null
-          link?: {
-            __typename?: 'PageRecord'
-            slug?: string | null
-            title?: string | null
-          } | null
+          link?: { __typename?: 'PageRecord'; slug?: string | null } | null
         }
       | {
           __typename?: 'SubmenuItemRecord'
@@ -4999,11 +4978,7 @@ export type GetGeneralInfoQuery = {
             __typename?: 'MenuItemRecord'
             id: string
             label?: string | null
-            link?: {
-              __typename?: 'PageRecord'
-              slug?: string | null
-              title?: string | null
-            } | null
+            link?: { __typename?: 'PageRecord'; slug?: string | null } | null
           }>
         }
     >
@@ -5687,11 +5662,7 @@ export type GetSubmenuQuery = {
             __typename?: 'MenuItemRecord'
             id: string
             label?: string | null
-            link?: {
-              __typename?: 'PageRecord'
-              slug?: string | null
-              title?: string | null
-            } | null
+            link?: { __typename?: 'PageRecord'; slug?: string | null } | null
           }>
         }
     >
@@ -5754,10 +5725,7 @@ export const PageLinkFragmentDoc = {
       },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'slug' } }],
       },
     },
   ],
@@ -5802,10 +5770,7 @@ export const MenuItemFragmentDoc = {
       },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'slug' } }],
       },
     },
   ],
@@ -5850,10 +5815,7 @@ export const SubmenuItemFragmentDoc = {
       },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'slug' } }],
       },
     },
     {
@@ -6045,10 +6007,7 @@ export const GeneralInfoFragmentDoc = {
       },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'slug' } }],
       },
     },
     {
@@ -6226,10 +6185,7 @@ export const LinkFragmentDoc = {
       },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'slug' } }],
       },
     },
   ],
@@ -10718,7 +10674,7 @@ export const GetConcertsDocument = {
   ],
 } as unknown as DocumentNode<GetConcertsQuery, GetConcertsQueryVariables>
 export const GetGeneralInfoDocument = {
-  __meta__: { hash: 'ced736a4b8476dc203184443d3dc3da6ceb28c0e' },
+  __meta__: { hash: 'fa9982ba8c7a3149ceebc85972dc835d2c8e7926' },
   kind: 'Document',
   definitions: [
     {
@@ -10753,10 +10709,7 @@ export const GetGeneralInfoDocument = {
       },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'slug' } }],
       },
     },
     {
@@ -12418,7 +12371,7 @@ export const GetSiteInfoDocument = {
   ],
 } as unknown as DocumentNode<GetSiteInfoQuery, GetSiteInfoQueryVariables>
 export const GetSubmenuDocument = {
-  __meta__: { hash: 'faf9f0ae16493f91eb74c6f04238513d0f79cd34' },
+  __meta__: { hash: 'ab3f1f9e8e2474cc7dce872b6224f83bef45859d' },
   kind: 'Document',
   definitions: [
     {
@@ -12474,10 +12427,7 @@ export const GetSubmenuDocument = {
       },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'slug' } }],
       },
     },
     {

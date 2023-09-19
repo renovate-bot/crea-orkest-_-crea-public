@@ -10,7 +10,6 @@ export const mockMenuData: GetGeneralInfoQuery = {
         label: 'contact',
         link: {
           slug: 'contact',
-          title: 'contact',
         },
       },
       {
@@ -18,7 +17,6 @@ export const mockMenuData: GetGeneralInfoQuery = {
         label: 'homepage',
         link: {
           slug: 'homepage',
-          title: 'homepage',
         },
       },
       {
@@ -30,7 +28,6 @@ export const mockMenuData: GetGeneralInfoQuery = {
             label: 'level 2 - contact',
             link: {
               slug: 'contact',
-              title: 'contact',
             },
           },
           {
@@ -38,7 +35,6 @@ export const mockMenuData: GetGeneralInfoQuery = {
             label: 'level 2 - specific page',
             link: {
               slug: 'specific/page',
-              title: 'specific page',
             },
           },
         ],

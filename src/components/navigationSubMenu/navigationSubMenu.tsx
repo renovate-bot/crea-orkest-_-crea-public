@@ -1,6 +1,6 @@
 'use client'
 
-import { MenuItem } from './menuItem'
+import { NavigationItem } from '../navigationItem'
 import React from 'react'
 import type { SubmenuItemFragment } from 'graphql/generated/graphql'
 
@@ -9,7 +9,7 @@ export interface SubMenuProps {
   item: string
 }
 
-export const SubMenu: React.FC<SubMenuProps> = ({ label, item }) => {
+export const NavigationSubMenu: React.FC<SubMenuProps> = ({ label, item }) => {
   const submenu: SubmenuItemFragment['menu'] = JSON.parse(item)
   const [visible, setVisible] = React.useState(false)
 
@@ -31,7 +31,7 @@ export const SubMenu: React.FC<SubMenuProps> = ({ label, item }) => {
       {visible && (
         <ul>
           {submenu?.map((item) => (
-            <MenuItem
+            <NavigationItem
               key={item.id}
               slug={item?.link?.slug}
               label={item.label}

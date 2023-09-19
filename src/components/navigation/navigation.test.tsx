@@ -6,8 +6,10 @@ import { resolvedComponent } from '../../testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
 jest.mock('../../graphql/getters/getGeneralInfo', () => {
+  const originalModule = jest.requireActual('../../graphql/getters/getLocation')
   return {
     __esModule: true,
+    ...originalModule,
     getGeneralInfo: jest.fn(),
   }
 })

@@ -51,7 +51,7 @@ const documents = {
     types.PageFragmentDoc,
   '\n  fragment pageDetail on PageRecord {\n    ...identifiable\n    _seoMetaTags {\n      ...tag\n    }\n    title\n    slug\n    seo {\n      ...seo\n    }\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...identifiable\n        content {\n          ...textBlock\n        }\n      }\n      ... on TwoColumnRecord {\n        ...identifiable\n        leftContent {\n          ...leftContent\n        }\n        rightContent {\n          ...rightContent\n        }\n      }\n    }\n  }\n  \n  \n  \n  \n  \n  \n  \n':
     types.PageDetailFragmentDoc,
-  '\n  fragment pageLink on PageRecord {\n    slug\n    title\n  }\n':
+  '\n  fragment pageLink on PageRecord {\n    slug\n  }\n':
     types.PageLinkFragmentDoc,
   '\n  fragment seo on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n':
     types.SeoFragmentDoc,
@@ -229,8 +229,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment pageLink on PageRecord {\n    slug\n    title\n  }\n'
-): (typeof documents)['\n  fragment pageLink on PageRecord {\n    slug\n    title\n  }\n']
+  source: '\n  fragment pageLink on PageRecord {\n    slug\n  }\n'
+): (typeof documents)['\n  fragment pageLink on PageRecord {\n    slug\n  }\n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
