@@ -6,15 +6,19 @@ import { resolvedComponent } from '../../testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
 jest.mock('../location/location', () => {
+  const originalModule = jest.requireActual('../location/location')
   return {
     __esModule: true,
+    ...originalModule,
     Location: jest.fn(() => <p>Location Component</p>),
   }
 })
 
 jest.mock('../../graphql/getters/getEvent', () => {
+  const originalModule = jest.requireActual('../../graphql/getters/getEvent')
   return {
     __esModule: true,
+    ...originalModule,
     getEvent: jest.fn(),
   }
 })

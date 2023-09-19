@@ -5,9 +5,20 @@ import { getPage } from 'graphql/getters/getPage'
 import { resolvedComponent } from '../../testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
-jest.mock('../../graphql/getters/getPage', () => {
+jest.mock('../navigation', () => {
+  const originalModule = jest.requireActual('../navigation')
   return {
     __esModule: true,
+    ...originalModule,
+    Navigation: jest.fn(() => <div>[Navigation]</div>),
+  }
+})
+
+jest.mock('../../graphql/getters/getPage', () => {
+  const originalModule = jest.requireActual('../../graphql/getters/getPage')
+  return {
+    __esModule: true,
+    ...originalModule,
     getPage: jest.fn(),
   }
 })
