@@ -2,12 +2,17 @@ import type { Event } from '../types/event'
 import type { GetConcertQuery } from '../generated/graphql'
 import { fileFormatter } from './fileFormatter'
 
-export const eventFormatter = (data: GetConcertQuery): Event => ({
-  id: String(data.concert?.id),
-  title: String(data.concert?.title),
-  image: data.concert?.poster ? fileFormatter(data.concert.poster) : undefined,
-  locations: data.concert?.locations.map((location) => ({
-    startTime: location.dateTime ?? undefined,
-    id: location.location?.id ?? '',
-  })),
-})
+export const eventFormatter = ({
+  concert,
+}: GetConcertQuery): Event | undefined => {
+  if (!concert) return
+  return {
+    id: concert.id,
+    title: concert?.title || '',
+    image: concert?.poster ? fileFormatter(concert.poster) : undefined,
+    locations: concert?.locations.map((location) => ({
+      startTime: location.dateTime ?? undefined,
+      id: location.location?.id ?? '',
+    })),
+  }
+}
