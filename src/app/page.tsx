@@ -2,6 +2,7 @@ import { Author } from 'components/author'
 import { ConcertModelOrderBy } from 'graphql/generated/graphql'
 import { Event } from 'components/event'
 import { Events } from 'components/events'
+import type { Metadata } from 'next'
 import { Navigation } from 'components/navigation'
 import React from 'react'
 import { getAuthor } from 'graphql/getters/getAuthor'
@@ -12,8 +13,15 @@ import { getGeneralInfo } from 'graphql/getters/getGeneralInfo'
 import { getLocation } from 'graphql/getters/getLocation'
 import { getLocations } from 'graphql/getters/getLocations'
 import { getPage } from 'graphql/getters/getPage'
+import { getPageSeo } from 'graphql/getters/getPageSeo'
 import { getPages } from 'graphql/getters/getPages'
 import { getSiteInfo } from 'graphql/getters/getSiteInfo'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { data } = await getPageSeo({ slug: 'homepage' })
+
+  return data
+}
 
 const Page = async () => {
   const author = await getAuthor({ id: '186234305' })

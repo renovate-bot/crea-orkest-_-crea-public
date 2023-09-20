@@ -34,11 +34,6 @@ describe('Concert component', () => {
         _createdAt: 'some date time string',
         _updatedAt: 'some date time string',
         id: 'unique-id',
-        _seoMetaTags: [
-          {
-            tag: 'seo-tag',
-          },
-        ],
         content: [],
       },
       error: undefined,
