@@ -2,7 +2,7 @@ import { Events } from './events'
 import type { Props } from './events'
 import React from 'react'
 import { getEvents } from 'graphql/getters/getEvents'
-import { resolvedComponent } from '../../testHelpers/resolvedComponent'
+import { resolvedComponent } from '../../utils/testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
 jest.mock('../../graphql/getters/getEvents', () => {
