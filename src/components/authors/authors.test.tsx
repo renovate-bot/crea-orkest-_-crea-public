@@ -3,7 +3,7 @@ import { PersonModelOrderBy } from 'graphql/generated/graphql'
 import type { Props } from './authors'
 import React from 'react'
 import { getAuthors } from 'graphql/getters/getAuthors'
-import { resolvedComponent } from '../../testHelpers/resolvedComponent'
+import { resolvedComponent } from '../../utils/testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
 jest.mock('../../graphql/getters/getAuthors', () => {

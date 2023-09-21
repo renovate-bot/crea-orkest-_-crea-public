@@ -1,5 +1,8 @@
+import { ContentField } from 'components/contentField'
 import { Navigation } from 'components/navigation'
 import React from 'react'
+import { TwoColumContentField } from 'components/twoColumContentField'
+import classNames from 'classnames'
 import { getPage } from 'graphql/getters/getPage'
 import { notFound } from 'next/navigation'
 import styles from './styles.module.scss'
@@ -15,8 +18,23 @@ export const DefaultPage = async ({ slug }: Props) => {
   return (
     <>
       <Navigation />
-      <article className={styles.article}>
+      <article className={classNames(styles.article)}>
         <h1>{data.title}</h1>
+
+        {data.content.map((item) => {
+          if (item.__typename === 'ConcertListRecord') {
+            return <p key={item.id}>Todo: ConcertListRecord</p>
+          }
+          if ('leftContent' in item || 'rightContent' in item) {
+            return <TwoColumContentField key={item.id} item={item} />
+          }
+
+          if ('content' in item) {
+            return <ContentField key={item.id} item={item} />
+          }
+
+          return 'todo'
+        })}
 
         <code>
           <pre>{JSON.stringify(data, undefined, 2)}</pre>
