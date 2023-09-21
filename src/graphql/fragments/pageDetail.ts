@@ -1,9 +1,7 @@
 import { events } from './events'
 import { gql } from '@urql/core'
 import { identifiable } from './identifiable'
-import { seo } from './seo'
-import { tag } from './tag'
-import { leftContent, rightContent, textBlock } from './textBlock'
+import { textBlock, twoColum } from './textBlock'
 
 export const pageDetail = gql`
   fragment pageDetail on PageRecord {
@@ -15,27 +13,15 @@ export const pageDetail = gql`
         ...events
       }
       ... on TextBlockRecord {
-        ...identifiable
-        content {
-          ...textBlock
-        }
+        ...textBlock
       }
       ... on TwoColumnRecord {
-        ...identifiable
-        leftContent {
-          ...leftContent
-        }
-        rightContent {
-          ...rightContent
-        }
+        ...twoColum
       }
     }
   }
-  ${rightContent}
-  ${leftContent}
-  ${textBlock}
-  ${events}
   ${identifiable}
-  ${seo}
-  ${tag}
+  ${events}
+  ${textBlock}
+  ${twoColum}
 `

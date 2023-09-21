@@ -1,19 +1,18 @@
 import { events } from './events'
 import { gql } from '@urql/core'
+import { identifiable } from './identifiable'
 import { image } from './image'
 import { videoRecord } from './video'
 
-export const textBlock = gql`
-  fragment textBlock on TextBlockModelContentField {
+export const textBlockContent = gql`
+  fragment textBlockContent on TextBlockModelContentField {
     value
     links {
       ... on ConcertRecord {
         slug
-        title
       }
       ... on PageRecord {
         slug
-        title
       }
     }
     blocks {
@@ -39,11 +38,9 @@ export const leftContent = gql`
     links {
       ... on ConcertRecord {
         slug
-        title
       }
       ... on PageRecord {
         slug
-        title
       }
     }
     blocks {
@@ -69,11 +66,9 @@ export const rightContent = gql`
     links {
       ... on ConcertRecord {
         slug
-        title
       }
       ... on PageRecord {
         slug
-        title
       }
     }
     blocks {
@@ -91,4 +86,30 @@ export const rightContent = gql`
   ${videoRecord}
   ${image}
   ${events}
+`
+
+export const textBlock = gql`
+  fragment textBlock on TextBlockRecord {
+    ...identifiable
+    content {
+      ...textBlockContent
+    }
+  }
+  ${identifiable}
+  ${textBlockContent}
+`
+
+export const twoColum = gql`
+  fragment twoColum on TwoColumnRecord {
+    ...identifiable
+    leftContent {
+      ...leftContent
+    }
+    rightContent {
+      ...rightContent
+    }
+  }
+  ${identifiable}
+  ${leftContent}
+  ${rightContent}
 `
