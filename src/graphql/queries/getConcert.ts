@@ -1,27 +1,11 @@
-import { author } from 'graphql/fragments/author'
-import { file } from 'graphql/fragments/file'
+import { concertDetail } from 'graphql/fragments/concertDetail'
 import { gql } from '@urql/core'
-import { identifiable } from 'graphql/fragments/identifiable'
-import { locations } from 'graphql/fragments/locations'
 
 export const GET_CONCERT = gql`
   query getConcert($id: ItemId!) {
     concert(filter: { id: { eq: $id } }) {
-      id
-      title
-      locations {
-        ...locations
-      }
-      persons {
-        ...author
-      }
-      poster {
-        ...file
-      }
+      ...concertDetail
     }
   }
-  ${identifiable}
-  ${locations}
-  ${file}
-  ${author}
+  ${concertDetail}
 `

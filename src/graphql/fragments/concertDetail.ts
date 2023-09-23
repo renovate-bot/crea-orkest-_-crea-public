@@ -4,10 +4,11 @@ import { gql } from '@urql/core'
 import { identifiable } from './identifiable'
 import { locations } from './locations'
 
-export const eventData = gql`
-  fragment eventData on ConcertRecord {
+export const concertDetail = gql`
+  fragment concertDetail on ConcertRecord {
     ...identifiable
     title
+    slug
     locations {
       ...locations
     }
