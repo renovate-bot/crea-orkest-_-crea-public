@@ -2,16 +2,12 @@ name: Deployment
 
 # TODO: on proper version tag
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-    types:
-      - closed
+  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   Deploy:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
