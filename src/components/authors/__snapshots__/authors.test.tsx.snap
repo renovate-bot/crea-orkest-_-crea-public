@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Authors component shows all the data 1`] = `
+<div>
+  <ul>
+    <li>
+      name
+    </li>
+  </ul>
+</div>
+`;

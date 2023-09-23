@@ -25,8 +25,9 @@ describe('Concert component', () => {
 
     const Resolved = await resolvedComponent(Navigation, {})
 
-    render(<Resolved />)
+    const { container } = render(<Resolved />)
 
+    expect(container).toMatchSnapshot()
     expect(screen.getByText('contact')).toBeTruthy()
   })
 })

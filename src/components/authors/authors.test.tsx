@@ -36,8 +36,9 @@ describe('Authors component', () => {
       order: PersonModelOrderBy.CreatedAtAsc,
     })
 
-    render(<Resolved />)
+    const { container } = render(<Resolved />)
 
+    expect(container).toMatchSnapshot()
     expect(screen.getByText('name')).toBeTruthy()
   })
 })

@@ -29,6 +29,7 @@ describe('Concert component', () => {
   it('shows all the data', async () => {
     getPageMock.mockResolvedValueOnce({
       data: {
+        __typename: 'PageRecord',
         title: 'title',
         slug: 'contact',
         _createdAt: 'some date time string',
@@ -43,8 +44,9 @@ describe('Concert component', () => {
       slug: 'contact',
     })
 
-    render(<Resolved />)
+    const { container } = render(<Resolved />)
 
+    expect(container).toMatchSnapshot()
     expect(screen.getByText('title')).toBeTruthy()
   })
 })

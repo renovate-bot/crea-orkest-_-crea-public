@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Concert component shows all the data 1`] = `
+<div>
+  <div>
+    [Navigation]
+  </div>
+  <article
+    class="article"
+  >
+    <h1>
+      title
+    </h1>
+    <code>
+      <pre>
+        {
+  "__typename": "PageRecord",
+  "title": "title",
+  "slug": "contact",
+  "_createdAt": "some date time string",
+  "_updatedAt": "some date time string",
+  "id": "unique-id",
+  "content": []
+}
+      </pre>
+    </code>
+  </article>
+</div>
+`;
