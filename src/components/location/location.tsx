@@ -11,8 +11,10 @@ export const Location: React.FC<Props> = async ({ id }) => {
 
   return (
     <>
-      <span>{data.title}</span>
-      <span>{JSON.stringify(data)}</span>
+      <h2>{data.title}</h2>
+      <code>
+        <pre>{JSON.stringify(data, undefined, 2)}</pre>
+      </code>
     </>
   )
 }
