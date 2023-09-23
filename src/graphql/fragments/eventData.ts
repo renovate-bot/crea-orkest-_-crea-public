@@ -1,10 +1,11 @@
+import { author } from './author'
 import { file } from './file'
 import { gql } from '@urql/core'
 import { identifiable } from './identifiable'
 import { locations } from './locations'
 
-export const eventMetadata = gql`
-  fragment eventMetadata on ConcertRecord {
+export const eventData = gql`
+  fragment eventData on ConcertRecord {
     ...identifiable
     title
     locations {
@@ -13,7 +14,11 @@ export const eventMetadata = gql`
     poster {
       ...file
     }
+    persons {
+      ...author
+    }
   }
+  ${author}
   ${identifiable}
   ${file}
   ${locations}

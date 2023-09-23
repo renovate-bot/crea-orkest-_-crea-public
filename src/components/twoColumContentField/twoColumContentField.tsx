@@ -1,5 +1,4 @@
-import Image from 'next/image'
-import { StructuredText } from 'react-datocms/structured-text'
+import { ContentField } from 'components/contentField'
 import type { TwoColumFragment } from 'graphql/generated/graphql'
 import classNames from 'classnames'
 import { isStructuredText } from 'datocms-structured-text-utils'
@@ -14,35 +13,13 @@ export const TwoColumContentField = ({ item }: Props) => {
     <div className={classNames(styles.wrapper)} key={item.id}>
       {isStructuredText(item.leftContent) && (
         <div>
-          <StructuredText
-            renderBlock={({ record }) => {
-              switch (record.__typename) {
-                case 'ImageBlockRecord':
-                  console.log(record)
-                  return <Image src={''} alt={''} />
-                default:
-                  return null
-              }
-            }}
-            data={item.leftContent}
-          />
+          <ContentField data={item.leftContent} />
         </div>
       )}
 
       {isStructuredText(item.rightContent) && (
         <div>
-          <StructuredText
-            renderBlock={({ record }) => {
-              switch (record.__typename) {
-                case 'ImageBlockRecord':
-                  console.log(record)
-                  return <Image src={''} alt={''} />
-                default:
-                  return null
-              }
-            }}
-            data={item.rightContent}
-          />
+          <ContentField data={item.rightContent} />
         </div>
       )}
     </div>

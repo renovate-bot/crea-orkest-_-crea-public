@@ -28,6 +28,7 @@ describe('eventFormatter', () => {
         },
       ],
       title: '',
+      persons: [{ id: 'person-id', name: '', role: '' }],
     })
   })
 })
