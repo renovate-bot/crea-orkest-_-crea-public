@@ -1,6 +1,11 @@
 .wrapper {
   margin: 4rem 0 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1rem;
+
+  // TODO: use variables or tailwind?
+  @media screen and (min-width: 48rem) {
+    grid-template-columns: 1fr 1fr;
+  }
 }

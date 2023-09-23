@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import { slugFormatter } from './utils/slugFormatter'
 
@@ -15,7 +16,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
 
   return (
     <li>
-      <a href={slugFormatter(slug)}>{label}</a>
+      <Link href={slugFormatter(slug)}>{label}</Link>
     </li>
   )
 }

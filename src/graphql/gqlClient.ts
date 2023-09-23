@@ -11,5 +11,5 @@ export const client = new Client({
     }
   },
   suspense: true,
-  maskTypename: true,
+  maskTypename: false,
 })

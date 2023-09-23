@@ -1,18 +1,20 @@
+import { concertLink } from './concertLink'
 import { events } from './events'
 import { gql } from '@urql/core'
 import { identifiable } from './identifiable'
 import { image } from './image'
-import { videoRecord } from './video'
+import { pageLink } from './pageLink'
+import { video } from './video'
 
 export const textBlockContent = gql`
   fragment textBlockContent on TextBlockModelContentField {
     value
     links {
       ... on ConcertRecord {
-        slug
+        ...concertLink
       }
       ... on PageRecord {
-        slug
+        ...pageLink
       }
     }
     blocks {
@@ -23,11 +25,13 @@ export const textBlockContent = gql`
         ...image
       }
       ... on VideoRecord {
-        ...videoRecord
+        ...video
       }
     }
   }
-  ${videoRecord}
+  ${concertLink}
+  ${pageLink}
+  ${video}
   ${image}
   ${events}
 `
@@ -37,10 +41,10 @@ export const leftContent = gql`
     value
     links {
       ... on ConcertRecord {
-        slug
+        ...concertLink
       }
       ... on PageRecord {
-        slug
+        ...pageLink
       }
     }
     blocks {
@@ -51,11 +55,13 @@ export const leftContent = gql`
         ...image
       }
       ... on VideoRecord {
-        ...videoRecord
+        ...video
       }
     }
   }
-  ${videoRecord}
+  ${concertLink}
+  ${pageLink}
+  ${video}
   ${image}
   ${events}
 `
@@ -65,10 +71,10 @@ export const rightContent = gql`
     value
     links {
       ... on ConcertRecord {
-        slug
+        ...concertLink
       }
       ... on PageRecord {
-        slug
+        ...pageLink
       }
     }
     blocks {
@@ -79,13 +85,15 @@ export const rightContent = gql`
         ...image
       }
       ... on VideoRecord {
-        ...videoRecord
+        ...video
       }
     }
   }
-  ${videoRecord}
-  ${image}
+  ${concertLink}
+  ${pageLink}
   ${events}
+  ${image}
+  ${video}
 `
 
 export const textBlock = gql`

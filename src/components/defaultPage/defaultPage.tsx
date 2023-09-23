@@ -1,6 +1,5 @@
 import { ContentField } from 'components/contentField'
 import { Event } from 'components/event'
-import { Navigation } from 'components/navigation'
 import React from 'react'
 import { TwoColumContentField } from 'components/twoColumContentField'
 import classNames from 'classnames'
@@ -17,30 +16,27 @@ export const DefaultPage = async ({ slug }: Props) => {
   if (!data) return notFound()
 
   return (
-    <>
-      <Navigation />
-      <article className={classNames(styles.article)}>
-        <h1>{data.title}</h1>
+    <article className={classNames(styles.article)}>
+      <h1>{data.title}</h1>
 
-        {data.content.map((item) => {
-          if (item.__typename === 'ConcertListRecord') {
-            return <Event key={item.id} id={item.id} />
-          }
-          if ('leftContent' in item || 'rightContent' in item) {
-            return <TwoColumContentField key={item.id} item={item} />
-          }
+      {data.content.map((item) => {
+        if (item.__typename === 'ConcertListRecord') {
+          return <Event key={item.id} id={item.id} />
+        }
+        if ('leftContent' in item || 'rightContent' in item) {
+          return <TwoColumContentField key={item.id} item={item} />
+        }
 
-          if ('content' in item) {
-            return <ContentField key={item.id} data={item.content} />
-          }
+        if ('content' in item) {
+          return <ContentField key={item.id} data={item.content} />
+        }
 
-          return 'todo'
-        })}
+        return 'todo'
+      })}
 
-        <code>
-          <pre>{JSON.stringify(data, undefined, 2)}</pre>
-        </code>
-      </article>
-    </>
+      <code>
+        <pre>{JSON.stringify(data, undefined, 2)}</pre>
+      </code>
+    </article>
   )
 }

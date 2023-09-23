@@ -1,5 +1,4 @@
-'use client' // Error components must be Client Components
-
+'use client'
 import { ErrorMessage } from 'components/errorMessage'
 
 export default function Error({

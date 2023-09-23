@@ -17,6 +17,8 @@ const documents = {
     types.AuthorFragmentDoc,
   '\n  fragment colors on ColorField {\n    alpha\n    blue\n    cssRgb\n    green\n    hex\n    red\n  }\n':
     types.ColorsFragmentDoc,
+  '\n  fragment concertLink on ConcertRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n':
+    types.ConcertLinkFragmentDoc,
   '\n  fragment coordinates on LatLonField {\n    latitude\n    longitude\n  }\n':
     types.CoordinatesFragmentDoc,
   '\n  fragment eventData on ConcertRecord {\n    ...identifiable\n    title\n    locations {\n      ...locations\n    }\n    poster {\n      ...file\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n':
@@ -51,7 +53,7 @@ const documents = {
     types.PageDetailFragmentDoc,
   '\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seo\n    }\n  }\n  \n  \n':
     types.PageDetailSeoFragmentDoc,
-  '\n  fragment pageLink on PageRecord {\n    slug\n  }\n':
+  '\n  fragment pageLink on PageRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n':
     types.PageLinkFragmentDoc,
   '\n  fragment seo on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n':
     types.SeoFragmentDoc,
@@ -61,11 +63,11 @@ const documents = {
     types.SubmenuItemFragmentDoc,
   '\n  fragment tag on Tag {\n    attributes\n    content\n    tag\n  }\n':
     types.TagFragmentDoc,
-  '\n  fragment textBlockContent on TextBlockModelContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n':
+  '\n  fragment textBlockContent on TextBlockModelContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        id\n        slug\n      }\n      ... on PageRecord {\n        id\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n':
     types.TextBlockContentFragmentDoc,
-  '\n  fragment leftContent on TwoColumnModelLeftContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n':
+  '\n  fragment leftContent on TwoColumnModelLeftContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        ...concertLink\n      }\n      ... on PageRecord {\n        ...pageLink\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n  \n  \n':
     types.LeftContentFragmentDoc,
-  '\n  fragment rightContent on TwoColumnModelRightContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n':
+  '\n  fragment rightContent on TwoColumnModelRightContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        ...concertLink\n      }\n      ... on PageRecord {\n        ...pageLink\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n  \n  \n':
     types.RightContentFragmentDoc,
   '\n  fragment textBlock on TextBlockRecord {\n    ...identifiable\n    content {\n      ...textBlockContent\n    }\n  }\n  \n  \n':
     types.TextBlockFragmentDoc,
@@ -73,8 +75,8 @@ const documents = {
     types.TwoColumFragmentDoc,
   '\n  fragment videoUpload on UploadVideoField {\n    mp4Url\n    muxAssetId\n    muxPlaybackId\n    streamingUrl\n    thumbnailUrl\n  }\n':
     types.VideoUploadFragmentDoc,
-  '\n  fragment videoRecord on VideoRecord {\n    id\n    title\n    media {\n      ...videoField\n    }\n    thumbnail {\n      ...mediaItem\n    }\n  }\n  \n':
-    types.VideoRecordFragmentDoc,
+  '\n  fragment video on VideoRecord {\n    ...identifiable\n    title\n    media {\n      ...videoField\n    }\n    thumbnail {\n      ...mediaItem\n    }\n  }\n  \n  \n':
+    types.VideoFragmentDoc,
   '\n  fragment videoField on VideoField {\n    height\n    provider\n    providerUid\n    thumbnailUrl\n    title\n    url\n    width\n  }\n':
     types.VideoFieldFragmentDoc,
   '\n  query getAuthor($id: ItemId!) {\n    person(filter: { id: { eq: $id } }) {\n      ...author\n    }\n  }\n  \n':
@@ -83,6 +85,8 @@ const documents = {
     types.GetAuthorsDocument,
   '\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n':
     types.GetConcertDocument,
+  '\n  query getConcertPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n':
+    types.GetConcertPageDocument,
   '\n  query getConcerts(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...eventData\n    }\n  }\n  \n':
     types.GetConcertsDocument,
   '\n  query getGeneralInfo {\n    general {\n      ...generalInfo\n    }\n  }\n  \n':
@@ -129,6 +133,12 @@ export function gql(
 export function gql(
   source: '\n  fragment colors on ColorField {\n    alpha\n    blue\n    cssRgb\n    green\n    hex\n    red\n  }\n'
 ): (typeof documents)['\n  fragment colors on ColorField {\n    alpha\n    blue\n    cssRgb\n    green\n    hex\n    red\n  }\n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  fragment concertLink on ConcertRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n'
+): (typeof documents)['\n  fragment concertLink on ConcertRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -235,8 +245,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment pageLink on PageRecord {\n    slug\n  }\n'
-): (typeof documents)['\n  fragment pageLink on PageRecord {\n    slug\n  }\n']
+  source: '\n  fragment pageLink on PageRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n'
+): (typeof documents)['\n  fragment pageLink on PageRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -265,20 +275,20 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment textBlockContent on TextBlockModelContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n'
-): (typeof documents)['\n  fragment textBlockContent on TextBlockModelContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n']
+  source: '\n  fragment textBlockContent on TextBlockModelContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        id\n        slug\n      }\n      ... on PageRecord {\n        id\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n'
+): (typeof documents)['\n  fragment textBlockContent on TextBlockModelContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        id\n        slug\n      }\n      ... on PageRecord {\n        id\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment leftContent on TwoColumnModelLeftContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n'
-): (typeof documents)['\n  fragment leftContent on TwoColumnModelLeftContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n']
+  source: '\n  fragment leftContent on TwoColumnModelLeftContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        ...concertLink\n      }\n      ... on PageRecord {\n        ...pageLink\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n  \n  \n'
+): (typeof documents)['\n  fragment leftContent on TwoColumnModelLeftContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        ...concertLink\n      }\n      ... on PageRecord {\n        ...pageLink\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment rightContent on TwoColumnModelRightContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n'
-): (typeof documents)['\n  fragment rightContent on TwoColumnModelRightContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        slug\n      }\n      ... on PageRecord {\n        slug\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...videoRecord\n      }\n    }\n  }\n  \n  \n  \n']
+  source: '\n  fragment rightContent on TwoColumnModelRightContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        ...concertLink\n      }\n      ... on PageRecord {\n        ...pageLink\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n  \n  \n'
+): (typeof documents)['\n  fragment rightContent on TwoColumnModelRightContentField {\n    value\n    links {\n      ... on ConcertRecord {\n        ...concertLink\n      }\n      ... on PageRecord {\n        ...pageLink\n      }\n    }\n    blocks {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on ImageRecord {\n        ...image\n      }\n      ... on VideoRecord {\n        ...video\n      }\n    }\n  }\n  \n  \n  \n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -301,8 +311,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment videoRecord on VideoRecord {\n    id\n    title\n    media {\n      ...videoField\n    }\n    thumbnail {\n      ...mediaItem\n    }\n  }\n  \n'
-): (typeof documents)['\n  fragment videoRecord on VideoRecord {\n    id\n    title\n    media {\n      ...videoField\n    }\n    thumbnail {\n      ...mediaItem\n    }\n  }\n  \n']
+  source: '\n  fragment video on VideoRecord {\n    ...identifiable\n    title\n    media {\n      ...videoField\n    }\n    thumbnail {\n      ...mediaItem\n    }\n  }\n  \n  \n'
+): (typeof documents)['\n  fragment video on VideoRecord {\n    ...identifiable\n    title\n    media {\n      ...videoField\n    }\n    thumbnail {\n      ...mediaItem\n    }\n  }\n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -327,6 +337,12 @@ export function gql(
 export function gql(
   source: '\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n'
 ): (typeof documents)['\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query getConcertPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n'
+): (typeof documents)['\n  query getConcertPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      id\n      title\n      locations {\n        ...locations\n      }\n      persons {\n        ...author\n      }\n      poster {\n        ...file\n      }\n    }\n  }\n  \n  \n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

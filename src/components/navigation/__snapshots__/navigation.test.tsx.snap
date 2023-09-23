@@ -2,28 +2,30 @@
 
 exports[`Concert component shows all the data 1`] = `
 <div>
-  <ul>
-    <li>
-      <a
-        href="/contact"
-      >
-        contact
-      </a>
-    </li>
-    <li>
-      <a
-        href="/"
-      >
-        homepage
-      </a>
-    </li>
-    <li>
-      <button
-        type="button"
-      >
-        level 1
-      </button>
-    </li>
-  </ul>
+  <nav>
+    <ul>
+      <li>
+        <a
+          href="/contact"
+        >
+          contact
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          homepage
+        </a>
+      </li>
+      <li>
+        <button
+          type="button"
+        >
+          level 1
+        </button>
+      </li>
+    </ul>
+  </nav>
 </div>
 `;
