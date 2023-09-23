@@ -29,8 +29,9 @@ describe('Author component', () => {
 
     const Resolved = await resolvedComponent<Props>(Author, { id: 'some id' })
 
-    render(<Resolved />)
+    const { container } = render(<Resolved />)
 
+    expect(container).toMatchSnapshot()
     expect(screen.getByText('name')).toBeTruthy()
     expect(screen.getByText('role')).toBeTruthy()
   })

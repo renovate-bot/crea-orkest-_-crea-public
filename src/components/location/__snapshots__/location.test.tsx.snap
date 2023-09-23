@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Concert component shows all the data 1`] = `
+<div>
+  <h2>
+    title
+  </h2>
+  <code>
+    <pre>
+      {
+  "title": "title",
+  "address": "some address lines",
+  "lat": 5,
+  "lon": 42,
+  "id": "mock-ids"
+}
+    </pre>
+  </code>
+</div>
+`;

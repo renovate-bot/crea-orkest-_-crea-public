@@ -33,8 +33,9 @@ describe('Concert component', () => {
       id: 'mock-id',
     })
 
-    render(<Resolved />)
+    const { container } = render(<Resolved />)
 
+    expect(container).toMatchSnapshot()
     expect(screen.getByText('title')).toBeTruthy()
   })
 })
