@@ -2,9 +2,6 @@
 
 exports[`Concert component shows all the data 1`] = `
 <div>
-  <div>
-    [Navigation]
-  </div>
   <article
     class="article"
   >

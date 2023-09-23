@@ -8,30 +8,32 @@ export const Navigation: React.FC = async () => {
   if (!data?.general) return null
 
   return (
-    <ul>
-      {data.general.menu.map((item) => {
-        if ('link' in item) {
-          return (
-            <NavigationItem
-              key={item.id}
-              slug={item?.link?.slug}
-              label={item.label}
-            />
-          )
-        }
+    <nav>
+      <ul>
+        {data.general.menu.map((item) => {
+          if ('link' in item) {
+            return (
+              <NavigationItem
+                key={item.id}
+                slug={item?.link?.slug}
+                label={item.label}
+              />
+            )
+          }
 
-        if ('menu' in item) {
-          return (
-            <NavigationSubMenu
-              key={item.id}
-              label={item.label}
-              item={JSON.stringify(item.menu)}
-            />
-          )
-        }
+          if ('menu' in item) {
+            return (
+              <NavigationSubMenu
+                key={item.id}
+                label={item.label}
+                item={JSON.stringify(item.menu)}
+              />
+            )
+          }
 
-        return <NavigationItem key={item.id} slug={'/'} label={'Error'} />
-      })}
-    </ul>
+          return <NavigationItem key={item.id} slug={'/'} label={'Error'} />
+        })}
+      </ul>
+    </nav>
   )
 }

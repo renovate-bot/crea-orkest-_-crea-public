@@ -9,6 +9,10 @@ export const mockMenuData: GetGeneralInfoQuery = {
         id: '187236699',
         label: 'contact',
         link: {
+          __typename: 'PageRecord',
+          _createdAt: 'some date time string',
+          _updatedAt: 'some date time string',
+          id: 'unique-id',
           slug: 'contact',
         },
       },
@@ -16,6 +20,10 @@ export const mockMenuData: GetGeneralInfoQuery = {
         id: '187236700',
         label: 'homepage',
         link: {
+          __typename: 'PageRecord',
+          _createdAt: 'some date time string',
+          _updatedAt: 'some date time string',
+          id: 'unique-id',
           slug: 'homepage',
         },
       },
@@ -27,6 +35,10 @@ export const mockMenuData: GetGeneralInfoQuery = {
             id: '194164581',
             label: 'level 2 - contact',
             link: {
+              __typename: 'PageRecord',
+              _createdAt: 'some date time string',
+              _updatedAt: 'some date time string',
+              id: 'unique-id',
               slug: 'contact',
             },
           },
@@ -34,6 +46,10 @@ export const mockMenuData: GetGeneralInfoQuery = {
             id: '194164582',
             label: 'level 2 - specific page',
             link: {
+              __typename: 'PageRecord',
+              _createdAt: 'some date time string',
+              _updatedAt: 'some date time string',
+              id: 'unique-id',
               slug: 'specific/page',
             },
           },

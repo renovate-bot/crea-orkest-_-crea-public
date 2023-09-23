@@ -1,4 +1,5 @@
 import { gql } from '@urql/core'
+import { identifiable } from './identifiable'
 import { mediaItem } from './image'
 
 export const videoUpload = gql`
@@ -11,9 +12,9 @@ export const videoUpload = gql`
   }
 `
 
-export const videoRecord = gql`
-  fragment videoRecord on VideoRecord {
-    id
+export const video = gql`
+  fragment video on VideoRecord {
+    ...identifiable
     title
     media {
       ...videoField
@@ -22,6 +23,7 @@ export const videoRecord = gql`
       ...mediaItem
     }
   }
+  ${identifiable}
   ${mediaItem}
 `
 
