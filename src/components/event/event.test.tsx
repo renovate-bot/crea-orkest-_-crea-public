@@ -2,6 +2,7 @@ import { Event } from './event'
 import type { Props } from './event'
 import React from 'react'
 import { getEvent } from 'graphql/getters/getEvent'
+import { mockEvent } from './mocks/mockEvent'
 import { resolvedComponent } from '../../utils/testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
@@ -28,12 +29,7 @@ const getEventMock = jest.mocked(getEvent)
 describe('Concert component', () => {
   it('shows all the data', async () => {
     getEventMock.mockResolvedValueOnce({
-      data: {
-        id: 'id',
-        title: 'name',
-        image: undefined,
-        locations: [{ startTime: 'DATETIME', id: 'test id' }],
-      },
+      data: mockEvent,
       error: undefined,
     })
 
@@ -41,7 +37,9 @@ describe('Concert component', () => {
       id: 'some id',
     })
 
-    render(<Resolved />)
+    const { container } = render(<Resolved />)
+
+    expect(container).toMatchSnapshot()
 
     expect(screen.getByText('name')).toBeTruthy()
     expect(screen.getByText('Location Component')).toBeTruthy()

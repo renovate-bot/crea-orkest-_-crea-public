@@ -1,4 +1,5 @@
 import { ContentField } from 'components/contentField'
+import { Event } from 'components/event'
 import { Navigation } from 'components/navigation'
 import React from 'react'
 import { TwoColumContentField } from 'components/twoColumContentField'
@@ -23,14 +24,14 @@ export const DefaultPage = async ({ slug }: Props) => {
 
         {data.content.map((item) => {
           if (item.__typename === 'ConcertListRecord') {
-            return <p key={item.id}>Todo: ConcertListRecord</p>
+            return <Event key={item.id} id={item.id} />
           }
           if ('leftContent' in item || 'rightContent' in item) {
             return <TwoColumContentField key={item.id} item={item} />
           }
 
           if ('content' in item) {
-            return <ContentField key={item.id} item={item} />
+            return <ContentField key={item.id} data={item.content} />
           }
 
           return 'todo'

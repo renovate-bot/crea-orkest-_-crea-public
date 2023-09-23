@@ -1,13 +1,15 @@
-import { event } from './event'
+import { eventData } from './eventData'
 import { gql } from '@urql/core'
+import { identifiable } from './identifiable'
 
 export const events = gql`
   fragment events on ConcertListRecord {
     ...identifiable
     pinnedConcerts {
-      ...event
+      ...eventData
     }
     showAllConcerts
   }
-  ${event}
+  ${identifiable}
+  ${eventData}
 `

@@ -5,9 +5,16 @@ export interface Location {
   id: string
 }
 
+export interface Person {
+  id: string
+  name: string
+  role: string
+}
+
 export interface Event {
   id: string
   title: string
   image: Image | undefined
   locations: Location[] | undefined
+  persons: Person[] | undefined
 }

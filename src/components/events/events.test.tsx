@@ -1,7 +1,9 @@
+import type { Props as EventProps } from '../event'
 import { Events } from './events'
 import type { Props } from './events'
 import React from 'react'
 import { getEvents } from 'graphql/getters/getEvents'
+import { mockEvent } from './mocks/mockEvents'
 import { resolvedComponent } from '../../utils/testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
@@ -14,29 +16,36 @@ jest.mock('../../graphql/getters/getEvents', () => {
   }
 })
 
+jest.mock('../event/event', () => {
+  const originalModule = jest.requireActual('../event/event')
+  return {
+    __esModule: true,
+    ...originalModule,
+    Event: (props: EventProps) => (
+      <div>
+        [Event]: <span>{props.id}</span>
+      </div>
+    ),
+  }
+})
+
 const getEventsMock = jest.mocked(getEvents)
 
 describe('Events component', () => {
   it('shows all the data', async () => {
-    getEventsMock.mockResolvedValueOnce({
-      data: [
-        {
-          id: 'id',
-          title: 'title',
-          image: undefined,
-          locations: [{ startTime: 'time', id: 'loc' }],
-        },
-      ],
+    getEventsMock.mockResolvedValue({
+      data: [mockEvent],
       error: undefined,
     })
 
-    const Resolved = await resolvedComponent<Props>(Events, {
+    const ResolvedEvents = await resolvedComponent<Props>(Events, {
       skip: 0,
       first: 3,
     })
 
-    render(<Resolved />)
+    const { container } = render(<ResolvedEvents />)
 
-    expect(screen.getByText('title')).toBeTruthy()
+    expect(container).toMatchSnapshot()
+    expect(screen.getByText('mock-id')).toBeInTheDocument()
   })
 })

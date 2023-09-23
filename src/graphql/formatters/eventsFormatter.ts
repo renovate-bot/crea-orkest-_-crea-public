@@ -11,4 +11,9 @@ export const eventsFormatter = ({ allConcerts }: GetConcertsQuery): Event[] =>
       startTime: location.dateTime ?? '',
       id: location.location?.id ?? '',
     })),
+    persons: event.persons.map((person) => ({
+      id: person.id,
+      name: person.name ?? '',
+      role: person.role ?? '',
+    })),
   }))

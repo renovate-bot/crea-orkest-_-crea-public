@@ -10,6 +10,7 @@ describe('eventsFormatter', () => {
       eventsFormatter({
         allConcerts: [
           {
+            __typename: 'ConcertRecord',
             id: 'some-id',
             _updatedAt: '2023-08-14T09:37:24+01:00',
             _createdAt: '2023-09-01T13:32:36+01:00',
@@ -21,6 +22,7 @@ describe('eventsFormatter', () => {
                 },
               },
             ],
+            persons: [{ id: 'some-id' }],
           },
         ],
       })
@@ -30,6 +32,7 @@ describe('eventsFormatter', () => {
         image: undefined,
         locations: [{ id: 'location-id', startTime: '' }],
         title: '',
+        persons: [{ id: 'some-id', name: '', role: '' }],
       },
     ])
   })

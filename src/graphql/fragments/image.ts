@@ -1,4 +1,6 @@
+import { file } from './file'
 import { gql } from '@urql/core'
+import { identifiable } from './identifiable'
 
 export const responsiveImage = gql`
   fragment responsiveImage on ResponsiveImage {
@@ -13,27 +15,26 @@ export const responsiveImage = gql`
   }
 `
 
-export const image = gql`
-  fragment image on ImageRecord {
-    id
-    item {
-      id
-      item {
-        ...file
-      }
-      itemUrl
-      title
-    }
-  }
-`
-
 export const mediaItem = gql`
   fragment mediaItem on MediaItemRecord {
-    id
+    ...identifiable
     title
     item {
       ...file
     }
     itemUrl
   }
+  ${identifiable}
+  ${file}
+`
+
+export const image = gql`
+  fragment image on ImageRecord {
+    ...identifiable
+    item {
+      ...mediaItem
+    }
+  }
+  ${mediaItem}
+  ${identifiable}
 `

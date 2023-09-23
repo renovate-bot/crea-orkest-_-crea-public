@@ -1,4 +1,4 @@
-import { eventMetadata } from 'graphql/fragments/eventMetadata'
+import { eventData } from 'graphql/fragments/eventData'
 import { gql } from '@urql/core'
 
 export const GET_CONCERTS = gql`
@@ -8,8 +8,8 @@ export const GET_CONCERTS = gql`
     $order: [ConcertModelOrderBy]
   ) {
     allConcerts(first: $first, skip: $skip, orderBy: $order) {
-      ...eventMetadata
+      ...eventData
     }
   }
-  ${eventMetadata}
+  ${eventData}
 `
