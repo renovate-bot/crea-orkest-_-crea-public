@@ -14,32 +14,31 @@ export const Event: React.FC<Props> = async ({ id }) => {
   if (!data) return null
 
   return (
-    <div className={classNames(styles.wrapper)}>
+    <div className={classNames(styles.card)}>
+      {data.image?.url && (
+        <Image
+          className={classNames(styles.card__image)}
+          src={data.image.url}
+          alt={data.image.description}
+          width={data.image.width ?? 100}
+          height={data.image.height ?? 100}
+        />
+      )}
+      <h2>{data.title}</h2>
+      {data.persons && data.persons.length > 0 && (
+        <ul>
+          {data.persons.map((person) => {
+            return (
+              <li key={person.id}>
+                {person.name} | {person.role}
+              </li>
+            )
+          })}
+        </ul>
+      )}
       {data?.locations?.map((item) => (
-        <div key={item.id} className={classNames(styles.card)}>
-          {data.image?.url && (
-            <Image
-              className={classNames(styles.card__image)}
-              src={data.image.url}
-              alt={data.image.description}
-              width={data.image.width ?? 100}
-              height={data.image.height ?? 100}
-            />
-          )}
-          <h2>{data.title}</h2>
-
+        <div key={item.id} className={classNames(styles.card__locations)}>
           <Location id={item.id} />
-          {data.persons && data.persons.length > 0 && (
-            <ul>
-              {data.persons.map((person) => {
-                return (
-                  <li key={person.id}>
-                    {person.name} | {person.role}
-                  </li>
-                )
-              })}
-            </ul>
-          )}
         </div>
       ))}
     </div>
