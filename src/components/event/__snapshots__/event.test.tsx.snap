@@ -3,14 +3,14 @@
 exports[`Concert component shows all the data 1`] = `
 <div>
   <div
-    class="wrapper"
+    class="card"
   >
+    <h2>
+      name
+    </h2>
     <div
-      class="card"
+      class="card__locations"
     >
-      <h2>
-        name
-      </h2>
       <p>
         Location Component
       </p>

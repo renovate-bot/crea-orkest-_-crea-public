@@ -1,19 +1,21 @@
-.wrapper {
-  margin: 3rem 0 0 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-}
-
 .card {
+  margin: 3rem 0 0 0;
   background-color: antiquewhite;
-  display: grid;
-  grid-template-columns: 1fr;
-  width: 20rem;
 
   &__image {
-    width: 20rem;
+    width: 100%;
     height: 20rem;
     object-fit: cover;
+  }
+
+  &__locations {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+
+    // TODO: use variables or tailwind?
+    @media screen and (min-width: 48rem) {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 }
