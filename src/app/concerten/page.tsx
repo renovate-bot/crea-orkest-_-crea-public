@@ -1,10 +1,10 @@
 import { Event } from 'components/event'
+import { LoadMoreEvents } from 'components/loadMoreEvents'
 import { getEvents } from 'graphql/getters/getEvents'
-import { getEventsMeta } from 'graphql/getters/getEventsMeta'
 
 const Page = async () => {
-  const { data } = await getEvents({ skip: 0, first: 10 })
-  const meta = await getEventsMeta()
+  const first = 2
+  const { data } = await getEvents({ skip: 0, first })
   return (
     <div>
       <p>all concerts</p>
@@ -13,10 +13,7 @@ const Page = async () => {
         return <Event key={events.id} id={events.id} />
       })}
 
-      {/* TODO: client component that fetches more events? */}
-      {meta.data?.count && meta.data?.count > 1 && (
-        <p>Total events: {meta.data?.count}</p>
-      )}
+      <LoadMoreEvents initialSkip={first} />
     </div>
   )
 }

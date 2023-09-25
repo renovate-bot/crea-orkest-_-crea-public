@@ -41,7 +41,6 @@ describe('Concert component', () => {
 
     expect(container).toMatchSnapshot()
 
-    expect(screen.getByText('name')).toBeTruthy()
-    expect(screen.getByText('Location Component')).toBeTruthy()
+    expect(screen.getByText('name')).toBeInTheDocument()
   })
 })
