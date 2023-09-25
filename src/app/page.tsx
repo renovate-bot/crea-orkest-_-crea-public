@@ -1,5 +1,4 @@
 import { Author } from 'components/author'
-import { ConcertModelOrderBy } from 'graphql/generated/graphql'
 import { Event } from 'components/event'
 import { Events } from 'components/events'
 import type { Metadata } from 'next'
@@ -31,7 +30,6 @@ const Page = async () => {
   const events = await getEvents({
     first: 10,
     skip: 0,
-    order: ConcertModelOrderBy.UpdatedAtAsc,
   })
   const event = await getEvent({ id: '186970038' })
   const location = await getLocation({ id: '188451657' })

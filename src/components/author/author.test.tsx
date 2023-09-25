@@ -32,7 +32,7 @@ describe('Author component', () => {
     const { container } = render(<Resolved />)
 
     expect(container).toMatchSnapshot()
-    expect(screen.getByText('name')).toBeTruthy()
-    expect(screen.getByText('role')).toBeTruthy()
+    expect(screen.getByText('name')).toBeInTheDocument()
+    expect(screen.getByText('role')).toBeInTheDocument()
   })
 })

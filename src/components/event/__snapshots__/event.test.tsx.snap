@@ -12,7 +12,10 @@ exports[`Concert component shows all the data 1`] = `
       class="card__locations"
     >
       <p>
-        Location Component
+        test id
+      </p>
+      <p>
+        Invalid Date
       </p>
     </div>
   </div>

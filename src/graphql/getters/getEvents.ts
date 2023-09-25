@@ -15,7 +15,7 @@ interface Props extends GetEventsQueryVariables {
 export const getEvents = async ({
   skip,
   first,
-  order = ConcertModelOrderBy.UpdatedAtAsc,
+  order = ConcertModelOrderBy.UpdatedAtDesc,
 }: Props) => {
   try {
     const { data, error } = await client.query<

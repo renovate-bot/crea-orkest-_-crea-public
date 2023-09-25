@@ -67,7 +67,7 @@ const nextConfig = {
         },
         {
           key: 'Content-Security-Policy',
-          value: `default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-inline' 'unsafe-eval';`,
+          value: `default-src 'unsafe-inline' 'self' https://main--crea-orkest-p7nmyh.apollographos.net; script-src 'self' 'unsafe-inline' 'unsafe-eval'; manifest-src https://creaorkest.nl/manifest.json;`,
         },
       ],
     },

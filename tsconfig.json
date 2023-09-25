@@ -4,7 +4,8 @@
     "paths": {
       "components/*": ["components/*"],
       "graphql/*": ["graphql/*"],
-      "utils/*": ["utils/*"]
+      "utils/*": ["utils/*"],
+      "hooks/*": ["hooks/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
