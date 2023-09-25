@@ -83,12 +83,16 @@ const documents = {
     types.GetAuthorDocument,
   '\n  query getAuthors(\n    $first: IntType!\n    $skip: IntType!\n    $order: [PersonModelOrderBy]\n  ) {\n    allPeople(first: $first, skip: $skip, orderBy: $order) {\n      ...author\n    }\n  }\n  \n':
     types.GetAuthorsDocument,
-  '\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      ...concertDetail\n    }\n  }\n  \n':
-    types.GetConcertDocument,
-  '\n  query getConcertPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n':
-    types.GetConcertPageDocument,
-  '\n  query getConcerts(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...concertDetail\n    }\n  }\n  \n':
-    types.GetConcertsDocument,
+  '\n  query getAuthorsMeta {\n    _allPeopleMeta {\n      count\n    }\n  }\n':
+    types.GetAuthorsMetaDocument,
+  '\n  query getEvent($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      ...concertDetail\n    }\n  }\n  \n':
+    types.GetEventDocument,
+  '\n  query getEventPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n':
+    types.GetEventPageDocument,
+  '\n  query getEvents(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...concertDetail\n    }\n  }\n  \n':
+    types.GetEventsDocument,
+  '\n  query getEventsMeta {\n    _allConcertsMeta {\n      count\n    }\n  }\n':
+    types.GetEventsMetaDocument,
   '\n  query getGeneralInfo {\n    general {\n      ...generalInfo\n    }\n  }\n  \n':
     types.GetGeneralInfoDocument,
   '\n  query getLocation($id: ItemId) {\n    location(filter: { id: { eq: $id } }) {\n      ...location\n    }\n  }\n  \n':
@@ -99,8 +103,10 @@ const documents = {
     types.GetPageDocument,
   '\n  query getPageSeo($slug: String!) {\n    page(filter: { slug: { eq: $slug } }) {\n      ...pageDetailSeo\n    }\n  }\n  \n':
     types.GetPageSeoDocument,
-  '\n  query getPages($skip: IntType, $first: IntType, $order: [PageModelOrderBy]) {\n    allPages(first: $first, skip: $skip, orderBy: $order) {\n      ...identifiable\n      title\n      slug\n      content {\n        ... on ConcertListRecord {\n          id\n        }\n        ... on TextBlockRecord {\n          id\n        }\n        ... on TwoColumnRecord {\n          id\n        }\n      }\n    }\n  }\n  \n':
+  '\n  query getPages($skip: IntType, $first: IntType, $order: [PageModelOrderBy]) {\n    allPages(first: $first, skip: $skip, orderBy: $order) {\n      ...identifiable\n      title\n      slug\n    }\n  }\n  \n':
     types.GetPagesDocument,
+  '\n  query getPagesMeta {\n    _allPagesMeta {\n      count\n    }\n  }\n':
+    types.GetPagesMetaDocument,
   '\n  query getSiteInfo {\n    _site {\n      locales\n      globalSeo {\n        ...seoSettings\n      }\n    }\n  }\n  \n':
     types.GetSiteInfoDocument,
   '\n  query getSubmenu {\n    general {\n      menu {\n        ... on SubmenuItemRecord {\n          ...submenuItem\n        }\n      }\n    }\n  }\n  \n':
@@ -335,20 +341,32 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      ...concertDetail\n    }\n  }\n  \n'
-): (typeof documents)['\n  query getConcert($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      ...concertDetail\n    }\n  }\n  \n']
+  source: '\n  query getAuthorsMeta {\n    _allPeopleMeta {\n      count\n    }\n  }\n'
+): (typeof documents)['\n  query getAuthorsMeta {\n    _allPeopleMeta {\n      count\n    }\n  }\n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query getConcertPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n'
-): (typeof documents)['\n  query getConcertPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n']
+  source: '\n  query getEvent($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      ...concertDetail\n    }\n  }\n  \n'
+): (typeof documents)['\n  query getEvent($id: ItemId!) {\n    concert(filter: { id: { eq: $id } }) {\n      ...concertDetail\n    }\n  }\n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query getConcerts(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...concertDetail\n    }\n  }\n  \n'
-): (typeof documents)['\n  query getConcerts(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...concertDetail\n    }\n  }\n  \n']
+  source: '\n  query getEventPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n'
+): (typeof documents)['\n  query getEventPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query getEvents(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...concertDetail\n    }\n  }\n  \n'
+): (typeof documents)['\n  query getEvents(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...concertDetail\n    }\n  }\n  \n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query getEventsMeta {\n    _allConcertsMeta {\n      count\n    }\n  }\n'
+): (typeof documents)['\n  query getEventsMeta {\n    _allConcertsMeta {\n      count\n    }\n  }\n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -383,8 +401,14 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query getPages($skip: IntType, $first: IntType, $order: [PageModelOrderBy]) {\n    allPages(first: $first, skip: $skip, orderBy: $order) {\n      ...identifiable\n      title\n      slug\n      content {\n        ... on ConcertListRecord {\n          id\n        }\n        ... on TextBlockRecord {\n          id\n        }\n        ... on TwoColumnRecord {\n          id\n        }\n      }\n    }\n  }\n  \n'
-): (typeof documents)['\n  query getPages($skip: IntType, $first: IntType, $order: [PageModelOrderBy]) {\n    allPages(first: $first, skip: $skip, orderBy: $order) {\n      ...identifiable\n      title\n      slug\n      content {\n        ... on ConcertListRecord {\n          id\n        }\n        ... on TextBlockRecord {\n          id\n        }\n        ... on TwoColumnRecord {\n          id\n        }\n      }\n    }\n  }\n  \n']
+  source: '\n  query getPages($skip: IntType, $first: IntType, $order: [PageModelOrderBy]) {\n    allPages(first: $first, skip: $skip, orderBy: $order) {\n      ...identifiable\n      title\n      slug\n    }\n  }\n  \n'
+): (typeof documents)['\n  query getPages($skip: IntType, $first: IntType, $order: [PageModelOrderBy]) {\n    allPages(first: $first, skip: $skip, orderBy: $order) {\n      ...identifiable\n      title\n      slug\n    }\n  }\n  \n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query getPagesMeta {\n    _allPagesMeta {\n      count\n    }\n  }\n'
+): (typeof documents)['\n  query getPagesMeta {\n    _allPagesMeta {\n      count\n    }\n  }\n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

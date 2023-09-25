@@ -2,18 +2,16 @@ import { authorsFormatter } from './authorsFormatter'
 
 describe('authorsFormatter', () => {
   it('should return an empty array if there are no people', async () => {
-    expect(authorsFormatter({ allPeople: [] })).toEqual([])
+    expect(authorsFormatter([])).toEqual([])
   })
 
   it('should return an author object', async () => {
     expect(
-      authorsFormatter({
-        allPeople: [
-          {
-            id: 'some-id',
-          },
-        ],
-      })
+      authorsFormatter([
+        {
+          id: 'some-id',
+        },
+      ])
     ).toEqual([
       {
         id: 'some-id',

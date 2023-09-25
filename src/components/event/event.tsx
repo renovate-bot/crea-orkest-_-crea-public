@@ -9,7 +9,7 @@ export interface Props {
   id: string
 }
 
-export const Event: React.FC<Props> = async ({ id }) => {
+export const Event: React.FC<Props> = async ({ id }: Props) => {
   const { data } = await getEvent({ id })
   if (!data) return null
 
@@ -30,17 +30,20 @@ export const Event: React.FC<Props> = async ({ id }) => {
           {data.persons.map((person) => {
             return (
               <li key={person.id}>
-                {person.name} | {person.role}
+                {person.name} | {person.description}
               </li>
             )
           })}
         </ul>
       )}
-      {data?.locations?.map((item) => (
-        <div key={item.id} className={classNames(styles.card__locations)}>
-          <Location id={item.id} />
-        </div>
-      ))}
+      {data?.locations?.map((item) => {
+        if (!item.id) return
+        return (
+          <div key={item.id} className={classNames(styles.card__locations)}>
+            <Location id={item.id} />
+          </div>
+        )
+      })}
     </div>
   )
 }

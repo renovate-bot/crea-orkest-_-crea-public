@@ -1,4 +1,4 @@
-import { client } from '../gqlClient'
+import { client } from 'graphql/gqlClient'
 import {
   GetGeneralInfoDocument,
   type GetGeneralInfoQuery,

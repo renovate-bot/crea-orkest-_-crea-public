@@ -1,8 +1,8 @@
 import { Author } from './author'
 import type { Props } from './author'
 import React from 'react'
-import { getAuthor } from 'graphql/getters/getAuthor'
-import { resolvedComponent } from '../../utils/testHelpers/resolvedComponent'
+import { getAuthor } from '../../graphql/getters/getAuthor'
+import { resolvedComponent } from 'utils/testHelpers/resolvedComponent'
 import { render, screen } from '@testing-library/react'
 
 jest.mock('../../graphql/getters/getAuthor', () => {

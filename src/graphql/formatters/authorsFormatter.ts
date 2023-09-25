@@ -1,11 +1,7 @@
 import type { Author } from '../types/author'
-import type { GetAuthorsQuery } from '../generated/graphql'
+import type { AuthorFragment } from 'graphql/generated/graphql'
+import { authorFormatter } from './authorFormatter'
 
-export const authorsFormatter = (data: GetAuthorsQuery): Author[] => {
-  if (!data.allPeople.length) return []
-  return data.allPeople.map((author) => ({
-    id: author.id,
-    name: author.name ?? '',
-    description: author.role ?? '',
-  }))
+export const authorsFormatter = (data: AuthorFragment[]): Author[] => {
+  return data.map((author) => authorFormatter(author))
 }

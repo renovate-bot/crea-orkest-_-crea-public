@@ -1,4 +1,4 @@
-import { getConcertPage } from 'graphql/getters/getConcertPage'
+import { getEventPage } from 'graphql/getters/getEventPage'
 
 interface PageProps {
   params: { slug: string }
@@ -6,7 +6,7 @@ interface PageProps {
 }
 
 const Page = async ({ params: { slug } }: PageProps) => {
-  const { data } = await getConcertPage({ slug })
+  const { data } = await getEventPage({ slug })
   return (
     <code>
       <pre>{JSON.stringify(data, undefined, 2)}</pre>

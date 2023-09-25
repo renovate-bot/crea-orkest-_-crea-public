@@ -1,18 +1,19 @@
 import { client } from 'graphql/gqlClient'
 import {
-  GetPageDocument,
-  type GetPageQuery,
-  type GetPageQueryVariables,
+  GetEventsMetaDocument,
+  type GetEventsMetaQuery,
+  type GetEventsMetaQueryVariables,
 } from 'graphql/generated/graphql'
 
-export const getPage = async ({ slug }: GetPageQueryVariables) => {
+export const getEventsMeta = async () => {
   try {
     const { data, error } = await client.query<
-      GetPageQuery,
-      GetPageQueryVariables
-    >(GetPageDocument, { slug })
+      GetEventsMetaQuery,
+      GetEventsMetaQueryVariables
+    >(GetEventsMetaDocument, {})
+
     return {
-      data: data?.page ?? null,
+      data: data?._allConcertsMeta ?? null,
       error,
     }
   } catch (error) {

@@ -1,5 +1,4 @@
 import { gql } from '@urql/core'
-
 import { identifiable } from 'graphql/fragments/identifiable'
 
 export const GET_PAGES = gql`
@@ -8,17 +7,6 @@ export const GET_PAGES = gql`
       ...identifiable
       title
       slug
-      content {
-        ... on ConcertListRecord {
-          id
-        }
-        ... on TextBlockRecord {
-          id
-        }
-        ... on TwoColumnRecord {
-          id
-        }
-      }
     }
   }
   ${identifiable}

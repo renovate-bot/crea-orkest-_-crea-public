@@ -5505,11 +5505,18 @@ export type GetAuthorsQuery = {
   }>
 }
 
-export type GetConcertQueryVariables = Exact<{
+export type GetAuthorsMetaQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAuthorsMetaQuery = {
+  __typename?: 'Query'
+  _allPeopleMeta: { __typename?: 'CollectionMetadata'; count: number }
+}
+
+export type GetEventQueryVariables = Exact<{
   id: Scalars['ItemId']['input']
 }>
 
-export type GetConcertQuery = {
+export type GetEventQuery = {
   __typename?: 'Query'
   concert?: {
     __typename: 'ConcertRecord'
@@ -5552,11 +5559,11 @@ export type GetConcertQuery = {
   } | null
 }
 
-export type GetConcertPageQueryVariables = Exact<{
+export type GetEventPageQueryVariables = Exact<{
   slug: Scalars['String']['input']
 }>
 
-export type GetConcertPageQuery = {
+export type GetEventPageQuery = {
   __typename?: 'Query'
   concert?: {
     __typename: 'ConcertRecord'
@@ -5599,7 +5606,7 @@ export type GetConcertPageQuery = {
   } | null
 }
 
-export type GetConcertsQueryVariables = Exact<{
+export type GetEventsQueryVariables = Exact<{
   skip: Scalars['IntType']['input']
   first: Scalars['IntType']['input']
   order?: InputMaybe<
@@ -5607,7 +5614,7 @@ export type GetConcertsQueryVariables = Exact<{
   >
 }>
 
-export type GetConcertsQuery = {
+export type GetEventsQuery = {
   __typename?: 'Query'
   allConcerts: Array<{
     __typename: 'ConcertRecord'
@@ -5648,6 +5655,13 @@ export type GetConcertsQuery = {
       role?: string | null
     }>
   }>
+}
+
+export type GetEventsMetaQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetEventsMetaQuery = {
+  __typename?: 'Query'
+  _allConcertsMeta: { __typename?: 'CollectionMetadata'; count: number }
 }
 
 export type GetGeneralInfoQueryVariables = Exact<{ [key: string]: never }>
@@ -6380,12 +6394,14 @@ export type GetPagesQuery = {
     _publishedAt?: string | null
     _updatedAt: string
     id: string
-    content: Array<
-      | { __typename?: 'ConcertListRecord'; id: string }
-      | { __typename?: 'TextBlockRecord'; id: string }
-      | { __typename?: 'TwoColumnRecord'; id: string }
-    >
   }>
+}
+
+export type GetPagesMetaQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetPagesMetaQuery = {
+  __typename?: 'Query'
+  _allPagesMeta: { __typename?: 'CollectionMetadata'; count: number }
 }
 
 export type GetSiteInfoQueryVariables = Exact<{ [key: string]: never }>
@@ -12197,14 +12213,40 @@ export const GetAuthorsDocument = {
     },
   ],
 } as unknown as DocumentNode<GetAuthorsQuery, GetAuthorsQueryVariables>
-export const GetConcertDocument = {
-  __meta__: { hash: 'c2fd5a0105643fbedc2d000248d8b5744b4e1cbb' },
+export const GetAuthorsMetaDocument = {
+  __meta__: { hash: '7445d8680f570220a116d4a0de46b235c6f57f2c' },
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'getConcert' },
+      name: { kind: 'Name', value: 'getAuthorsMeta' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: '_allPeopleMeta' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'count' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetAuthorsMetaQuery, GetAuthorsMetaQueryVariables>
+export const GetEventDocument = {
+  __meta__: { hash: '1dd885c70444f80dd8d5c9d8a2bbaa0de654a6fc' },
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'getEvent' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -12434,15 +12476,15 @@ export const GetConcertDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<GetConcertQuery, GetConcertQueryVariables>
-export const GetConcertPageDocument = {
-  __meta__: { hash: '2bcc57537904a8f18dcbc1cd28383162b619fb69' },
+} as unknown as DocumentNode<GetEventQuery, GetEventQueryVariables>
+export const GetEventPageDocument = {
+  __meta__: { hash: 'b5ac8110bd13b92f74953efd881cb10e045a083e' },
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'getConcertPage' },
+      name: { kind: 'Name', value: 'getEventPage' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -12672,15 +12714,15 @@ export const GetConcertPageDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<GetConcertPageQuery, GetConcertPageQueryVariables>
-export const GetConcertsDocument = {
-  __meta__: { hash: '8c202a41f37488498f3d97e10fa02c1cbfd767a7' },
+} as unknown as DocumentNode<GetEventPageQuery, GetEventPageQueryVariables>
+export const GetEventsDocument = {
+  __meta__: { hash: 'c346c7b9f6e289272c26ff57f2c760a799ddc2e8' },
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'getConcerts' },
+      name: { kind: 'Name', value: 'getEvents' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -12936,7 +12978,33 @@ export const GetConcertsDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<GetConcertsQuery, GetConcertsQueryVariables>
+} as unknown as DocumentNode<GetEventsQuery, GetEventsQueryVariables>
+export const GetEventsMetaDocument = {
+  __meta__: { hash: '5f4e0c315c52944b06ab4f74ded51360edf7746e' },
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'getEventsMeta' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: '_allConcertsMeta' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'count' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetEventsMetaQuery, GetEventsMetaQueryVariables>
 export const GetGeneralInfoDocument = {
   __meta__: { hash: '9b8d0c290d09996c5ff7d3ae7e5891772fa9a64e' },
   kind: 'Document',
@@ -14538,7 +14606,7 @@ export const GetPageSeoDocument = {
   ],
 } as unknown as DocumentNode<GetPageSeoQuery, GetPageSeoQueryVariables>
 export const GetPagesDocument = {
-  __meta__: { hash: '5d7e6ff877205e511777abd6c1413cddb69b9849' },
+  __meta__: { hash: '6d09665a2c6c720fd8f39caa4f81bd58ce51e025' },
   kind: 'Document',
   definitions: [
     {
@@ -14615,63 +14683,6 @@ export const GetPagesDocument = {
                 },
                 { kind: 'Field', name: { kind: 'Name', value: 'title' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'content' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'ConcertListRecord' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'TextBlockRecord' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'TwoColumnRecord' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -14699,6 +14710,32 @@ export const GetPagesDocument = {
     },
   ],
 } as unknown as DocumentNode<GetPagesQuery, GetPagesQueryVariables>
+export const GetPagesMetaDocument = {
+  __meta__: { hash: 'b1a1faf140eb73b05d10ed07a0f27ba22ce841d1' },
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'getPagesMeta' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: '_allPagesMeta' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'count' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetPagesMetaQuery, GetPagesMetaQueryVariables>
 export const GetSiteInfoDocument = {
   __meta__: { hash: '282b0c2812b1baa6417228b8756fca0d1cea642b' },
   kind: 'Document',

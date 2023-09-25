@@ -1,9 +1,9 @@
-import { client } from '../gqlClient'
+import { client } from 'graphql/gqlClient'
 import {
   GetPagesDocument,
   type GetPagesQuery,
   type GetPagesQueryVariables,
-} from '../generated/graphql'
+} from 'graphql/generated/graphql'
 
 export const getPages = async ({ skip, first }: GetPagesQueryVariables) => {
   try {

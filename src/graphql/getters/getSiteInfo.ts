@@ -1,4 +1,4 @@
-import { client } from '../gqlClient'
+import { client } from 'graphql/gqlClient'
 import {
   GetSiteInfoDocument,
   type GetSiteInfoQuery,
@@ -13,7 +13,7 @@ export const getSiteInfo = async () => {
     >(GetSiteInfoDocument, {})
 
     return {
-      data,
+      data: data?._site ?? null,
       error,
     }
   } catch (error) {
