@@ -1,23 +1,13 @@
+import type { ConcertDetailFragment } from 'graphql/generated/graphql'
 import type { Event } from '../types/event'
-import type { GetConcertQuery } from '../generated/graphql'
+import { authorFormatter } from './authorFormatter'
 import { fileFormatter } from './fileFormatter'
+import { locationMetaFormatter } from './locationMetaFormatter'
 
-export const eventFormatter = ({
-  concert,
-}: GetConcertQuery): Event | undefined => {
-  if (!concert) return
-  return {
-    id: concert.id,
-    title: concert?.title || '',
-    image: concert?.poster ? fileFormatter(concert.poster) : undefined,
-    persons: concert.persons.map((person) => ({
-      id: person.id,
-      name: person.name ?? '',
-      role: person.role ?? '',
-    })),
-    locations: concert?.locations.map((location) => ({
-      startTime: location.dateTime ?? undefined,
-      id: location.location?.id ?? '',
-    })),
-  }
-}
+export const eventFormatter = (event: ConcertDetailFragment): Event => ({
+  id: event.id,
+  title: event.title ?? undefined,
+  image: event.poster ? fileFormatter(event.poster) : undefined,
+  persons: event.persons.map((person) => authorFormatter(person)),
+  locations: event.locations.map((location) => locationMetaFormatter(location)),
+})

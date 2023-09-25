@@ -1,10 +1,8 @@
-import type { GetLocationsQuery } from '../generated/graphql'
 import type { Location } from 'graphql/types/location'
+import type { LocationFragment } from 'graphql/generated/graphql'
 
-export const locationsFormatter = ({
-  allLocations,
-}: GetLocationsQuery): Location[] =>
-  allLocations.map((location) => ({
+export const locationsFormatter = (locations: LocationFragment[]): Location[] =>
+  locations.map((location) => ({
     title: location?.title ?? '',
     address: location.addressTitle ?? '',
     lat: location?.address?.latitude,

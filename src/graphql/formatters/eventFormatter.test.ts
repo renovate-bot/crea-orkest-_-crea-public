@@ -1,34 +1,34 @@
 import { eventFormatter } from './eventFormatter'
 
 describe('eventFormatter', () => {
-  it('should return undefined if there is no concert', async () => {
-    expect(eventFormatter({ concert: undefined })).toBeUndefined()
-  })
-
-  it('should return an object', async () => {
+  it('should return a location object', async () => {
     expect(
       eventFormatter({
-        concert: {
-          id: 'some-id',
-          locations: [
-            {
+        __typename: 'ConcertRecord',
+        _createdAt: 'some date time string',
+        _updatedAt: 'some date time string',
+        id: 'some-id',
+        locations: [
+          {
+            id: 'ignore-this-id',
+            location: {
               id: 'location-id',
             },
-          ],
-          persons: [{ id: 'person-id' }],
-        },
+          },
+        ],
+        persons: [{ id: 'person-id' }],
       })
     ).toEqual({
       id: 'some-id',
       image: undefined,
       locations: [
         {
-          id: '',
+          id: 'location-id',
           startTime: undefined,
         },
       ],
-      title: '',
-      persons: [{ id: 'person-id', name: '', role: '' }],
+      title: undefined,
+      persons: [{ id: 'person-id', name: '', description: '' }],
     })
   })
 })

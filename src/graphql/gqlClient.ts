@@ -7,7 +7,7 @@ export const client = new Client({
   fetchOptions: () => {
     return {
       headers: { ...linkConfig.headers },
-      next: { revalidate: 60 },
+      next: { revalidate: 3600, tags: ['content'] },
     }
   },
   suspense: true,

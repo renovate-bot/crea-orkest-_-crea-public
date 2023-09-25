@@ -3,9 +3,9 @@
     "baseUrl": "src",
     "paths": {
       "components/*": ["components/*"],
-      "graphql/*": ["graphql/*"]
+      "graphql/*": ["graphql/*"],
+      "utils/*": ["utils/*"]
     },
-
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -40,11 +40,8 @@
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/**/*.ts",
-    "**/**/**/*.ts",
-    "**/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "jest.config.js",
     "jest.setup.js",
     "next.config.js"

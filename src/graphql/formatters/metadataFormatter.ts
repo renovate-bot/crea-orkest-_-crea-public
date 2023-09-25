@@ -1,14 +1,15 @@
-import type { GetPageSeoQuery } from 'graphql/generated/graphql'
 import type { Metadata } from 'next'
+import type { PageDetailSeoFragment } from 'graphql/generated/graphql'
 
 const base = 'https://creaorkest.nl' // TODO: runtime variable
+const title = 'Het Crea Orkest'
 
 export const metadataFormatter = (
-  data: GetPageSeoQuery['page'],
+  data: PageDetailSeoFragment | undefined,
   slug: string
 ): Metadata => ({
-  title: data?.seo?.title,
-  description: data?.seo?.description,
+  title: data?.seo?.title || title, // TODO: default title formatters
+  description: data?.seo?.description, // TODO: default description
   viewport: {
     width: 'device-width',
     initialScale: 1,
@@ -31,7 +32,7 @@ export const metadataFormatter = (
     title:
       data?._seoMetaTags.find(
         (tags) => tags?.attributes?.property === 'og:title'
-      )?.content || undefined,
+      )?.content || title,
     description:
       data?._seoMetaTags.find(
         (tags) => tags?.attributes?.property === 'og:description'
@@ -59,7 +60,7 @@ export const metadataFormatter = (
     title:
       data?._seoMetaTags.find(
         (tags) => tags?.attributes?.name === 'twitter:title'
-      )?.content ?? '',
+      )?.content || title,
     description:
       data?._seoMetaTags.find(
         (tags) => tags?.attributes?.name === 'twitter:description'

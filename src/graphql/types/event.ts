@@ -1,20 +1,15 @@
+import type { Author } from './author'
 import type { Image } from './image'
 
-export interface Location {
+export interface LocationMeta {
+  id?: string
   startTime?: string
-  id: string
-}
-
-export interface Person {
-  id: string
-  name: string
-  role: string
 }
 
 export interface Event {
   id: string
-  title: string
-  image: Image | undefined
-  locations: Location[] | undefined
-  persons: Person[] | undefined
+  title?: string
+  image?: Image
+  locations: LocationMeta[]
+  persons?: Author[]
 }

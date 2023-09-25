@@ -1,10 +1,10 @@
-import { client } from '../gqlClient'
+import { client } from 'graphql/gqlClient'
 import { metadataFormatter } from 'graphql/formatters/metadataFormatter'
 import {
   GetPageSeoDocument,
   type GetPageSeoQuery,
   type GetPageSeoQueryVariables,
-} from '../generated/graphql'
+} from 'graphql/generated/graphql'
 
 export const getPageSeo = async ({ slug }: GetPageSeoQueryVariables) => {
   try {
@@ -14,7 +14,7 @@ export const getPageSeo = async ({ slug }: GetPageSeoQueryVariables) => {
     >(GetPageSeoDocument, { slug })
 
     return {
-      data: metadataFormatter(data?.page, slug) ?? null,
+      data: metadataFormatter(data?.page ?? undefined, slug),
       error,
     }
   } catch (error) {

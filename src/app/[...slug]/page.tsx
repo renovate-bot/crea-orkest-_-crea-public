@@ -11,7 +11,6 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { data } = await getPageSeo({ slug: params.slug.join('/') })
-
   return data
 }
 

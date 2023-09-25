@@ -1,4 +1,4 @@
-import { client } from '../gqlClient'
+import { client } from 'graphql/gqlClient'
 import { locationsFormatter } from 'graphql/formatters/locationsFormatter'
 import {
   GetLocationsDocument,
@@ -20,7 +20,7 @@ export const getLocations = async ({
     })
 
     return {
-      data: data ? locationsFormatter(data) : null,
+      data: data?.allLocations ? locationsFormatter(data.allLocations) : null,
       error,
     }
   } catch (error) {

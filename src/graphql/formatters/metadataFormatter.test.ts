@@ -26,7 +26,7 @@ describe('metadataFormatter', () => {
         ],
         locale: undefined, // TODO: not good
         siteName: 'Het Crea Orkest',
-        title: undefined, // TODO: not good
+        title: 'Het Crea Orkest',
         type: 'article',
         url: 'https://creaorkest.nl/some-page',
       },
@@ -40,12 +40,12 @@ describe('metadataFormatter', () => {
           media: '(prefers-color-scheme: dark)',
         },
       ],
-      title: undefined, // TODO: not good
+      title: 'Het Crea Orkest',
       twitter: {
         card: 'summary_large_image',
         description: '',
         images: [''],
-        title: '', // TODO: not good
+        title: 'Het Crea Orkest',
       },
       viewport: {
         initialScale: 1,
@@ -192,7 +192,7 @@ describe('metadataFormatter', () => {
         ],
         locale: undefined,
         siteName: 'Het Crea Orkest',
-        title: undefined,
+        title: 'Het Crea Orkest',
         type: 'article',
         url: 'https://creaorkest.nl/some-page',
       },
@@ -211,7 +211,7 @@ describe('metadataFormatter', () => {
         card: 'summary_large_image',
         description: '',
         images: [''],
-        title: '',
+        title: 'Het Crea Orkest',
       },
       viewport: {
         initialScale: 1,

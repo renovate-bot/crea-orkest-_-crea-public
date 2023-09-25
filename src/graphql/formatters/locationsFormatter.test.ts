@@ -2,12 +2,10 @@ import { locationsFormatter } from './locationsFormatter'
 
 describe('locationsFormatter', () => {
   it('should return an empty array', async () => {
-    expect(locationsFormatter({ allLocations: [] })).toEqual([])
+    expect(locationsFormatter([])).toEqual([])
   })
   it('should return a locations array', async () => {
-    expect(
-      locationsFormatter({ allLocations: [{ id: 'location-id' }] })
-    ).toEqual([
+    expect(locationsFormatter([{ id: 'location-id' }])).toEqual([
       {
         address: '',
         id: 'location-id',

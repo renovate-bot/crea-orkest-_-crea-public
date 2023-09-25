@@ -1,7 +1,7 @@
 export interface Location {
-  title: string
-  address: string
+  id: string
+  title?: string
+  address?: string
   lat?: number
   lon?: number
-  id: string
 }

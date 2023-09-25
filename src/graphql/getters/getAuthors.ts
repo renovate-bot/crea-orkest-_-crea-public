@@ -1,10 +1,10 @@
-import { authorsFormatter } from '../formatters/authorsFormatter'
-import { client } from '../gqlClient'
+import { authorsFormatter } from 'graphql/formatters/authorsFormatter'
+import { client } from 'graphql/gqlClient'
 import {
   GetAuthorsDocument,
   type GetAuthorsQuery,
   type GetAuthorsQueryVariables,
-} from '../generated/graphql'
+} from 'graphql/generated/graphql'
 
 export const getAuthors = async ({
   first,
@@ -22,7 +22,7 @@ export const getAuthors = async ({
     })
 
     return {
-      data: data ? authorsFormatter(data) : null,
+      data: data?.allPeople ? authorsFormatter(data.allPeople) : null,
       error,
     }
   } catch (error) {

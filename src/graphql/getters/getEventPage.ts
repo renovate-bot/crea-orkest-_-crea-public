@@ -1,20 +1,17 @@
 import { client } from 'graphql/gqlClient'
 import { eventFormatter } from 'graphql/formatters/eventFormatter'
 import {
-  GetEventDocument,
-  type GetEventQuery,
-  type GetEventQueryVariables,
+  GetEventPageDocument,
+  type GetEventPageQuery,
+  type GetEventPageQueryVariables,
 } from 'graphql/generated/graphql'
 
-export const getEvent = async ({ id }: GetEventQueryVariables) => {
+export const getEventPage = async ({ slug }: GetEventPageQueryVariables) => {
   try {
     const { data, error } = await client.query<
-      GetEventQuery,
-      GetEventQueryVariables
-    >(GetEventDocument, {
-      id,
-    })
-
+      GetEventPageQuery,
+      GetEventPageQueryVariables
+    >(GetEventPageDocument, { slug })
     return {
       data: data?.concert ? eventFormatter(data.concert) : null,
       error,
