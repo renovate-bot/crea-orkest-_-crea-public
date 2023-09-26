@@ -28,4 +28,4 @@ jobs:
       # only run this command with the `--background` flag if you have the Apollo Studio GitHub integration enabled on your repository
       - name: Run check against prod
         run: |
-          rover graph crea-orkest-p7nmyh@main --schema ./src/graphql/generated/schema.graphql --background
+          rover graph check crea-orkest-p7nmyh@main --schema ./src/graphql/generated/schema.graphql --background
