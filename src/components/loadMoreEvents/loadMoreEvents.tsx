@@ -72,7 +72,6 @@ export const LoadMoreEvents = ({ initialSkip }: Props) => {
 
       {maxEvents && (
         <p>
-          {' '}
           {events.length + initialSkip} van {maxEvents} concerten
         </p>
       )}
