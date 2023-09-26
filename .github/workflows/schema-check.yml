@@ -15,6 +15,7 @@ jobs:
     environment: apollo
     env:
       APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+      DATOCMS_ACCESS_TOKEN: ${{ secrets.DATOCMS_ACCESS_TOKEN }}
       APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
@@ -29,3 +30,8 @@ jobs:
       - name: Run check against prod
         run: |
           rover graph check crea-orkest-p7nmyh@main --schema ./src/graphql/generated/schema.graphql --background
+
+          # Validating subgraph schema changes
+          rover graph introspect https://graphql.datocms.com --header "Authorization: Bearer ${{ secrets.DATOCMS_ACCESS_TOKEN }}" \
+            | rover subgraph check crea-orkest-p7nmyh@main \
+            --schema - --name accounts
