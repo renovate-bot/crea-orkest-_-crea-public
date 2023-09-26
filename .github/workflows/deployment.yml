@@ -1,7 +1,9 @@
 name: Deployment
 
-# TODO: on proper version tag
 on:
+  push:
+    tags:
+      - v*
   workflow_dispatch:
     branches:
       - main
