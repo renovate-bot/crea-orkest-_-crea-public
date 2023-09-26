@@ -34,4 +34,4 @@ jobs:
           # Validating subgraph schema changes
           rover graph introspect https://graphql.datocms.com --header "Authorization: Bearer ${{ secrets.DATOCMS_ACCESS_TOKEN }}" \
             | rover subgraph check crea-orkest-p7nmyh@main \
-            --schema - --name accounts
+            --schema - --name datocms
