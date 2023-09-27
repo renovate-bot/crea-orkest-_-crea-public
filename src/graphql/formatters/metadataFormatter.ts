@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import type { PageDetailSeoFragment } from 'graphql/generated/graphql'
 
-const base = 'https://creaorkest.nl' // TODO: runtime variable
-const title = 'Het Crea Orkest'
+const base = 'https://creaorkest.nl' as const // TODO: runtime variable
+const title = 'Het Crea Orkest' as const
 
 export const metadataFormatter = (
   data: PageDetailSeoFragment | undefined,

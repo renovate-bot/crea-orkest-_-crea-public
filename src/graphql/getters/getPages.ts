@@ -15,7 +15,7 @@ export const getPages = async ({ skip, first }: GetPagesQueryVariables) => {
       first,
     })
 
-    return { data: data?.allPages ?? null, error }
+    return { data: data?.allPages.length ? data?.allPages : [], error }
   } catch (error) {
     if (error instanceof Error) console.log(error.message)
     return { data: null, error }

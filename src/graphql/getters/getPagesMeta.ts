@@ -5,7 +5,7 @@ import {
   type GetPagesMetaQueryVariables,
 } from 'graphql/generated/graphql'
 
-export const getPages = async () => {
+export const getPagesMeta = async () => {
   try {
     const { data, error } = await client.query<
       GetPagesMetaQuery,
