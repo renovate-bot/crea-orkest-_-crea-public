@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { slugFormatter } from './utils/slugFormatter'
+import { slugFormatter } from 'utils/slugFormatter'
 
 export interface NavigationItemProps {
   slug?: string | null

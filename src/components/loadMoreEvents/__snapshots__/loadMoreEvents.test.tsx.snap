@@ -9,10 +9,9 @@ exports[`Events component shows all the data 1`] = `
       load more elements
     </button>
     <p>
-       
       1
        van 
-      2
+      10
        concerten
     </p>
   </div>

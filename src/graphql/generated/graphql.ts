@@ -3327,6 +3327,17 @@ export type CoordinatesFragment = {
   longitude: number
 }
 
+export type EventLinkFragment = {
+  __typename: 'ConcertRecord'
+  title?: string | null
+  slug?: string | null
+  _createdAt: string
+  _firstPublishedAt?: string | null
+  _publishedAt?: string | null
+  _updatedAt: string
+  id: string
+}
+
 export type EventsFragment = {
   __typename: 'ConcertListRecord'
   showAllConcerts?: boolean | null
@@ -5606,6 +5617,28 @@ export type GetEventPageQuery = {
   } | null
 }
 
+export type GetEventsUrlsQueryVariables = Exact<{
+  skip: Scalars['IntType']['input']
+  first: Scalars['IntType']['input']
+  order?: InputMaybe<
+    Array<InputMaybe<ConcertModelOrderBy>> | InputMaybe<ConcertModelOrderBy>
+  >
+}>
+
+export type GetEventsUrlsQuery = {
+  __typename?: 'Query'
+  allConcerts: Array<{
+    __typename: 'ConcertRecord'
+    title?: string | null
+    slug?: string | null
+    _createdAt: string
+    _firstPublishedAt?: string | null
+    _publishedAt?: string | null
+    _updatedAt: string
+    id: string
+  }>
+}
+
 export type GetEventsQueryVariables = Exact<{
   skip: Scalars['IntType']['input']
   first: Scalars['IntType']['input']
@@ -6500,26 +6533,6 @@ export const ColorsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<ColorsFragment, unknown>
-export const FocalPointFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'focalPoint' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'focalPoint' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<FocalPointFragment, unknown>
 export const IdentifiableFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -6544,6 +6557,69 @@ export const IdentifiableFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<IdentifiableFragment, unknown>
+export const EventLinkFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'eventLink' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ConcertRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'identifiable' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'identifiable' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'RecordInterface' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+          { kind: 'Field', name: { kind: 'Name', value: '_createdAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: '_firstPublishedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: '_publishedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: '_updatedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<EventLinkFragment, unknown>
+export const FocalPointFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'focalPoint' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'focalPoint' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'x' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'y' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FocalPointFragment, unknown>
 export const PageLinkFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -12715,6 +12791,140 @@ export const GetEventPageDocument = {
     },
   ],
 } as unknown as DocumentNode<GetEventPageQuery, GetEventPageQueryVariables>
+export const GetEventsUrlsDocument = {
+  __meta__: { hash: '6aca3034179f4489db57f6de59c8b80c9c2d471c' },
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'getEventsUrls' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'skip' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'IntType' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'IntType' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'order' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'ConcertModelOrderBy' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'allConcerts' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'first' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'first' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'skip' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'skip' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'orderBy' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'order' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'eventLink' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'identifiable' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'RecordInterface' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+          { kind: 'Field', name: { kind: 'Name', value: '_createdAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: '_firstPublishedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: '_publishedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: '_updatedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'eventLink' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ConcertRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'identifiable' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetEventsUrlsQuery, GetEventsUrlsQueryVariables>
 export const GetEventsDocument = {
   __meta__: { hash: 'c346c7b9f6e289272c26ff57f2c760a799ddc2e8' },
   kind: 'Document',
@@ -14606,7 +14816,7 @@ export const GetPageSeoDocument = {
   ],
 } as unknown as DocumentNode<GetPageSeoQuery, GetPageSeoQueryVariables>
 export const GetPagesDocument = {
-  __meta__: { hash: '6d09665a2c6c720fd8f39caa4f81bd58ce51e025' },
+  __meta__: { hash: 'ca272263dd3de7afa339e7dec4ec14da84082ba6' },
   kind: 'Document',
   definitions: [
     {
@@ -14679,10 +14889,8 @@ export const GetPagesDocument = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'identifiable' },
+                  name: { kind: 'Name', value: 'pageLink' },
                 },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
               ],
             },
           },
@@ -14705,6 +14913,25 @@ export const GetPagesDocument = {
           { kind: 'Field', name: { kind: 'Name', value: '_publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: '_updatedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'pageLink' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'identifiable' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
       },
     },

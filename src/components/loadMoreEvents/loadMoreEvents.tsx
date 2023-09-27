@@ -14,19 +14,19 @@ export const LoadMoreEvents = ({ initialSkip }: Props) => {
   const [skip, setSkip] = React.useState(initialSkip)
   const [events, setEvents] = React.useState<EventType[]>([])
   const ref = React.useRef<HTMLButtonElement>(null)
-  const { maxEvents } = useEventsMeta()
+  const { numberOfEvents } = useEventsMeta()
   const [entry] = useIntersectionObserver({
-    condition: Boolean(maxEvents),
+    condition: Boolean(numberOfEvents),
     ref,
   })
 
   React.useEffect(() => {
     let fetching = false
-    if (!maxEvents) return
-    if (maxEvents <= initialSkip + events.length) return
+    if (!numberOfEvents) return
+    if (events.length + initialSkip === numberOfEvents) return
     if (!entry?.isIntersecting) return
     if (fetching) return
-    if (skip >= maxEvents) return
+    if (skip >= numberOfEvents) return
     fetching = true
     // TODO: abort signal to stop fetching
     getEvents({ skip, first: 1 })
@@ -46,7 +46,7 @@ export const LoadMoreEvents = ({ initialSkip }: Props) => {
   }, [
     skip,
     setSkip,
-    maxEvents,
+    numberOfEvents,
     entry?.isIntersecting,
     events.length,
     initialSkip,
@@ -58,10 +58,11 @@ export const LoadMoreEvents = ({ initialSkip }: Props) => {
         return <EventView key={event.id} data={event} />
       })}
 
-      {maxEvents && maxEvents - initialSkip !== events.length && (
+      {numberOfEvents && (
         <button
           type="button"
           ref={ref}
+          disabled={events.length + initialSkip === numberOfEvents}
           onClick={() =>
             console.log('TODO: fetch if no IntersectionObserver support')
           }
@@ -70,10 +71,10 @@ export const LoadMoreEvents = ({ initialSkip }: Props) => {
         </button>
       )}
 
-      {maxEvents && (
+      {numberOfEvents && (
         <p>
-          {' '}
-          {events.length + initialSkip} van {maxEvents} concerten
+          {/* TODO: fix this logic */}
+          {events.length + initialSkip} van {numberOfEvents} concerten
         </p>
       )}
     </div>
