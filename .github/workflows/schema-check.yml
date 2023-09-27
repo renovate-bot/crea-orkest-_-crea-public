@@ -1,0 +1,37 @@
+name: Schema Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  merge_group:
+    types: [checks_requested]
+    branches: [main]
+
+jobs:
+  Schema-check:
+    runs-on: ubuntu-latest
+    environment: apollo
+    env:
+      APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+      DATOCMS_ACCESS_TOKEN: ${{ secrets.DATOCMS_ACCESS_TOKEN }}
+      APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      - name: Install Rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/v0.19.1 | sh
+
+          # Add Rover to the $GITHUB_PATH so it can be used in another step
+          # https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#adding-a-system-path
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      # only run this command with the `--background` flag if you have the Apollo Studio GitHub integration enabled on your repository
+      - name: Run check against prod
+        run: |
+          rover graph check crea-orkest-p7nmyh@main --schema ./src/graphql/generated/schema.graphql --background
+
+          # Validating subgraph schema changes
+          rover graph introspect https://graphql.datocms.com --header "Authorization: Bearer ${{ secrets.DATOCMS_ACCESS_TOKEN }}" \
+            | rover subgraph check crea-orkest-p7nmyh@main \
+            --schema - --name datocms
