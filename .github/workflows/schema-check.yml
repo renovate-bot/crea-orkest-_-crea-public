@@ -26,12 +26,8 @@ jobs:
           # Add Rover to the $GITHUB_PATH so it can be used in another step
           # https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#adding-a-system-path
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
-      # only run this command with the `--background` flag if you have the Apollo Studio GitHub integration enabled on your repository
-      - name: Run check against prod
+      - name: Validating subgraph schema changes
         run: |
-          rover graph check crea-orkest-p7nmyh@main --schema ./src/graphql/generated/schema.graphql --background
-
-          # Validating subgraph schema changes
           rover graph introspect https://graphql.datocms.com --header "Authorization: Bearer ${{ secrets.DATOCMS_ACCESS_TOKEN }}" \
             | rover subgraph check crea-orkest-p7nmyh@main \
             --schema - --name datocms
