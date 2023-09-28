@@ -1,5 +1,6 @@
 .vercel
 .next
 .svc
+CHANGELOG.md
 
 node_modules
