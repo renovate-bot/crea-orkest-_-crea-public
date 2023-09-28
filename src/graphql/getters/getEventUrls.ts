@@ -1,7 +1,7 @@
 import { client } from 'graphql/gqlClient'
 import {
   ConcertModelOrderBy,
-  GetEventsDocument,
+  GetEventsUrlsDocument,
   type GetEventsUrlsQuery,
   type GetEventsUrlsQueryVariables,
 } from 'graphql/generated/graphql'
@@ -20,7 +20,7 @@ export const getEventUrls = async ({
     const { data, error } = await client.query<
       GetEventsUrlsQuery,
       GetEventsUrlsQueryVariables
-    >(GetEventsDocument, {
+    >(GetEventsUrlsDocument, {
       skip,
       first,
       order,
