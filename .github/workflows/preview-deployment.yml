@@ -4,12 +4,10 @@ on:
   pull_request:
     branches-ignore:
       - main
-      - main/**
       - gh-readonly-queue/**
   push:
     branches-ignore:
       - main
-      - main/**
       - gh-readonly-queue/**
 jobs:
   Deploy-Preview:
