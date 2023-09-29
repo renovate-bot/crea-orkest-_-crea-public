@@ -41,7 +41,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          package-name: crea public
+          package-name: crea-public
           bump-minor-pre-major: true
           bump-patch-for-minor-pre-major: true
           include-component-in-tag: false
