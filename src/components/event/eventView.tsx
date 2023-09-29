@@ -1,5 +1,6 @@
 import type { Event } from 'graphql/types/event'
 import Image from 'next/image'
+import { LocationView } from 'components/location/locationView'
 import React from 'react'
 import classNames from 'classnames'
 import styles from './styles.module.scss'
@@ -34,13 +35,8 @@ export const EventView: React.FC<Props> = ({ data }: Props) => {
         </ul>
       )}
       {data?.locations?.map((item) => {
-        if (!item.id) return
-        return (
-          <div key={item.id} className={classNames(styles.card__locations)}>
-            <p>{item.id}</p>
-            {item.startTime && <p>{new Date(item.startTime).toDateString()}</p>}
-          </div>
-        )
+        if (!item?.id) return
+        return <LocationView key={item.id} data={item} />
       })}
     </div>
   )

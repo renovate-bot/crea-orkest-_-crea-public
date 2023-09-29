@@ -8,16 +8,12 @@ exports[`Concert component shows all the data 1`] = `
     <h2>
       name
     </h2>
-    <div
-      class="card__locations"
-    >
+    <address>
+      <h2 />
       <p>
-        test id
+        Fri Sep 01 2023
       </p>
-      <p>
-        Invalid Date
-      </p>
-    </div>
+    </address>
   </div>
 </div>
 `;

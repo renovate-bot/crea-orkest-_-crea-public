@@ -2,7 +2,7 @@ import { author } from './author'
 import { file } from './file'
 import { gql } from '@urql/core'
 import { identifiable } from './identifiable'
-import { locations } from './locations'
+import { locationItem } from './locationItem'
 
 export const concertDetail = gql`
   fragment concertDetail on ConcertRecord {
@@ -10,7 +10,7 @@ export const concertDetail = gql`
     title
     slug
     locations {
-      ...locations
+      ...locationItem
     }
     poster {
       ...file
@@ -22,5 +22,5 @@ export const concertDetail = gql`
   ${author}
   ${identifiable}
   ${file}
-  ${locations}
+  ${locationItem}
 `
