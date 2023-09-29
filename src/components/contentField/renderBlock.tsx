@@ -27,12 +27,20 @@ export const renderBlock = ({
 
   if (isOfType<ImageFragment>(record, 'ImageRecord')) {
     if (!record.item?.item?.url) return null
+
+    // TODO: record.item.itemUrl could be valid,
+    // but it is also not a best practice to serve
+    // images that are not from your own domain
     return (
       <Image
         src={record.item.item.url}
         alt={record.item.item.alt || ''}
         height={record.item.item.height || undefined}
         width={record.item.item.width || undefined}
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
       />
     )
   }

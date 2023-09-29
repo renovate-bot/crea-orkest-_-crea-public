@@ -7,15 +7,4 @@
     height: 20rem;
     object-fit: cover;
   }
-
-  &__locations {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr;
-
-    // TODO: use variables or tailwind?
-    @media screen and (min-width: 48rem) {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
 }

@@ -3283,7 +3283,17 @@ export type ConcertDetailFragment = {
     __typename?: 'LocationItemRecord'
     id: string
     dateTime?: string | null
-    location?: { __typename?: 'LocationRecord'; id: string } | null
+    location?: {
+      __typename?: 'LocationRecord'
+      id: string
+      title?: string | null
+      addressTitle?: string | null
+      address?: {
+        __typename?: 'LatLonField'
+        latitude: number
+        longitude: number
+      } | null
+    } | null
   }>
   poster?: {
     __typename?: 'FileField'
@@ -3359,7 +3369,17 @@ export type EventsFragment = {
       __typename?: 'LocationItemRecord'
       id: string
       dateTime?: string | null
-      location?: { __typename?: 'LocationRecord'; id: string } | null
+      location?: {
+        __typename?: 'LocationRecord'
+        id: string
+        title?: string | null
+        addressTitle?: string | null
+        address?: {
+          __typename?: 'LatLonField'
+          latitude: number
+          longitude: number
+        } | null
+      } | null
     }>
     poster?: {
       __typename?: 'FileField'
@@ -3731,11 +3751,21 @@ export type LocationFragment = {
   } | null
 }
 
-export type LocationsFragment = {
+export type LocationItemFragment = {
   __typename?: 'LocationItemRecord'
   id: string
   dateTime?: string | null
-  location?: { __typename?: 'LocationRecord'; id: string } | null
+  location?: {
+    __typename?: 'LocationRecord'
+    id: string
+    title?: string | null
+    addressTitle?: string | null
+    address?: {
+      __typename?: 'LatLonField'
+      latitude: number
+      longitude: number
+    } | null
+  } | null
 }
 
 export type MenuItemFragment = {
@@ -3801,7 +3831,17 @@ export type PageDetailFragment = {
             __typename?: 'LocationItemRecord'
             id: string
             dateTime?: string | null
-            location?: { __typename?: 'LocationRecord'; id: string } | null
+            location?: {
+              __typename?: 'LocationRecord'
+              id: string
+              title?: string | null
+              addressTitle?: string | null
+              address?: {
+                __typename?: 'LatLonField'
+                latitude: number
+                longitude: number
+              } | null
+            } | null
           }>
           poster?: {
             __typename?: 'FileField'
@@ -3885,6 +3925,13 @@ export type PageDetailFragment = {
                     location?: {
                       __typename?: 'LocationRecord'
                       id: string
+                      title?: string | null
+                      addressTitle?: string | null
+                      address?: {
+                        __typename?: 'LatLonField'
+                        latitude: number
+                        longitude: number
+                      } | null
                     } | null
                   }>
                   poster?: {
@@ -4053,6 +4100,13 @@ export type PageDetailFragment = {
                     location?: {
                       __typename?: 'LocationRecord'
                       id: string
+                      title?: string | null
+                      addressTitle?: string | null
+                      address?: {
+                        __typename?: 'LatLonField'
+                        latitude: number
+                        longitude: number
+                      } | null
                     } | null
                   }>
                   poster?: {
@@ -4213,6 +4267,13 @@ export type PageDetailFragment = {
                     location?: {
                       __typename?: 'LocationRecord'
                       id: string
+                      title?: string | null
+                      addressTitle?: string | null
+                      address?: {
+                        __typename?: 'LatLonField'
+                        latitude: number
+                        longitude: number
+                      } | null
                     } | null
                   }>
                   poster?: {
@@ -4501,7 +4562,17 @@ export type TextBlockContentFragment = {
             __typename?: 'LocationItemRecord'
             id: string
             dateTime?: string | null
-            location?: { __typename?: 'LocationRecord'; id: string } | null
+            location?: {
+              __typename?: 'LocationRecord'
+              id: string
+              title?: string | null
+              addressTitle?: string | null
+              address?: {
+                __typename?: 'LatLonField'
+                latitude: number
+                longitude: number
+              } | null
+            } | null
           }>
           poster?: {
             __typename?: 'FileField'
@@ -4659,7 +4730,17 @@ export type LeftContentFragment = {
             __typename?: 'LocationItemRecord'
             id: string
             dateTime?: string | null
-            location?: { __typename?: 'LocationRecord'; id: string } | null
+            location?: {
+              __typename?: 'LocationRecord'
+              id: string
+              title?: string | null
+              addressTitle?: string | null
+              address?: {
+                __typename?: 'LatLonField'
+                latitude: number
+                longitude: number
+              } | null
+            } | null
           }>
           poster?: {
             __typename?: 'FileField'
@@ -4817,7 +4898,17 @@ export type RightContentFragment = {
             __typename?: 'LocationItemRecord'
             id: string
             dateTime?: string | null
-            location?: { __typename?: 'LocationRecord'; id: string } | null
+            location?: {
+              __typename?: 'LocationRecord'
+              id: string
+              title?: string | null
+              addressTitle?: string | null
+              address?: {
+                __typename?: 'LatLonField'
+                latitude: number
+                longitude: number
+              } | null
+            } | null
           }>
           poster?: {
             __typename?: 'FileField'
@@ -4982,7 +5073,17 @@ export type TextBlockFragment = {
               __typename?: 'LocationItemRecord'
               id: string
               dateTime?: string | null
-              location?: { __typename?: 'LocationRecord'; id: string } | null
+              location?: {
+                __typename?: 'LocationRecord'
+                id: string
+                title?: string | null
+                addressTitle?: string | null
+                address?: {
+                  __typename?: 'LatLonField'
+                  latitude: number
+                  longitude: number
+                } | null
+              } | null
             }>
             poster?: {
               __typename?: 'FileField'
@@ -5148,7 +5249,17 @@ export type TwoColumFragment = {
               __typename?: 'LocationItemRecord'
               id: string
               dateTime?: string | null
-              location?: { __typename?: 'LocationRecord'; id: string } | null
+              location?: {
+                __typename?: 'LocationRecord'
+                id: string
+                title?: string | null
+                addressTitle?: string | null
+                address?: {
+                  __typename?: 'LatLonField'
+                  latitude: number
+                  longitude: number
+                } | null
+              } | null
             }>
             poster?: {
               __typename?: 'FileField'
@@ -5305,7 +5416,17 @@ export type TwoColumFragment = {
               __typename?: 'LocationItemRecord'
               id: string
               dateTime?: string | null
-              location?: { __typename?: 'LocationRecord'; id: string } | null
+              location?: {
+                __typename?: 'LocationRecord'
+                id: string
+                title?: string | null
+                addressTitle?: string | null
+                address?: {
+                  __typename?: 'LatLonField'
+                  latitude: number
+                  longitude: number
+                } | null
+              } | null
             }>
             poster?: {
               __typename?: 'FileField'
@@ -5542,7 +5663,17 @@ export type GetEventQuery = {
       __typename?: 'LocationItemRecord'
       id: string
       dateTime?: string | null
-      location?: { __typename?: 'LocationRecord'; id: string } | null
+      location?: {
+        __typename?: 'LocationRecord'
+        id: string
+        title?: string | null
+        addressTitle?: string | null
+        address?: {
+          __typename?: 'LatLonField'
+          latitude: number
+          longitude: number
+        } | null
+      } | null
     }>
     poster?: {
       __typename?: 'FileField'
@@ -5589,7 +5720,17 @@ export type GetEventPageQuery = {
       __typename?: 'LocationItemRecord'
       id: string
       dateTime?: string | null
-      location?: { __typename?: 'LocationRecord'; id: string } | null
+      location?: {
+        __typename?: 'LocationRecord'
+        id: string
+        title?: string | null
+        addressTitle?: string | null
+        address?: {
+          __typename?: 'LatLonField'
+          latitude: number
+          longitude: number
+        } | null
+      } | null
     }>
     poster?: {
       __typename?: 'FileField'
@@ -5662,7 +5803,17 @@ export type GetEventsQuery = {
       __typename?: 'LocationItemRecord'
       id: string
       dateTime?: string | null
-      location?: { __typename?: 'LocationRecord'; id: string } | null
+      location?: {
+        __typename?: 'LocationRecord'
+        id: string
+        title?: string | null
+        addressTitle?: string | null
+        address?: {
+          __typename?: 'LatLonField'
+          latitude: number
+          longitude: number
+        } | null
+      } | null
     }>
     poster?: {
       __typename?: 'FileField'
@@ -5841,7 +5992,17 @@ export type GetPageQuery = {
               __typename?: 'LocationItemRecord'
               id: string
               dateTime?: string | null
-              location?: { __typename?: 'LocationRecord'; id: string } | null
+              location?: {
+                __typename?: 'LocationRecord'
+                id: string
+                title?: string | null
+                addressTitle?: string | null
+                address?: {
+                  __typename?: 'LatLonField'
+                  latitude: number
+                  longitude: number
+                } | null
+              } | null
             }>
             poster?: {
               __typename?: 'FileField'
@@ -5925,6 +6086,13 @@ export type GetPageQuery = {
                       location?: {
                         __typename?: 'LocationRecord'
                         id: string
+                        title?: string | null
+                        addressTitle?: string | null
+                        address?: {
+                          __typename?: 'LatLonField'
+                          latitude: number
+                          longitude: number
+                        } | null
                       } | null
                     }>
                     poster?: {
@@ -6093,6 +6261,13 @@ export type GetPageQuery = {
                       location?: {
                         __typename?: 'LocationRecord'
                         id: string
+                        title?: string | null
+                        addressTitle?: string | null
+                        address?: {
+                          __typename?: 'LatLonField'
+                          latitude: number
+                          longitude: number
+                        } | null
                       } | null
                     }>
                     poster?: {
@@ -6253,6 +6428,13 @@ export type GetPageQuery = {
                       location?: {
                         __typename?: 'LocationRecord'
                         id: string
+                        title?: string | null
+                        addressTitle?: string | null
+                        address?: {
+                          __typename?: 'LatLonField'
+                          latitude: number
+                          longitude: number
+                        } | null
                       } | null
                     }>
                     poster?: {
@@ -7227,75 +7409,6 @@ export const LinkFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<LinkFragment, unknown>
-export const CoordinatesFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'coordinates' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'LatLonField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<CoordinatesFragment, unknown>
-export const LocationFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'location' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'LocationRecord' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'address' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'coordinates' },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'coordinates' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'LatLonField' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<LocationFragment, unknown>
 export const PageFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -7387,12 +7500,81 @@ export const PageFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<PageFragment, unknown>
-export const LocationsFragmentDoc = {
+export const CoordinatesFragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CoordinatesFragment, unknown>
+export const LocationFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<LocationFragment, unknown>
+export const LocationItemFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -7408,7 +7590,54 @@ export const LocationsFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
               ],
             },
           },
@@ -7416,7 +7645,7 @@ export const LocationsFragmentDoc = {
       },
     },
   ],
-} as unknown as DocumentNode<LocationsFragment, unknown>
+} as unknown as DocumentNode<LocationItemFragment, unknown>
 export const AuthorFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -7465,7 +7694,7 @@ export const ConcertDetailFragmentDoc = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -7492,6 +7721,50 @@ export const ConcertDetailFragmentDoc = {
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'author' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
                 },
               ],
             },
@@ -7538,7 +7811,7 @@ export const ConcertDetailFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -7554,7 +7827,10 @@ export const ConcertDetailFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -7666,7 +7942,51 @@ export const EventsFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -7682,7 +8002,10 @@ export const EventsFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -7779,7 +8102,7 @@ export const EventsFragmentDoc = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -8431,7 +8754,51 @@ export const TextBlockContentFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -8447,7 +8814,10 @@ export const TextBlockContentFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -8544,7 +8914,7 @@ export const TextBlockContentFragmentDoc = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -8867,7 +9237,51 @@ export const TextBlockFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -8883,7 +9297,10 @@ export const TextBlockFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -8980,7 +9397,7 @@ export const TextBlockFragmentDoc = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -9421,7 +9838,51 @@ export const LeftContentFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -9437,7 +9898,10 @@ export const LeftContentFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -9534,7 +9998,7 @@ export const LeftContentFragmentDoc = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -9901,7 +10365,51 @@ export const RightContentFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -9917,7 +10425,10 @@ export const RightContentFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -10014,7 +10525,7 @@ export const RightContentFragmentDoc = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -10350,7 +10861,51 @@ export const TwoColumFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -10366,7 +10921,10 @@ export const TwoColumFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -10463,7 +11021,7 @@ export const TwoColumFragmentDoc = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -10980,7 +11538,51 @@ export const PageDetailFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -10996,7 +11598,10 @@ export const PageDetailFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -11093,7 +11698,7 @@ export const PageDetailFragmentDoc = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -12316,7 +12921,7 @@ export const GetAuthorsMetaDocument = {
   ],
 } as unknown as DocumentNode<GetAuthorsMetaQuery, GetAuthorsMetaQueryVariables>
 export const GetEventDocument = {
-  __meta__: { hash: '1dd885c70444f80dd8d5c9d8a2bbaa0de654a6fc' },
+  __meta__: { hash: '33a99ad8ede5c820b75031958cba901a6e3ace66' },
   kind: 'Document',
   definitions: [
     {
@@ -12404,7 +13009,51 @@ export const GetEventDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -12420,7 +13069,10 @@ export const GetEventDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -12517,7 +13169,7 @@ export const GetEventDocument = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -12554,7 +13206,7 @@ export const GetEventDocument = {
   ],
 } as unknown as DocumentNode<GetEventQuery, GetEventQueryVariables>
 export const GetEventPageDocument = {
-  __meta__: { hash: 'b5ac8110bd13b92f74953efd881cb10e045a083e' },
+  __meta__: { hash: '69180a38b9da44f89b11dbac9ceeb1cb6ae5163c' },
   kind: 'Document',
   definitions: [
     {
@@ -12642,7 +13294,51 @@ export const GetEventPageDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -12658,7 +13354,10 @@ export const GetEventPageDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -12755,7 +13454,7 @@ export const GetEventPageDocument = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -12926,7 +13625,7 @@ export const GetEventsUrlsDocument = {
   ],
 } as unknown as DocumentNode<GetEventsUrlsQuery, GetEventsUrlsQueryVariables>
 export const GetEventsDocument = {
-  __meta__: { hash: 'c346c7b9f6e289272c26ff57f2c760a799ddc2e8' },
+  __meta__: { hash: '55aa003ba3361f1231174c3f3a12293be9a8ae7a' },
   kind: 'Document',
   definitions: [
     {
@@ -13040,7 +13739,51 @@ export const GetEventsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -13056,7 +13799,10 @@ export const GetEventsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -13153,7 +13899,7 @@ export const GetEventsDocument = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },
@@ -13694,7 +14440,7 @@ export const GetLocationsDocument = {
   ],
 } as unknown as DocumentNode<GetLocationsQuery, GetLocationsQueryVariables>
 export const GetPageDocument = {
-  __meta__: { hash: 'c5d1b94202cd1ecc90c371b014c218b32e032468' },
+  __meta__: { hash: '2fc154fcca1ce3ddce437375a1fd3daac9aa6897' },
   kind: 'Document',
   definitions: [
     {
@@ -13782,7 +14528,51 @@ export const GetPageDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'locations' },
+      name: { kind: 'Name', value: 'coordinates' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LatLonField' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'location' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'LocationRecord' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'addressTitle' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'address' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'coordinates' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'locationItem' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'LocationItemRecord' },
@@ -13798,7 +14588,10 @@ export const GetPageDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'location' },
+                },
               ],
             },
           },
@@ -13895,7 +14688,7 @@ export const GetPageDocument = {
               selections: [
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'locations' },
+                  name: { kind: 'Name', value: 'locationItem' },
                 },
               ],
             },

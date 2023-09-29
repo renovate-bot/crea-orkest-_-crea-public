@@ -20,7 +20,7 @@ describe('getLocation', () => {
   it('should return an object', async () => {
     mockedQuery.mockResolvedValue({
       data: {
-        location: {},
+        location: { id: 'some-id' },
       },
       operation: {
         key: 1,
@@ -36,7 +36,13 @@ describe('getLocation', () => {
       hasNext: false,
     })
     const { data } = await getLocation({ id: 'test' })
-    expect(data).toEqual({})
+    expect(data).toEqual({
+      id: 'some-id',
+      address: undefined,
+      lat: undefined,
+      lon: undefined,
+      title: undefined,
+    })
   })
   it('should return an error', async () => {
     console.log = jest.fn()

@@ -17,7 +17,7 @@ const documents = {
     types.AuthorFragmentDoc,
   '\n  fragment colors on ColorField {\n    alpha\n    blue\n    cssRgb\n    green\n    hex\n    red\n  }\n':
     types.ColorsFragmentDoc,
-  '\n  fragment concertDetail on ConcertRecord {\n    ...identifiable\n    title\n    slug\n    locations {\n      ...locations\n    }\n    poster {\n      ...file\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n':
+  '\n  fragment concertDetail on ConcertRecord {\n    ...identifiable\n    title\n    slug\n    locations {\n      ...locationItem\n    }\n    poster {\n      ...file\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n':
     types.ConcertDetailFragmentDoc,
   '\n  fragment concertLink on ConcertRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n':
     types.ConcertLinkFragmentDoc,
@@ -45,8 +45,8 @@ const documents = {
     types.LinkFragmentDoc,
   '\n  fragment location on LocationRecord {\n    id\n    title\n    addressTitle\n    address {\n      ...coordinates\n    }\n  }\n  \n':
     types.LocationFragmentDoc,
-  '\n  fragment locations on LocationItemRecord {\n    id\n    dateTime\n    location {\n      id\n    }\n  }\n':
-    types.LocationsFragmentDoc,
+  '\n  fragment locationItem on LocationItemRecord {\n    id\n    dateTime\n    location {\n      ...location\n    }\n  }\n  \n':
+    types.LocationItemFragmentDoc,
   '\n  fragment menuItem on MenuItemRecord {\n    id\n    label\n    link {\n      ...pageLink\n    }\n  }\n  \n':
     types.MenuItemFragmentDoc,
   '\n  fragment page on PageRecord {\n    ...identifiable\n    title\n    slug\n    content {\n      ... on ConcertListRecord {\n        id\n      }\n      ... on TextBlockRecord {\n        id\n      }\n      ... on TwoColumnRecord {\n        id\n      }\n    }\n  }\n  \n  \n  \n':
@@ -147,8 +147,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment concertDetail on ConcertRecord {\n    ...identifiable\n    title\n    slug\n    locations {\n      ...locations\n    }\n    poster {\n      ...file\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n'
-): (typeof documents)['\n  fragment concertDetail on ConcertRecord {\n    ...identifiable\n    title\n    slug\n    locations {\n      ...locations\n    }\n    poster {\n      ...file\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n']
+  source: '\n  fragment concertDetail on ConcertRecord {\n    ...identifiable\n    title\n    slug\n    locations {\n      ...locationItem\n    }\n    poster {\n      ...file\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n'
+): (typeof documents)['\n  fragment concertDetail on ConcertRecord {\n    ...identifiable\n    title\n    slug\n    locations {\n      ...locationItem\n    }\n    poster {\n      ...file\n    }\n    persons {\n      ...author\n    }\n  }\n  \n  \n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -231,8 +231,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment locations on LocationItemRecord {\n    id\n    dateTime\n    location {\n      id\n    }\n  }\n'
-): (typeof documents)['\n  fragment locations on LocationItemRecord {\n    id\n    dateTime\n    location {\n      id\n    }\n  }\n']
+  source: '\n  fragment locationItem on LocationItemRecord {\n    id\n    dateTime\n    location {\n      ...location\n    }\n  }\n  \n'
+): (typeof documents)['\n  fragment locationItem on LocationItemRecord {\n    id\n    dateTime\n    location {\n      ...location\n    }\n  }\n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
