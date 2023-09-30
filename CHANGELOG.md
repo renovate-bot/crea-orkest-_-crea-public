@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.1](https://github.com/crea-orkest/crea-public/compare/v0.1.0...v0.1.1) (2023-09-30)
+
+
+### Features
+
+* event updates ([299c13f](https://github.com/crea-orkest/crea-public/commit/299c13faa2520c10f8342ad1d7e3ff954f49cb40))
+
+
+### Bug Fixes
+
+* condition for bots ([3baad92](https://github.com/crea-orkest/crea-public/commit/3baad9287a44cac61c113bf5a7cb4b88c9d4b955))
+* hook tests ([145b774](https://github.com/crea-orkest/crea-public/commit/145b77491dd2c444e4d6767ca43c6afa829be3fa))
+* package name ([d1a3e0e](https://github.com/crea-orkest/crea-public/commit/d1a3e0e10fd550677537f6acdbbf46c3c90aa6d2))
+* removed unknown option ([fc93d8c](https://github.com/crea-orkest/crea-public/commit/fc93d8c4eb3ba8e55ca40e6c79d3aa608e354cac))
+* repo scoped token ([a6a2561](https://github.com/crea-orkest/crea-public/commit/a6a25619e99cf1ac578672a34f1ab0ae8ab8dc48))
+
 ## [0.1.0](https://github.com/crea-orkest/crea-public/compare/v0.0.2...v0.1.0) (2023-09-28)
 
 
