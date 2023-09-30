@@ -11,16 +11,15 @@ on:
   merge_group:
     types: [checks_requested]
     branches: [main]
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
     strategy:
       matrix:
         node-version: [18.x, 20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Use Node.js ${{ matrix.node-version }}

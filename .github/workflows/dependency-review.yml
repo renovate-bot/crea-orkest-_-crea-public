@@ -20,6 +20,8 @@ permissions:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
     steps:
       - name: 'Checkout Repository'
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4

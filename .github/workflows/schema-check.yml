@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: apollo
     env:
+      GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
       APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
       DATOCMS_ACCESS_TOKEN: ${{ secrets.DATOCMS_ACCESS_TOKEN }}
       APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
