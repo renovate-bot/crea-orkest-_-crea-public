@@ -1,8 +1,15 @@
+const getUrl = () => {
+  if (typeof window === 'undefined')
+    return 'https://main--crea-orkest-p7nmyh.apollographos.net/graphql' as const
+
+  return '/graphql' as const
+}
+
 export const linkConfig = {
-  url: `https://main--crea-orkest-p7nmyh.apollographos.net/graphql`,
+  url: getUrl(),
   headers: {
     'Content-Language': 'nl-NL',
     'apollographql-client-name': 'crea-public',
-    'apollographql-client-version': 'v0.0.2', // TODO: comit hash?
+    'apollographql-client-version': 'specific-version', // TODO: comit hash?
   },
 }
