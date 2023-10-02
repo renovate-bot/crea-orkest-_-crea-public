@@ -23,6 +23,7 @@ export const DefaultPage = async ({ slug }: Props) => {
         if (item.__typename === 'ConcertListRecord') {
           return <Event key={item.id} id={item.id} />
         }
+
         if ('leftContent' in item || 'rightContent' in item) {
           return <TwoColumContentField key={item.id} item={item} />
         }
@@ -33,10 +34,6 @@ export const DefaultPage = async ({ slug }: Props) => {
 
         return 'todo'
       })}
-
-      <code>
-        <pre>{JSON.stringify(data, undefined, 2)}</pre>
-      </code>
     </article>
   )
 }

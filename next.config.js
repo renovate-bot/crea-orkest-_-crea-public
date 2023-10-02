@@ -30,6 +30,18 @@ const nextConfig = {
     return config
   },
 
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/graphql',
+          destination:
+            'https://main--crea-orkest-p7nmyh.apollographos.net/graphql',
+        },
+      ],
+    }
+  },
+
   serverRuntimeConfig: {
     // Will only be available on the server side
   },

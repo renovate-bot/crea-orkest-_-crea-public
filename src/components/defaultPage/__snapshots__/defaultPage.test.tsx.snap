@@ -8,19 +8,6 @@ exports[`Concert component shows all the data 1`] = `
     <h1>
       title
     </h1>
-    <code>
-      <pre>
-        {
-  "__typename": "PageRecord",
-  "title": "title",
-  "slug": "contact",
-  "_createdAt": "some date time string",
-  "_updatedAt": "some date time string",
-  "id": "unique-id",
-  "content": []
-}
-      </pre>
-    </code>
   </article>
 </div>
 `;
