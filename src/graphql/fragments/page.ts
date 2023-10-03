@@ -1,6 +1,6 @@
 import { gql } from '@urql/core'
 import { identifiable } from './identifiable'
-import { seo } from './seo'
+import { seoField } from './seoField'
 import { tag } from './tag'
 
 export const page = gql`
@@ -21,6 +21,6 @@ export const page = gql`
     }
   }
   ${identifiable}
-  ${seo}
+  ${seoField}
   ${tag}
 `

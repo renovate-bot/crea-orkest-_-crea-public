@@ -7,7 +7,8 @@ describe('metadataFormatter', () => {
       alternates: {
         canonical: 'https://creaorkest.nl/some-page',
       },
-      description: undefined, // TODO: can we fix this?
+      description:
+        'Het CREA Orkest is het bruisende studentenorkest van Stichting CREA, de culturele organisatie van de Universiteit en Hogeschool van Amsterdam.',
       manifest: 'https://creaorkest.nl/manifest.json',
       metadataBase: expect.objectContaining({
         host: 'creaorkest.nl',

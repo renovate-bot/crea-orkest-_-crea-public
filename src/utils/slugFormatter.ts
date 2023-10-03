@@ -1,7 +1,15 @@
 import { isValidUrl } from './isValidUrl'
 
-export function slugFormatter(slug: string) {
-  if (slug === 'homepage') {
+interface WithPrefixProps {
+  slug: string
+  prefix?: string
+}
+export function slugFormatter({ slug, prefix }: WithPrefixProps): string {
+  if (prefix === '/') {
+    prefix = undefined
+  }
+
+  if (slug === 'homepage' || slug === '') {
     return '/'
   }
 
@@ -9,10 +17,15 @@ export function slugFormatter(slug: string) {
     return slug
   }
 
-  // relative url's
-  if (slug.startsWith('/')) {
-    return slug
+  if (prefix && !prefix.startsWith('/')) {
+    prefix = `/${prefix}`
   }
 
-  return `/${slug}`
+  if (slug && !slug.startsWith('/')) {
+    slug = `/${slug}`
+  }
+
+  if (!prefix) return slug
+
+  return prefix + slug
 }
