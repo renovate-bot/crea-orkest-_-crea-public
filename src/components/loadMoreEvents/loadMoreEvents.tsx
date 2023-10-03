@@ -12,22 +12,22 @@ export interface Props {
 
 export const LoadMoreEvents = ({ initialSkip }: Props) => {
   const [skip, setSkip] = React.useState(initialSkip)
+  const [loading, setLoading] = React.useState(false)
   const [events, setEvents] = React.useState<EventType[]>([])
   const ref = React.useRef<HTMLButtonElement>(null)
   const { numberOfEvents } = useEventsMeta()
   const [entry] = useIntersectionObserver({
-    condition: Boolean(numberOfEvents),
+    enabled: Boolean(numberOfEvents),
     ref,
   })
 
   React.useEffect(() => {
-    let fetching = false
     if (!numberOfEvents) return
-    if (events.length + initialSkip === numberOfEvents) return
+    if (events.length === numberOfEvents - initialSkip) return
     if (!entry?.isIntersecting) return
-    if (fetching) return
-    if (skip >= numberOfEvents) return
-    fetching = true
+    if (loading) return
+    if (skip > numberOfEvents) return
+    setLoading(true)
     // TODO: abort signal to stop fetching
     getEvents({ skip, first: 1 })
       .then(({ data }) => {
@@ -41,11 +41,11 @@ export const LoadMoreEvents = ({ initialSkip }: Props) => {
         console.log('TODO: render an error')
       })
       .finally(() => {
-        fetching = false
+        setLoading(false)
       })
   }, [
+    loading,
     skip,
-    setSkip,
     numberOfEvents,
     entry?.isIntersecting,
     events.length,
@@ -62,7 +62,7 @@ export const LoadMoreEvents = ({ initialSkip }: Props) => {
         <button
           type="button"
           ref={ref}
-          disabled={events.length + initialSkip === numberOfEvents}
+          disabled={events.length === numberOfEvents - initialSkip}
           onClick={() =>
             console.log('TODO: fetch if no IntersectionObserver support')
           }
