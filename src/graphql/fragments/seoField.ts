@@ -1,8 +1,8 @@
 import { file } from './file'
 import { gql } from '@urql/core'
 
-export const seo = gql`
-  fragment seo on SeoField {
+export const seoField = gql`
+  fragment seoField on SeoField {
     description
     image {
       ...file

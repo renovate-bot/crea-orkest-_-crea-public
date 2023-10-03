@@ -15,12 +15,21 @@ export const renderInlineRecord = ({
 >) => {
   if (isOfType<PageLinkFragment>(record, 'PageRecord')) {
     if (!record.slug) return null
-    return <Link href={slugFormatter(record.slug)}>{record.title}</Link>
+    return (
+      <Link href={slugFormatter({ slug: record.slug, prefix: '/concerten' })}>
+        {record.title}
+      </Link>
+    )
   }
   if (isOfType<ConcertLinkFragment>(record, 'ConcertRecord')) {
     if (!record.slug) return null
     return (
-      <Link href={`/concerten${slugFormatter(record.slug)}`}>
+      <Link
+        href={`/concerten${slugFormatter({
+          slug: record.slug,
+          prefix: '/concerten',
+        })}`}
+      >
         {record.title}
       </Link>
     )

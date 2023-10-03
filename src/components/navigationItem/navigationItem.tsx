@@ -16,7 +16,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
 
   return (
     <li>
-      <Link href={slugFormatter(slug)}>{label}</Link>
+      <Link href={slugFormatter({ slug })}>{label}</Link>
     </li>
   )
 }
