@@ -12,4 +12,5 @@ export const linkConfig = {
     'apollographql-client-name': 'crea-public',
     'apollographql-client-version': 'specific-version', // TODO: comit hash?
   },
+  next: { revalidate: 60, tags: ['content'] },
 }

@@ -38,7 +38,9 @@ describe('getPageSeo', () => {
       alternates: {
         canonical: 'https://creaorkest.nl/',
       },
-      description: undefined,
+      title: 'Het Crea Orkest',
+      description:
+        'Het CREA Orkest is het bruisende studentenorkest van Stichting CREA, de culturele organisatie van de Universiteit en Hogeschool van Amsterdam.',
       manifest: 'https://creaorkest.nl/manifest.json',
       metadataBase: expect.objectContaining({
         host: 'creaorkest.nl',
@@ -71,7 +73,6 @@ describe('getPageSeo', () => {
           media: '(prefers-color-scheme: dark)',
         },
       ],
-      title: 'Het Crea Orkest',
       twitter: {
         card: 'summary_large_image',
         description: '',
@@ -92,7 +93,8 @@ describe('getPageSeo', () => {
     const { data, error } = await getPageSeo({ slug: '' })
     expect(data).toEqual({
       alternates: { canonical: 'https://creaorkest.nl/' },
-      description: undefined,
+      description:
+        'Het CREA Orkest is het bruisende studentenorkest van Stichting CREA, de culturele organisatie van de Universiteit en Hogeschool van Amsterdam.',
       manifest: 'https://creaorkest.nl/manifest.json',
       metadataBase: expect.objectContaining({
         host: 'creaorkest.nl',
