@@ -1,6 +1,6 @@
 'use client' // Error components must be Client Components
 
-import { ErrorMessage } from 'components/ErrorMessage'
+import { ErrorMessage } from 'components/errorMessage'
 
 export default function Error({
   reset,
