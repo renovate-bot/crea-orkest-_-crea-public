@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.2](https://github.com/crea-orkest/crea-public/compare/v0.1.1...v0.1.2) (2023-10-03)
+
+
+### Features
+
+* event page seo ([7e64a79](https://github.com/crea-orkest/crea-public/commit/7e64a7997caa8cf4c8a6ec8dbfc3b3eb40c06c80))
+* graphql proxy ([3166404](https://github.com/crea-orkest/crea-public/commit/3166404daad0b04e75a9c35886cd700348be8bcd))
+* robots.txt ([84152a4](https://github.com/crea-orkest/crea-public/commit/84152a45f63934b71895708f8b79a5605960eca0))
+
+
+### Bug Fixes
+
+* broken tests ([518e7a8](https://github.com/crea-orkest/crea-public/commit/518e7a83ece91d73c30b74d82f048df6cb6381ef))
+* event loader ([2b35128](https://github.com/crea-orkest/crea-public/commit/2b3512826d5d1af84a9f5928c43f6ce6d28df646))
+* linkConfig ([151c7ba](https://github.com/crea-orkest/crea-public/commit/151c7bad9164208225d57e6a58e51a1f84ba62bb))
+* renovate semantic commits ([56f6c4a](https://github.com/crea-orkest/crea-public/commit/56f6c4ab3ac054be9839e8fb184abf2734f4927b))
+* update snapshot ([3f8df96](https://github.com/crea-orkest/crea-public/commit/3f8df963a307b86aa0e3e82377f065fb19e9cd5e))
+
 ## [0.1.1](https://github.com/crea-orkest/crea-public/compare/v0.1.0...v0.1.1) (2023-09-30)
 
 
