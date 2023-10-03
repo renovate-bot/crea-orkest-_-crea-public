@@ -25,7 +25,7 @@ export default async function sitemap() {
     data?.map((item) => {
       if (!item.slug) return
 
-      item.slug = slugFormatter(item.slug)
+      item.slug = slugFormatter({ slug: item.slug })
       pages.push(item)
     })
   }
@@ -36,7 +36,10 @@ export default async function sitemap() {
     data?.map((item) => {
       if (!item.slug) return
 
-      item.slug = `/concerten${slugFormatter(item.slug)}`
+      item.slug = slugFormatter({
+        slug: item.slug,
+        prefix: '/concerten',
+      })
       pages.push(item)
     })
   }
