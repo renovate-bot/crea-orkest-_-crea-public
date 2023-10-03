@@ -1,11 +1,12 @@
 import React from 'react'
 
 interface Props {
-  condition?: boolean
+  enabled?: boolean
   ref: React.RefObject<Element> | null
+  options?: IntersectionObserverInit
 }
 
-export const useIntersectionObserver = ({ condition, ref }: Props) => {
+export const useIntersectionObserver = ({ enabled, ref, options }: Props) => {
   const [entry, setEntry] = React.useState<
     IntersectionObserverEntry | undefined
   >()
@@ -15,21 +16,17 @@ export const useIntersectionObserver = ({ condition, ref }: Props) => {
   }
 
   React.useEffect(() => {
-    if (!condition) return
+    if (!enabled) return
     if (!ref?.current) return
     const hasIOSupport = !!window.IntersectionObserver
     if (!hasIOSupport || !ref.current) return
 
-    const observer = new IntersectionObserver(callback, {
-      threshold: undefined,
-      root: undefined,
-      rootMargin: undefined,
-    })
+    const observer = new IntersectionObserver(callback, options)
 
     observer.observe(ref.current)
 
     return () => observer.disconnect()
-  }, [condition, ref])
+  }, [enabled, ref, options])
 
   return [entry]
 }

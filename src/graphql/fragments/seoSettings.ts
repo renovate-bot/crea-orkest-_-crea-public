@@ -1,5 +1,5 @@
 import { gql } from '@urql/core'
-import { seo } from './seo'
+import { seoField } from './seoField'
 
 export const seoSettings = gql`
   fragment seoSettings on GlobalSeoField {
@@ -8,8 +8,8 @@ export const seoSettings = gql`
     titleSuffix
     twitterAccount
     fallbackSeo {
-      ...seo
+      ...seoField
     }
   }
-  ${seo}
+  ${seoField}
 `

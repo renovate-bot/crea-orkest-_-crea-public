@@ -1,21 +1,26 @@
 import type { Metadata } from 'next'
-import type { PageDetailSeoFragment } from 'graphql/generated/graphql'
+import type {
+  EventPageSeoFragment,
+  PageDetailSeoFragment,
+} from 'graphql/generated/graphql'
 
 const base = 'https://creaorkest.nl' as const // TODO: runtime variable
 const title = 'Het Crea Orkest' as const
+const description =
+  'Het CREA Orkest is het bruisende studentenorkest van Stichting CREA, de culturele organisatie van de Universiteit en Hogeschool van Amsterdam.' as const
 
 export const metadataFormatter = (
-  data: PageDetailSeoFragment | undefined,
+  data: PageDetailSeoFragment | EventPageSeoFragment | undefined,
   slug: string
 ): Metadata => ({
-  title: data?.seo?.title || title, // TODO: default title formatters
-  description: data?.seo?.description, // TODO: default description
+  title: data?.seo?.title ?? title, // TODO: default title formatters
+  description: data?.seo?.description ?? description,
   viewport: {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
   },
-  metadataBase: new URL(base), // TODO: if there is no base, we have an error
+  metadataBase: new URL(base),
   alternates: {
     canonical: slug === 'homepage' ? base : `${base}/${slug}`,
     // languages: {

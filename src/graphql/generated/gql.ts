@@ -25,6 +25,8 @@ const documents = {
     types.CoordinatesFragmentDoc,
   '\n  fragment eventLink on ConcertRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n':
     types.EventLinkFragmentDoc,
+  '\n  fragment eventPageSeo on ConcertRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seoField\n    }\n  }\n  \n  \n':
+    types.EventPageSeoFragmentDoc,
   '\n  fragment events on ConcertListRecord {\n    ...identifiable\n    pinnedConcerts {\n      ...concertDetail\n    }\n    showAllConcerts\n  }\n  \n  \n':
     types.EventsFragmentDoc,
   '\n  fragment file on FileField {\n    id\n    alt\n    width\n    height\n    title\n    url\n    video {\n      ...videoUpload\n    }\n  }\n  \n  \n  \n  \n':
@@ -53,13 +55,13 @@ const documents = {
     types.PageFragmentDoc,
   '\n  fragment pageDetail on PageRecord {\n    ...identifiable\n    title\n    slug\n    content {\n      ... on ConcertListRecord {\n        ...events\n      }\n      ... on TextBlockRecord {\n        ...textBlock\n      }\n      ... on TwoColumnRecord {\n        ...twoColum\n      }\n    }\n  }\n  \n  \n  \n  \n':
     types.PageDetailFragmentDoc,
-  '\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seo\n    }\n  }\n  \n  \n':
+  '\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seoField\n    }\n  }\n  \n  \n':
     types.PageDetailSeoFragmentDoc,
   '\n  fragment pageLink on PageRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n':
     types.PageLinkFragmentDoc,
-  '\n  fragment seo on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n':
-    types.SeoFragmentDoc,
-  '\n  fragment seoSettings on GlobalSeoField {\n    facebookPageUrl\n    siteName\n    titleSuffix\n    twitterAccount\n    fallbackSeo {\n      ...seo\n    }\n  }\n  \n':
+  '\n  fragment seoField on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n':
+    types.SeoFieldFragmentDoc,
+  '\n  fragment seoSettings on GlobalSeoField {\n    facebookPageUrl\n    siteName\n    titleSuffix\n    twitterAccount\n    fallbackSeo {\n      ...seoField\n    }\n  }\n  \n':
     types.SeoSettingsFragmentDoc,
   '\n  fragment submenuItem on SubmenuItemRecord {\n    id\n    label\n    menu {\n      ...menuItem\n    }\n  }\n  \n':
     types.SubmenuItemFragmentDoc,
@@ -91,6 +93,8 @@ const documents = {
     types.GetEventDocument,
   '\n  query getEventPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n':
     types.GetEventPageDocument,
+  '\n  query getEventSeo($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...eventPageSeo\n    }\n  }\n  \n':
+    types.GetEventSeoDocument,
   '\n  query getEventsUrls(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...eventLink\n    }\n  }\n  \n':
     types.GetEventsUrlsDocument,
   '\n  query getEvents(\n    $skip: IntType!\n    $first: IntType!\n    $order: [ConcertModelOrderBy]\n  ) {\n    allConcerts(first: $first, skip: $skip, orderBy: $order) {\n      ...concertDetail\n    }\n  }\n  \n':
@@ -167,6 +171,12 @@ export function gql(
 export function gql(
   source: '\n  fragment eventLink on ConcertRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n'
 ): (typeof documents)['\n  fragment eventLink on ConcertRecord {\n    ...identifiable\n    title\n    slug\n  }\n  \n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  fragment eventPageSeo on ConcertRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seoField\n    }\n  }\n  \n  \n'
+): (typeof documents)['\n  fragment eventPageSeo on ConcertRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seoField\n    }\n  }\n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -255,8 +265,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seo\n    }\n  }\n  \n  \n'
-): (typeof documents)['\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seo\n    }\n  }\n  \n  \n']
+  source: '\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seoField\n    }\n  }\n  \n  \n'
+): (typeof documents)['\n  fragment pageDetailSeo on PageRecord {\n    _seoMetaTags {\n      ...tag\n    }\n    seo {\n      ...seoField\n    }\n  }\n  \n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -267,14 +277,14 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment seo on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n'
-): (typeof documents)['\n  fragment seo on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n']
+  source: '\n  fragment seoField on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n'
+): (typeof documents)['\n  fragment seoField on SeoField {\n    description\n    image {\n      ...file\n    }\n    title\n    twitterCard\n  }\n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment seoSettings on GlobalSeoField {\n    facebookPageUrl\n    siteName\n    titleSuffix\n    twitterAccount\n    fallbackSeo {\n      ...seo\n    }\n  }\n  \n'
-): (typeof documents)['\n  fragment seoSettings on GlobalSeoField {\n    facebookPageUrl\n    siteName\n    titleSuffix\n    twitterAccount\n    fallbackSeo {\n      ...seo\n    }\n  }\n  \n']
+  source: '\n  fragment seoSettings on GlobalSeoField {\n    facebookPageUrl\n    siteName\n    titleSuffix\n    twitterAccount\n    fallbackSeo {\n      ...seoField\n    }\n  }\n  \n'
+): (typeof documents)['\n  fragment seoSettings on GlobalSeoField {\n    facebookPageUrl\n    siteName\n    titleSuffix\n    twitterAccount\n    fallbackSeo {\n      ...seoField\n    }\n  }\n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -365,6 +375,12 @@ export function gql(
 export function gql(
   source: '\n  query getEventPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n'
 ): (typeof documents)['\n  query getEventPage($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...concertDetail\n    }\n  }\n  \n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query getEventSeo($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...eventPageSeo\n    }\n  }\n  \n'
+): (typeof documents)['\n  query getEventSeo($slug: String!) {\n    concert(filter: { slug: { eq: $slug } }) {\n      ...eventPageSeo\n    }\n  }\n  \n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
